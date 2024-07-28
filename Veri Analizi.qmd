@@ -1,0 +1,1351 @@
+---
+title: "Veri Analizi Projesi"
+format: html
+editor: visual
+---
+
+```{r}
+#| echo: false
+suppressMessages(library(dplyr))
+suppressMessages(library(VIM))
+suppressMessages(library(tidyverse))
+suppressMessages(library(GGally))
+suppressMessages(library(gridExtra))
+suppressMessages(library(psych))
+suppressMessages(library(car))
+suppressMessages(library(caret))
+suppressMessages(library(lattice))
+suppressMessages(library(carData))
+suppressMessages(library(mice))
+suppressMessages(library(sm))
+suppressMessages(library(aplpack))
+suppressMessages(library(MASS))
+
+suppressMessages(library(DescTools))
+suppressMessages(library(aplpack))
+suppressMessages(library(caret))
+suppressMessages(library(car))
+```
+
+```{r}
+#| echo: false
+rm(list = ls())
+```
+
+## **1. Veri Tanımı**
+
+#### **Veri Kümesinin Tanımlanması**
+
+```{r}
+library(readxl)
+dosya_yolu <- "C:\\Users\\mehdi\\Downloads\\data22.xlsx"
+filmler <- read_excel(dosya_yolu)
+```
+
+#### **Veri Setine Genel Bakış**
+
+```{r}
+head(filmler)
+```
+
+`head(filmler)` kodu, `filmler` isimli veri çerçevesinin ilk 6 satırını gösterir. Bu sayede veri setinin genel yapısı ve içerdiği bilgiler hakkında hızlı bir önizleme elde ederiz.
+
+```{r}
+dim(filmler)
+```
+
+dim fonksiyonu kullanarak, veri setinde 2000 satır ve 10 sütün olduğu görülüyor.
+
+```{r}
+names(filmler)
+```
+
+names fonksiyonu ile değişkenler inceleniyor.
+
+#### **Veri Kümesinin Yapısını İnceleme**
+
+```{r}
+str(filmler)
+```
+
+Veri seti, IMDB'nin en iyi 2000 filmi hakkında bilgiler içermektedir. Her bir film için film adı, çıkış yılı, süresi, IMDB puanı, Meta puanı, oy sayısı, türü, yönetmeni, başrol oyuncusu ve hasılat bilgileri bulunmaktadır.
+
+Değişken tiplerine bakıldığında `CikisYili`, `Sure`, `IMDBPuan`, `MetaPuan`, ve `OySayisi` değişkenlerinin numerik olduğu, diğer değişkenlerin ise karakter tipinde olduğu görülmektedir. `Hasilat` değişkeni karakter tipinde olduğundan analiz öncesinde bu değişkenin numerik formata dönüştürülmesi gerekecektir.
+
+#### **Değişkenler**
+
+Veri setinde 2000 gözlem ve 10 değişken bulunmaktadır.
+
+-   `FilmAdi`: Filmin adı (karakter dizisi)
+-   `CikisYili`: Filmin çıkış yılı (sayısal)
+-   `Sure`: Filmin süresi (sayısal)
+-   `IMDBPuan`: Filmin IMDB puanı (sayısal)
+-   `MetaPuan`: Filmin Metascore puanı (sayısal)
+-   `OySayisi`: Film için oy kullanan kişi sayısı (sayısal)
+-   `Tur`: Filmin türü/türleri (karakter dizisi)
+-   `Yonetmen`: Filmin yönetmeni (karakter dizisi)
+-   `Basrol`: Filmin başrol oyuncusu (karakter dizisi)
+-   `Hasilat`: Filmin gişe hasılatı (karakter dizisi)
+
+#### **Veri Kümesindeki Değişkenlerin Özet İstatistikleri**
+
+```{r}
+summary(filmler)
+```
+
+Bu çıktı, `filmler` veri setindeki değişkenlerin özet istatistiklerini göstermektedir.
+
+#### **"Hasilat" Değişkenini Numeric Hale Getirme**
+
+İleri aşamalardaki analizler için "Hasilat" değişkeni sayısal hale getirilmelidir.
+
+```{r}
+library(dplyr) 
+library(stringr) 
+filmler <- filmler %>%
+  mutate(Hasilat = gsub("M", "e6", Hasilat)) %>%  
+  mutate(Hasilat = gsub("\\$|\\,", "", Hasilat)) %>%   
+  mutate(Hasilat = as.numeric(Hasilat))  
+```
+
+## **2. Problemin Tanımı ve Amaçlar**
+
+#### **Problemin Tanımı**
+
+Film endüstrisi, dünya genelinde milyarlarca dolarlık bir sektördür ve filmlerin başarısı, gişe hasılatı, eleştirel beğeni ve izleyici puanları gibi çeşitli faktörlerle ölçülür. Bu faktörleri etkileyen unsurları anlamak, hem film yapımcıları hem de izleyiciler için büyük önem taşır.
+
+Bu projede ele alınan problem, IMDB'nin En İyi 2000 Filmi veri seti üzerinden filmlerin IMDB puanlarını etkileyen faktörlerin belirlenmesidir. Bu problem, aşağıdaki sorulara yanıt aramayı amaçlar:
+
+-   Hangi film tü7 rleri daha yüksek IMDB puanları almaktadır?
+
+-   Belirli yönetmenlerin filmleri daha mı başarılıdır?
+
+-   Filmin süresi, çıkış yılı veya hasılatı IMDB puanını etkiliyor mu?
+
+-   IMDB puanı ile Metascore puanı arasında bir ilişki var mı?
+
+#### **Amaçlar**
+
+Bu projenin temel amacı, IMDB puanlarını etkileyen faktörleri belirleyerek film endüstrisi için değerli bilgiler sağlamaktır. Bu bilgiler, aşağıdaki amaçlar için kullanılabilir:
+
+-   **Film yapımcıları:** Hangi tür filmlerin, yönetmenlerin veya oyuncuların daha başarılı olduğunu anlayarak gelecekteki projelerini şekillendirebilirler.
+
+-   **İzleyiciler:** Beğenebilecekleri filmleri seçerken daha bilinçli kararlar verebilirler.
+
+-   **Eleştirmenler:** Film incelemelerini yaparken daha objektif kriterler kullanabilirler.
+
+-   **Akademisyenler:** Film endüstrisi ve izleyici davranışları üzerine daha derinlemesine araştırmalar yapabilirler.
+
+## **3. Verilerin Toplanması**
+
+Veri seti Kaggle'dan alınmıştır.
+
+**Kaynakça:** Sawhney, P. (2023, November 22). *IMDb Dataset - Top 2000 Movies*. Kaggle. <https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data>
+
+Verilerin nasıl toplandığına dair bilgi bulunmamaktadır.
+
+## **4. Verilerin Yapısı ve Niteliği**
+
+#### **Analizde Kullanılmayacak Değişkenlerin Çıkarılması**
+
+```{r}
+filmler <- subset(filmler, select = -c(OySayisi, Basrol))
+```
+
+Analizde kullanılmayacak olan değişkenler çıkartılmıştır.
+
+```{r}
+colnames(filmler)
+```
+
+colnames() fonksiyonu yardımıyla da gözlemlendiği üzere işlem başarılı olmuştur.
+
+#### **Aykırı/Uç Değerlerin İncelenmesi**
+
+**Tanımlayıcı İstatistikler**
+
+```{r}
+summary(filmler[, c("CikisYili", "Sure", "IMDBPuan", "MetaPuan", "Hasilat")])
+```
+
+Sayısal değişkenlerin genel istatistikleri verilmiştir.
+
+**Sıklık Dağılımları**
+
+Çıkış yılı için sıklık tablosu
+
+```{r}
+table(filmler$CikisYili)
+```
+
+Bu sıklık dağılımı, film çıkış yıllarının zaman içindeki değişimini ve genel trendleri açıkça göstermektedir.
+
+**Artan Üretim:** Genel olarak, 20. yüzyılın başlarından itibaren film çıkış sayılarında düzenli bir artış gözlenmektedir. Özellikle 1980'lerden sonra, film endüstrisinin büyük bir genişleme yaşadığı söylenebilir. Değişkenlerdeki aykırı değerler incelendiğinde hatalı ölçümlere rastlanmadığı, bu yüzden ayıklama işlemine gerek olmadığı görülmüştür.
+
+**IMDB puanı için Histogram grafiği**
+
+```{r}
+ hist(filmler$IMDBPuan,
+ main = "IMDB Puan Dağılımı",
+ xlab = "IMDB Puanı",
+ ylab = "Frekans",
+ col = "blue",
+ border = "black")
+```
+
+Grafikte 2 ile 4 arasındaki puan aralığında küçük bir grup uç değer var gibi görünüyor. Bu uç değerler, büyük çoğunluğun 6 ile 8 arasında olduğu göz önüne alındığında, IMDb puan dağılımında önemli ölçüde düşük. (EKSİK)
+
+**Süre için histogram**
+
+```{r}
+hist(filmler$Sure, breaks = 20, main = "Surelere Gore Film Sayısı", xlab = "Sure (dakika)")
+```
+
+Aykırı Değerler: 180 dakikanın üzerindeki film süreleri, genel dağılımdan uzaklaştıkları için aykırı değer olarak kabul edilebilir. Bu filmler, diğerlerine göre daha uzun süreye sahip oldukları için dikkat çekicidir.
+
+Uç Değerler: Hem 50-60 dakika arasındaki kısa filmler hem de 200 dakika ve üzeri uzun filmler, uç değer olarak kabul edilebilir. Bu filmler, veri setinin uç noktalarında yer aldıkları için diğerlerinden belirgin şekilde farklılık gösterirler.
+
+Aykırı ve uç değerlerin varlığı, film sürelerinin çeşitlilik gösterdiğini ve bazı filmlerin alışılmışın dışında uzun veya kısa olabileceğini göstermektedir.
+
+**Çıkış yılı için yoğunluk grafiği**
+
+```{r}
+plot(density(filmler$CikisYili),
+main = "Cikis yılı Yoğunluk Dağılımı",
+xlab = "Cikis yılı",
+ ylab = "Yoğunluk",
+ col = "blue")
+ 
+```
+
+Grafikte, 1920’lerden 1980’lere kadar olan yıllarda, yoğunluk diğer yıllara göre oldukça düşük. Bu, bu dönemde daha az film yapıldığını veya veri setinde bu dönemdeki filmlerle ilgili eksiklik olduğunu gösteriyor olabilir.
+
+**Meta puanı için kutu grafiği**
+
+```{r}
+boxplot(filmler$MetaPuan,
+ main = "Meta Puan Dağılımı",
+ ylab = "Meta Puanı",
+ col = "lightblue",
+ border = "darkblue")
+```
+
+Bu kutu grafiğinde, yaklaşık 100 olan bir üst uç değer gözüküyor. Bu, diğer filmlere göre önemli ölçüde daha yüksek bir Meta puanına sahip olan bir film olduğunu gösteriyor.
+
+**Süre için Q-Q grafiği**
+
+```{r}
+qqnorm(filmler$Sure,
+ main = "Sure Q-Q Grafiği",
+ ylab = "Puan")
+ qqline(filmler$Sure, col = "red")
+```
+
+Q-Q grafiğinde, noktaların kırmızı çizgiye göre dağılımı, özellikle sağ uçta, normal dağılımdan sapıyor. Bu, verilerde bazı uç değerlerin olduğunu gösterebilir.
+
+#### **Eksik Gözlemlerin Varlığının Kontrolü**
+
+```{r}
+any(is.na(filmler))
+```
+
+Bu veride eksik değerler vardır.
+
+#### **Eksik Gözlemlerin Sayısı**
+
+```{r}
+sum(is.na(filmler))
+```
+
+Bu veride toplam 178 eksik değer vardır.
+
+#### **Eksik Gözlemlerin Hangi Sütunlarda Olduğunu Bulma**
+
+```{r}
+eksik_degerler <- colSums(is.na(filmler))
+eksik_deger_yuzdeleri <- colMeans(is.na(filmler)) * 100
+print(eksik_degerler)
+print(eksik_deger_yuzdeleri)
+```
+
+Bu çıktı, veri setindeki eksik değerlerin (NA) sayısını ve yüzdesini göstermektedir. İlk satırda her bir değişken için eksik değer sayısı, ikinci satırda ise eksik değer yüzdesi verilmiştir. Örneğin, `MetaPuan` değişkeninde 81 tane eksik değer bulunmaktadır ve bu veri setinin %4.05'ine denk gelmektedir. `Hasilat` değişkeninde ise 97 tane eksik değer bulunmaktadır ve bu veri setinin %4.85'ine denk gelmektedir.
+
+#### **Hangi Sütunlarda Eksik Gözlem Olduğunu Listeleme**
+
+```{r}
+for (i in seq_along(filmler)) {
+  if (any(is.na(filmler[[i]]))) {
+    cat("Sutun", names(filmler)[i], "satırlarda eksik degerler var:", which(is.na(filmler[[i]])), "\n")
+  }
+}
+```
+
+Bu çıktıda eksik gözlemlerin hangi sütunlarda olduğu bulunmuştur.
+
+#### **Eksik gözlemlerin görselleştirilmesi**
+
+```{r}
+library(naniar)
+library(ggplot2)
+
+gg_miss_var(filmler) + 
+  labs(title = "Eksik Deger Sayıları",
+       x = "Degişkenler",
+       y = "Eksik Deger Sayısı") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Eksik değerlerin hangi değişkenlerde kaç tane olduğu grafikte gösterilmiştir.
+
+#### **Hangi Değişkende Kaç Eksik Gözlem Var?**
+
+**Metapuan değişkenindeki eksik gözlem sayısı**
+
+```{r}
+eksik_metapuan <- sum(is.na(filmler$MetaPuan))
+print(eksik_metapuan)
+```
+
+"MetaPuan" değişkeninde toplam 81 eksik gözlem var.
+
+**Hasılat değişkenindeki eksik gözlem sayısı**
+
+```{r}
+eksik_hasilat <- sum(is.na(filmler$Hasilat))
+print(eksik_hasilat)
+```
+
+"Hasilat" değişkeninde toplam 97 eksik gözlem var.
+
+#### **Eksik Gözlemlerin Görselleştirilmesi 2**
+
+```{r}
+aggr(filmler, 
+     prop = FALSE, 
+     numbers = TRUE, 
+     cex.axis = 0.7, 
+     gap = 3, 
+     ylab = c("Eksik Degerlerin Frekansı", "Eksik Degerler Grafiği"))
+```
+
+Grafik, veri kümesindeki eksik değerlerin dağılımını göstermektedir. Sol taraftaki sütun grafiği, her bir değişkendeki eksik değer sayısını belirtirken, sağ taraftaki matris, farklı değişken kombinasyonlarında kaç eksik değer olduğunu gösterir. "Hasılat" değişkeninde en fazla eksik değer bulunmaktadır ve bu eksik değerler, diğer değişkenlerle kombinasyon halinde de mevcuttur.
+
+#### **Eksik Gözlemlerin Görselleştirilmesi 3**
+
+```{r}
+library(mice)
+md.pattern(filmler)
+```
+
+Bu grafik, veri kümesindeki eksik değerlerin dağılımını gösteriyor:
+
+-   **"MetaPuan"**: 81 eksik değer var.
+
+-   **"Hasılat"**: 97 eksik değer var.
+
+-   **Diğer Değişkenler**: Eksik değer yok.
+
+#### **Eksik Gözlemlerin Görselleştirilmesi 4**
+
+```{r}
+library(naniar)
+vis_miss(filmler) +
+  labs(title = "Veri Setindeki Eksik Degerlerin Gorselleştirilmesi",
+       y = "Degişkenler") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_fill_discrete(name = "Eksik Deger Durumu", labels = c("Tam", "Eksik"))
+```
+
+Burada eksik gözlemlerin oranlarının görselleştirilmesi görülmektedir. Buna göre "MetaPuan" değişkeninin %4'ü "Hasilat" değişkeninin ise %5'i eksik gözlemdir. Diğer değişkenlerde eksik gözlem yoktur.
+
+#### **Eksik Değerleri Doldurma**
+
+-   **KNN (K En Yakın Komşu) İle Doldurma**
+
+```{r}
+library(VIM)
+filmler <- kNN(filmler, k = 5)
+colSums(is.na(filmler))
+```
+
+Eksik gözlemler KNN yöntemiyle doldurulmuştur. Kontrol yapınca hiçbir eksik gözlem kalmadığı görülmektedir. KNN, eksik değerlere en yakın komşularının değerlerine bakarak tahmin yapar. Veri setindeki benzerlik yapısını korur.
+
+## **5. Eğitim ve Test Veri Kümelerinin Oluşturulması**
+
+#### **Veri Setini Eğitim ve Test Kümelerine Ayırma (%80 eğitim, %20 test)**
+
+```{r}
+set.seed(123)
+egitim_index <- sample(1:nrow(filmler), 0.8 * nrow(filmler))
+egitim_veri <- filmler[egitim_index, ]
+test_veri <- filmler[-egitim_index, ]
+```
+
+Veri seti %80 eğitim %20 test şekilde bölünmüştür. Bu adımdan sonra, geçerlilik adımına kadar yapılacak tüm işlemler, eğitim veri kümesi üzerinden gerçekleştirilecektir.
+
+#### **Gösterge Değişkenlerin Oluşturulması**
+
+2000 ve sonrası çıkan filmler için 1, diğerleri için 0 şeklinde gösterge değişken oluşturulacaktır.
+
+```{r}
+filmler$yeni_film <- ifelse(filmler$CikisYili >= 2000, 1, 0)  
+```
+
+Buna göre "yeni_film" değişkeni altında 2000 sonrası çıkan filmler 1, diğerleri 0 şeklinde kodlanarak gösterge değişken oluşturulmuştur.
+
+#### **Nicel Değişkeni Kategorize Etme**
+
+**Hasilat değişkenini kategorilere ayırma**
+
+"Hasilat" değişkeninde çok büyük değerler olduğu için kategorilere ayrılması analiz için daha iyi olacaktır.
+
+```{r}
+kategoriler <- c("Cok Dusuk", "Dusuk", "Orta", "Yuksek", "Cok Yuksek")
+
+kesme_noktalari <- c(0, 20000000, 50000000, 80000000, 100000000, Inf)
+
+egitim_veri$Hasilat <- cut(egitim_veri$Hasilat, breaks = kesme_noktalari, labels = kategoriler, include.lowest = TRUE)
+
+table(egitim_veri$Hasilat)
+```
+
+Bu şekilde "Hasilat" değişkeni 5 ayrı alt gruba bölünerek kategorize edilmiştir.
+
+#### **Türetilmiş Değişken Oluşturma**
+
+**IMDBPuan ile MetaPuan arasındaki farkı hesaplama**
+
+Öncelikle MetaPuan 10'luk sistemde yazılmalı.
+
+```{r}
+egitim_veri$MetaPuan_10 <- egitim_veri$MetaPuan / 10
+```
+
+Ardından IMDBPuan ile MetaPuan arasındaki farkı tanımlayan PuanFarki adlı bir değişken oluşturulur.
+
+```{r}
+egitim_veri$PuanFarki <- egitim_veri$IMDBPuan - egitim_veri$MetaPuan_10
+head(egitim_veri$PuanFarki)
+```
+
+Bu sayede "IMDBPuan" ile "MetaPuan" arasındaki farkı "PuanFarki" adlı türetilmiş yeni bir değişkene yazdırdık.
+
+**MetaPuan ile IMDBPuan ortalamasını hesaplama**
+
+```{r}
+egitim_veri$OrtalamaPuan <- (egitim_veri$IMDBPuan*10 + egitim_veri$MetaPuan) / 2
+```
+
+filmlerin ortalama aldığı puanı yüz üzerinden değerlendirme yapmak için IMDBPuanını 10 ile çarpılmıştır.
+
+```{r}
+head(egitim_veri$OrtalamaPuan)
+```
+
+görüldüğü üzere işlem başarılı bir şeklide gerçekleştirilmiş.
+
+## **6. Verilerin Açıklayıcı/Keşfedici Çözümlemesi**
+
+#### **Gerekli Kütüphanelerin İndirilmesi**
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(gridExtra)
+library(psych)
+library(corrplot)
+library(sm)
+library(MASS)
+library(interactions)
+library(aplpack)
+library(DescTools) 
+```
+
+#### **IMDBPuanı İçin Histogram Grafiği Oluşturma**
+
+```{r}
+ggplot(egitim_veri, aes(x = IMDBPuan)) +
+ geom_histogram(binwidth = 0.5, fill = "blue", color = "black") +
+ labs(title = "IMDB puanı", x = "Puan", y = "Gozlem sayısı")
+```
+
+Histogram, puanların 7 civarında yoğunlaştığını ve 6 ile 8 arasında zirveye ulaştığını gösteriyor. Puanlar 6'dan düşük veya 8'den yüksek olduğunda gözlem sayısı hızla azalıyor. Bu, filmlerin çoğunun ortalama puana sahip olduğunu ve çok düşük veya çok yüksek puan alan filmlerin az olduğunu gösteriyor.
+
+**Sonuçlar:**
+
+-   Ortalama: Puanlar 7 civarında yoğunlaşıyor.
+
+-   Varyans: Puan dağılımı düşük varyans gösteriyor, yani puanlar benzer.
+
+-   Çarpıklık: Histogram hafifçe sağa çarpık, yani daha fazla film 7'den düşük puan alıyor ve yüksek puan alan film sayısı az.
+
+**MetaPuanı için Kutu Grafiği Oluşturma**
+
+```{r}
+boxplot(egitim_veri$MetaPuan, main = "MetaPuanı Kutu Grafiği")
+```
+
+Kutu grafiğinden şu çıkarımlar yapılabilir:
+
+-   **Medyan:** Grafikteki ortadaki çizgi, medyanın yaklaşık 60 olduğunu gösterir.
+
+-   **Çeyreklikler:** Kutu kenarları, ilk ve üçüncü çeyrekleri gösterir; bunlar yaklaşık 50 ve 70'tir.
+
+-   **Çeyrekler Arası Aralık (IQR):** Kutunun yüksekliği yaklaşık 20'dir, verilerin ne kadar sıkı paketlendiğini gösterir.
+
+-   **Aykırı Değerler:** Grafikteki uç çizgiler, 10'un altındaki ve 100'ün üzerindeki aykırı değerleri gösterir.
+
+Bu kutu grafiği, filmlerin çoğunun 50 ile 70 arasında puan aldığını, medyanın 60 olduğunu ve bazı aykırı değerlerin bulunduğunu gösterir.
+
+#### **Süre için Keman Grafiği Oluşturma**
+
+```{r}
+library(ggplot2)
+ ggplot(egitim_veri, aes(x=factor(1), y=Sure)) +
+ geom_violin() +
+ labs(title="Keman Grafiği", x="", y="Sure")
+```
+
+Keman grafiğinden şu çıkarımlar yapılabilir:
+
+-   **Ortalama:** Kemanın en geniş noktası, ortalama sürenin yaklaşık 100 dakika olduğunu gösterir. Bu, filmlerin çoğunun 100 dakika civarında sürdüğü anlamına gelir.
+
+-   **Varyans:** Kemanın şekli, sürede bir miktar varyans olduğunu gösterir. Kemanın dar kısmı, sürenin 100 dakikaya yakın yoğunlaştığını, daha geniş kısımlar ise filmlerin daha kısa veya daha uzun sürebildiğini belirtir.
+
+-   **Çarpıklık:** Keman hafifçe sağa çarpık görünmektedir, bu da bazı filmlerin daha uzun sürdüğünü gösterir.
+
+Bu sonuçlar, filmlerin süresinin genellikle 100 dakika civarında yoğunlaştığını, ancak bazı filmlerin daha kısa veya daha uzun sürebildiğini ve birkaç filmin daha uzun sürdüğünü göstermektedir.
+
+#### **Klasik Saçılım Matrisi (ScatterplotMatrix)**
+
+```{r}
+sayisal_degiskenler<-c("IMDBPuan", "MetaPuan","Sure","CikisYili")
+pairs(egitim_veri[, sayisal_degiskenler], main= "Klasik Sacilim Matrisi")
+```
+
+Saçılım matrisinden çıkarılan bazı gözlemler:
+
+-   **IMDb Puanı ve MetaPuan:** İki puan sistemi arasında güçlü pozitif bir ilişki var, yani yüksek IMDb puanı alan filmler genellikle Metapuan'da da yüksek puan alıyor.
+
+-   **IMDb Puanı ve Süre:** Aralarında belirgin bir ilişki yok, yani filmlerin süresi IMDb puanını etkilemiyor.
+
+-   **IMDb Puanı ve Çıkış Yılı:** Zayıf bir negatif ilişki var, yani eski filmler genellikle daha düşük IMDb puanına sahip olma eğiliminde, ancak bu ilişki çok zayıf.
+
+-   **MetaPuan ve Süre:** Aralarında belirgin bir ilişki yok, yani filmlerin süresi Metapuan'ı etkilemiyor.
+
+-   **MetaPuan ve Çıkış Yılı:** Belirgin bir ilişki yok, yani filmlerin çıkış yılı Metapuan'ı etkilemiyor.
+
+-   **Süre ve Çıkış Yılı:** Zayıf bir negatif ilişki var, yani eski filmler daha kısa olma eğiliminde, ancak bu ilişki çok zayıf.
+
+Genel olarak, iki puan sistemi arasında güçlü bir ilişki bulunurken, diğer değişkenler ile puanlar arasında daha zayıf ilişkiler mevcut
+
+#### **Düzleştirilmiş Saçılım Matrisi (Smoothed Scatterplot Matrix)**
+
+```{r}
+pairs.panels(egitim_veri[, sayisal_degiskenler],
+ main = "Düzleştirilmiş Saçılım Matrisi",
+ ellipses = TRUE)
+```
+
+Düzleştirilmiş saçılım matrisinden çıkarılan bazı gözlemler:
+
+-   **IMDb Puanı ve Meta Puanı:** Güçlü pozitif doğrusal ilişki (korelasyon katsayısı 0,73). Yüksek IMDb puanı alan filmler genellikle yüksek Meta puan alıyor.
+
+-   **IMDb Puanı ve Süre:** Zayıf doğrusal ilişki (korelasyon katsayısı 0,23). Filmlerin süresi IMDb puanını fazla etkilemiyor.
+
+-   **IMDb Puanı ve Çıkış Yılı:** Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,39). Eski filmler genellikle daha düşük IMDb puanına sahip.
+
+-   **Meta Puanı ve Süre:** Çok zayıf doğrusal ilişki (korelasyon katsayısı -0,14). Filmlerin süresi Meta puanını fazla etkilemiyor.
+
+-   **Meta Puanı ve Çıkış Yılı:** Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,43). Eski filmler genellikle daha düşük Meta puanına sahip.
+
+-   **Süre ve Çıkış Yılı:** Çok zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,14). Eski filmler genellikle daha kısa süreli.
+
+Genel olarak, iki puan sistemi arasında güçlü bir ilişki bulunurken, diğer değişkenler ile puanlar arasında daha zayıf ilişkiler var.
+
+#### **Gelişmiş Saçılım Matrisi**
+
+```{r}
+ggpairs(egitim_veri, columns = sayisal_degiskenler, title = "Gelişmiş Saçılım Matrisi")
+```
+
+İşte gelişmiş saçılım matrisinden çıkarılan bazı gözlemler:
+
+-   **IMDb Puanı ve Meta Puanı:** Güçlü pozitif doğrusal ilişki (korelasyon katsayısı 0,729). Yüksek IMDb puanı alan filmler genellikle Meta puanında da yüksek puan alır. Saçılım diyagramında noktalar doğrusal bir eğriye yakın dağılmıştır.
+
+-   **IMDb Puanı ve Süre:** Zayıf doğrusal ilişki (korelasyon katsayısı 0,233). Filmlerin süresi IMDb puanını fazla etkilemez. Saçılım diyagramında noktalar dağınık dağılmıştır.
+
+-   **IMDb Puanı ve Çıkış Yılı:** Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,387). Eski filmler genellikle daha düşük IMDb puanına sahiptir.
+
+-   **Meta Puanı ve Süre:** Çok zayıf doğrusal ilişki (korelasyon katsayısı -0,143). Filmlerin süresi Meta puanını etkilemez. Saçılım diyagramında noktalar dağınıktır.
+
+-   **Meta Puanı ve Çıkış Yılı:** Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,434). Eski filmler genellikle daha düşük Meta puanına sahiptir.
+
+-   **Süre ve Çıkış Yılı:** Çok zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,143). Eski filmler genellikle daha kısa sürelidir, ancak bu ilişki çok zayıftır.
+
+Genel olarak, gelişmiş saçılım matrisi, değişkenler arasındaki ilişkilerin daha ayrıntılı bir resmini sunar ve korelasyon katsayıları bu ilişkilerin gücünü ve yönünü gösterir.
+
+#### **Korelasyon Matrisi**
+
+```{r}
+cor_matrix <- cor(egitim_veri[, sayisal_degiskenler], use = "complete.obs")  
+corrplot(cor_matrix, method = "number")
+```
+
+Bu çıktı, bir film veri setindeki Çıkış Yılı, Süre, IMDb Puanı ve Meta Puanı arasındaki ilişkileri gösteren bir korelasyon matrisidir.
+
+**Anahtar Bulgular:**
+
+-   **Çıkış Yılı ve Süre:** Negatif korelasyon (-0.14). Zaman içinde filmler biraz daha kısalma eğilimindedir.
+
+-   **Çıkış Yılı ve IMDb/Meta Puan:** Negatif korelasyonlar (-0.39 ve -0.43). Daha eski filmler genellikle daha yüksek puanlara sahiptir.
+
+-   **Süre ve IMDb/Meta Puan:** Pozitif korelasyonlar (0.33 ve 0.23). Daha uzun filmler biraz daha yüksek puan alma eğilimindedir.
+
+-   **IMDb Puanı ve Meta Puanı:** Güçlü pozitif korelasyon (0.73). İki puan türü genellikle benzer eğilimlere sahiptir; biri yüksekse diğeri de yüksek olma olasılığı yüksektir.
+
+**Sonuç:**
+
+Bu korelasyon matrisi, film veri setindeki değişkenler arasındaki ilişkiler hakkında önemli bilgiler sağlar. Özellikle, IMDb ve Meta puanları arasındaki güçlü pozitif korelasyon, bu iki puan türünün benzer ölçütler olduğunu gösterir. Ayrıca, çıkış yılı ile puanlar arasındaki negatif korelasyon, zaman içinde film değerlendirmelerinde değişim olduğunu düşündürür.
+
+#### **Belirli yönetmenlerin filmleri daha mı başarılıdır?**
+
+En İyi 10 Yönetmenin Ortalama IMDB Puanları
+
+```{r}
+top_yonetmenler <- egitim_veri %>%
+  group_by(Yonetmen) %>%
+  summarize(Ortalama_IMDB = mean(IMDBPuan, na.rm = TRUE), Film_Sayisi = n()) %>%
+  arrange(desc(Ortalama_IMDB)) %>%
+  head(10)
+```
+
+Nokta Grafiği
+
+```{r}
+ggplot(top_yonetmenler, aes(x = reorder(Yonetmen, -Ortalama_IMDB), y = Ortalama_IMDB)) +
+  geom_point(size = 3, color = "blue") +
+  labs(title = "En iyi 10 Yonetmen (Ortalama IMDB Puanına Gore)", x = "Yonetmen", y = "Ortalama IMDB Puanı") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Bu grafik, en yüksek ortalama IMDb puanına sahip ilk 10 yönetmeni göstermektedir. Grafik, yatay eksende yönetmenlerin isimlerini, dikey eksende ise ortalama IMDb puanlarını içermektedir. Grafikte görülen noktalar, her bir yönetmenin ortalama IMDb puanını temsil ediyor.
+
+Roberto Benigni en yüksek ortalama IMDb puanına sahip yönetmendir.
+
+#### **Lolipop Grafiği**
+
+En sık görülen 10 türün ve 10 yönetmenin IMDB puanları
+
+```{r}
+top_turler <- names(sort(table(egitim_veri$Tur), decreasing = TRUE)[1:10])
+
+top_yonetmenler <- names(sort(table(egitim_veri$Yonetmen), decreasing = TRUE)[1:10])
+
+ggplot(egitim_veri[egitim_veri$Tur %in% top_turler, ], aes(x = Tur, y = IMDBPuan)) +
+  geom_point(size = 4, color = "skyblue") +
+  geom_segment(aes(xend = Tur, yend = 0), color = "skyblue") +
+  labs(title = "En Sık Gorulen 10 Turun IMDB Puanları", x = "Tur", y = "IMDB Puanı") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Grafik, en sık görülen 10 film türünün IMDB puanlarının dağılımını göstermektedir. Öne çıkan noktalar:
+
+-   **Aksiyon, Macera, Bilim Kurgu** ve **Dram** türlerinde puanlar geniş bir aralığa yayılmış, ancak genelde 5-8 arasında yoğunlaşmış.
+
+-   **Animasyon, Macera, Komedi** ve **Komedi, Romantik** türleri genellikle daha yüksek puanlar almış ve 6-8 aralığında yoğunlaşmış.
+
+-   **Dram, Romantik**, **Komedi**, **Komedi, Dram** ve **Suç, Dram, Gerilim** türleri de genelde 5-8 puan aralığında yoğunlaşmış.
+
+Genel olarak, film türlerinin çoğunda puanların 5-8 aralığında yoğunlaştığı görülmektedir.
+
+```{r}
+ggplot(egitim_veri[egitim_veri$Yonetmen %in% top_yonetmenler, ], aes(x = Yonetmen, y = IMDBPuan)) +
+  geom_point(size = 4, color = "lightgreen") +
+  geom_segment(aes(xend = Yonetmen, yend = 0), color = "lightgreen") +
+  labs(title = "En Sık Gorulen 10 Yonetmenin IMDB Puanları", x = "Yonetmen", y = "IMDB Puanı") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Bu grafik, en sık görülen 10 yönetmenin IMDB puanlarını göstermektedir. Her yönetmenin filmlerinin IMDB puanları, yönetmenin isminin altında dikey olarak dağılmıştır.
+
+**Temel Gözlemler:**
+
+-   **Puan Dağılımı:** Çoğu yönetmenin filmlerinin IMDB puanları 5.0 ile 8.0 arasında değişmektedir. Bu, genel olarak başarılı filmler yaptıklarını gösterir.
+
+-   **En Yüksek Puanlar:** Stanley Kubrick, Alfred Hitchcock ve Martin Scrorsese en yüksek puan ortalamasına sahip yönetmenler gibi görünmektedir.
+
+-   **En Düşük Puanlar:** Joel Schumacher, en düşük puan ortalamasına sahip yönetmen olarak öne çıkıyor.
+
+-   **Tutarlılık:** Stanley Kubrick daha tutarlı bir puan dağılımına sahiptir. Bu, genel olarak kaliteli filmler yapma eğiliminde olduğunu gösterir.
+
+-   **Değişkenlik:** Joel Schumacher adlı yönetmenin filmlerinin puanlarındaki değişim diğer yönetmenlere göre daha yüksektir.
+
+#### **IMDB Puanı ile Metascore Puanı Arasında İlişki Var Mı?**
+
+**Saçılım Grafiği ve Korelasyon: IMDB Puanı ve Metascore**
+
+```{r}
+ggplot(egitim_veri, aes(x = IMDBPuan, y = MetaPuan)) +
+  geom_point() +
+  labs(title = "IMDB Puanı ve Metascore", x = "IMDB Puanı", y = "Metascore")
+```
+
+İlişkinin Yorumlanması:
+
+-   **Pozitif Korelasyon**: Genel olarak, IMDb puanı arttıkça Metascore puanı da artma eğilimindedir. Bu, iki puanlama sistemi arasında pozitif bir korelasyon olduğunu gösterir. Yani, yüksek IMDb puanına sahip filmler genellikle yüksek Metascore puanına da sahiptir.
+
+-   **Yüksek Yoğunluk**: 5 ile 8 arasındaki IMDb puanları, 50 ile 90 arasındaki Metascore puanlarıyla yoğun bir şekilde örtüşmektedir. Bu, birçok filmin bu aralıkta puanlandığını gösterir.
+
+-   **Düşük Puanlar**: Çok düşük IMDb puanlarına (2.5 civarı) sahip birkaç film Metascore puanı 50'nin altında yer almakta. Bu filmler hem IMDb hem de Metascore açısından düşük değerlendirilmiştir.
+
+-   **Dağınık Noktalar**: Her iki eksende de bazı filmler daha dağınık puanlara sahiptir. Yani, bazı filmler yüksek IMDb puanına sahipken düşük Metascore almış veya tam tersi duruma sahiptir.
+
+**Korelasyon**
+
+```{r}
+cor(egitim_veri$IMDBPuan, egitim_veri$MetaPuan, use = "complete.obs")
+```
+
+Bulunan korelasyon katsayısı, IMDB ve Metascore puanları arasında güçlü ve pozitif bir ilişki olduğunu gösterir. Bu, bir filmin IMDB puanı arttıkça Metascore puanının da artma eğiliminde olduğunu doğrular. Ancak, korelasyon 1 olmadığı için puanlar arasında mükemmel bir örtüşme yoktur ve bazı filmlerin bir sistemde diğerine göre daha yüksek veya düşük puan alabileceği unutulmamalıdır.
+
+#### **Hangi Film Türleri Daha Yüksek IMDB Puanı Almaktadır?**
+
+Türlere göre ortalama IMDB puanını hesaplama
+
+```{r}
+tur_ortalamalari <- egitim_veri %>%
+  group_by(Tur) %>%
+  summarize(Ortalama_IMDB = mean(IMDBPuan, na.rm = TRUE)) %>%
+  arrange(desc(Ortalama_IMDB))
+```
+
+En iyi 10 türü seçme
+
+```{r}
+en_iyi_10_tur <- head(tur_ortalamalari, 10)
+```
+
+En iyi türlerin ortalama IMDB puanlarını gösteren grafik
+
+```{r}
+ggplot(en_iyi_10_tur, aes(x = reorder(Tur, -Ortalama_IMDB), y = Ortalama_IMDB, group = 1)) +
+  geom_line(color = "blue", size = 1) +  
+  geom_point(size = 4, color = "blue") +  
+  labs(title = "En İyi 10 Film Turu (Cizgi Grafiği)", x = "Tur", y = "Ortalama IMDB Puanı") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Grafik, En İyi 10 film türünün ortalama IMDB puanlarını göstermektedir.
+
+**Genel Yorum:**
+
+-   En yüksek ortalama IMDB puanına sahip tür, 8.5 puanla "Macera, Kovboy" türüdür.
+
+-   Genel olarak, macera türü filmler yüksek puan alırken, dram ve savaş temalı filmler daha düşük puanlara sahiptir.
+
+#### **Konum Varyans Çizimleri (Location-Scale Plots)**
+
+```{r}
+#Konumvaryansçizimiiçinönceliklebirdoğrusalmodeloluşturuyoruz
+model<-lm(OrtalamaPuan~ CikisYili +Sure, data=egitim_veri)
+#Konumvaryansçizimi
+plot(model,which=1,main="Konum Varyans Cizimi")
+```
+
+Bu grafikte gözlenen bulgular şunlardır:
+
+1.  **Homoskedastisite**: Noktaların yatay eksende eşit şekilde dağılmadığı gözlenmektedir. Bu durum, modelin homoskedastik olmadığını ve hataların varyansının tahmin edilen değerler arttıkça arttığını işaret eder.
+
+2.  **Ortalama Kalıntı**: Kalıntıların ortalamasının sıfır civarında olması beklenir. Grafikte bu durum gözlenmektedir, yani kalıntılar ortalaması sıfır civarında gibi görünmektedir.
+
+3.  **Kalıntı Dağılımı**: Kalıntılar normal dağılıma yakın bir şekilde olmalıdır. Ancak grafikte kalıntıların normal dağılıma yakın olmadığı gözlenmektedir.
+
+4.  **Aykırı Değerler**: Bazı noktalar diğerlerinden önemli ölçüde farklıdır, yani aykırı değerler mevcuttur.
+
+Bu bulgular, modelin varsayımlarının ihlal edildiğini ve homoskedastik olmadığını göstermektedir. Homoskedastisite ihlali, modelin tahminlerinin güvenilirliğini azaltabilir. Ayrıca, kalıntıların normal dağılıma yakın olmaması da modelin doğruluğu ve güvenilirliği üzerinde olumsuz bir etkiye sahip olabilir.
+
+#### Etkileşim Grafikleri (Interaction Plots)
+
+Çalışmadı
+
+#### **Düzleştirme**
+
+LOESS düzleştirme
+
+Düzleştirilmiş değerleri tahmin etme
+
+```{r}
+loess_model <- loess(IMDBPuan ~ CikisYili, data = egitim_veri)
+egitim_veri$IMDBPuan_Duzeltilmis <- predict(loess_model)
+```
+
+Düzleştirme Grafiği
+
+```{r}
+ggplot(egitim_veri, aes(x = CikisYili, y = IMDBPuan)) +
+  geom_point(alpha = 0.5) + 
+  geom_line(aes(y = IMDBPuan_Duzeltilmis), color = "red", size = 1) +
+  labs(title = "IMDB Puanı ve Cikis Yılı (Duzlestirilmis)", x = "Cikis Yılı", y = "IMDB Puanı")
+```
+
+Grafik üzerindeki kırmızı çizgi, IMDB puanı ile Çıkış Yılı arasındaki ilişkiyi LOESS yöntemiyle düzleştirilmiş olarak göstermektedir. Bu grafikten çıkarılabilecek bazı yorumlar şunlar olabilir:
+
+1.  **Genel IMDB Puanı Eğilimi**: Grafik genel olarak zaman içinde IMDB puanlarının hafifçe düşme eğiliminde olduğunu göstermektedir. Bu durum, daha yeni filmlerin genellikle daha düşük IMDB puanları aldığına işaret edebilir.
+
+2.  **Erken Dönemdeki Yüksek Puanlı Filmler**: Özellikle 1920'ler ve 1930'lar gibi erken dönemlerde bazı çok yüksek puanlı filmler bulunmaktadır. Bu filmler, sinemanın erken dönemlerindeki klasikler olabilir ve yüksek puanlarıyla dikkat çekmektedirler.
+
+3.  **Yoğunlaşma ve Homojenlik**: Yakın dönemde, yani 2000'li yıllardan sonra IMDB puanlarının daha dar bir aralıkta yoğunlaştığı görülmektedir. Bu durum, yeni filmlerin puanlarının daha homojen dağıldığını ve genel bir standardizasyon eğilimi gösterdiğini işaret edebilir.
+
+4.  **Değişim Dalgalanmaları**: Grafikte belirgin bir zirve veya düşüş noktası olmaması, IMDB puanının zaman içinde sürekli bir değişim göstermediğini, daha çok dalgalanmalar şeklinde seyrettiğini düşündürmektedir. Bu, IMDB puanlarının zamanla istikrarlı bir eğilim göstermediğini ancak belirli dönemlerde dalgalanmalar yaşadığını gösterebilir.
+
+Bu yorumlar, grafik üzerindeki LOESS düzleştirilmiş çizginin genel eğilimlerini ve zaman içindeki değişimleri anlamamıza yardımcı olabilir.
+
+#### **Nitel/kategorik Değişkenler İçin Gini ve Entropi**
+
+**Gini**
+
+```{r}
+kategorik_degiskenler <- c("Tur", "Hasilat")
+gini_degerleri <- sapply(egitim_veri[, kategorik_degiskenler], function(x) {
+  Gini(table(x), na.rm = TRUE)
+})
+print(gini_degerleri)
+```
+
+Sonuçlar:
+
+-   **Tur değişkeni için Gini katsayısı: 0.6265574**
+
+-   **Hasilat değişkeni için Gini katsayısı: 0.2493750**
+
+Bu sonuçlar şunları ifade eder:
+
+-   **Tur** değişkeninin Gini katsayısı daha yüksek (0.6265574), bu da bu değişkenin daha fazla çeşitlilik veya düzensizlik içerdiğini gösterir. Yani, "Tur" değişkeni birçok farklı kategoriye sahip ve bu kategoriler arasında daha eşit bir dağılım söz konusu.
+
+-   **Hasilat** değişkeninin Gini katsayısı daha düşük (0.2493750), bu da bu değişkenin daha az çeşitlilik veya düzensizlik içerdiğini gösterir. Yani, "Hasilat" değişkeni daha az sayıda kategoriye sahip olabilir ve/veya bu kategoriler arasında daha dengesiz bir dağılım olabilir.
+
+Özetle, "Tur" değişkeni "Hasilat" değişkenine göre daha çeşitlidir.
+
+**Entropi**
+
+```{r}
+entropi_degerleri <- sapply(egitim_veri[, kategorik_degiskenler], function(x) {
+  frekanslar <- table(x) / length(x)
+  -sum(frekanslar * log2(frekanslar))
+})
+print(entropi_degerleri)
+```
+
+Sonuçlar:
+
+-   **Tur** değişkeninin entropisi daha yüksek (6.840856), bu da bu değişkenin daha fazla çeşitlilik veya belirsizlik içerdiğini gösterir. Yani, "Tur" değişkeni birçok farklı kategoriye sahip ve bu kategoriler arasında daha eşit bir dağılım söz konusu.
+
+-   **Hasilat** değişkeninin entropisi daha düşük (2.192203), bu da bu değişkenin daha az çeşitlilik veya belirsizlik içerdiğini gösterir. Yani, "Hasilat" değişkeni daha az sayıda kategoriye sahip olabilir ve/veya bu kategoriler arasında daha dengesiz bir dağılım olabilir.
+
+Özetle, "Tur" değişkeni "Hasilat" değişkenine göre daha çeşitlidir ve daha fazla belirsizlik içerir.
+
+#### **İleri Düzey Grafik Yöntemleri**
+
+**Yıldız Grafikler (Star Plots)**
+
+Yıldız grafikler, çok boyutlu veri noktalarını bir daire üzerinde gösterir. Her veri noktasının her boyutu, bir eksene yansıtılır.
+
+```{r}
+species_labels <- as.character(egitim_veri$OrtalamaPuan)
+stars(egitim_veri[1:30, sayisal_degiskenler], labels = species_labels, main = "Yıldız Grafikler")
+```
+
+Grafiği incelediğimizde şunları gözlemleyebiliriz:
+
+-   **IMDb Puanı ve Meta Puanı**: Yıldızların büyük çoğunluğunun IMDb puanı ve Meta puanı köşeleri benzer uzunluklarda olduğu görülmektedir. Bu durum, bu iki değişken arasında güçlü bir ilişki olduğunu ve yüksek IMDb puanına sahip filmlerin genellikle Meta puanında da yüksek puanlar aldığını göstermektedir.
+
+-   **Süre**: Yıldızların süre köşeleri oldukça çeşitlidir. Bu, filmlerin süreleri açısından büyük bir çeşitlilik gösterdiğini ve IMDb puanı veya Meta puanı ile açık bir ilişki olmadığını işaret etmektedir. Yani, film süresi ile puanlar arasında belirgin bir korelasyon bulunmamaktadır.
+
+-   **Çıkış Yılı**: Yıldızların çıkış yılı köşeleri bazılarında daha uzun, bazılarında daha kısa olmakta; bu da filmlerin zaman içinde büyük bir çeşitlilik gösterdiğini göstermektedir. Yani, grafiğe bakarak zamanla farklı uzunluklarda ve tarihlerde pek çok film üretildiği anlaşılmaktadır.
+
+Bu grafik, filmlerin IMDb puanı, Meta puanı ve süre açısından farklılık gösterdiğini ancak zaman içinde daha fazla film üretildiğini göstermektedir. Bu yorumlar, veri setinizdeki filmlerin özelliklerini ve zaman içindeki değişimleri anlamada yardımcı olabilir.
+
+**Chernoff Yüzleri**
+
+Chernoff yüzleri, çok boyutlu veri noktalarını yüz özelliklerine yansıtarak görselleştirir. Bu grafik türü, veri setindeki farklı özelliklerin yüz ifadesi ile temsil edilmesini sağlar.
+
+```{r}
+ #Sayısal değişkenleriseçinveölçeklendirin(0-1arası)
+ sayisal_degiskenler_scaled<-scale(egitim_veri[1:20,sayisal_degiskenler])
+ #Chernoffyüzleriçizimi
+ faces(sayisal_degiskenler_scaled,face.type= 1)
+```
+
+Grafiği incelediğimizde şu gözlemleri yapabiliriz:
+
+-   **IMDb Puanı**: Yüzlerin genişliği, IMDb puanını temsil eder. Geniş yüzler, yüksek IMDb puanına sahip filmleri temsil ederken, dar yüzler düşük IMDb puanına sahip filmleri temsil eder.
+
+-   **Meta Puanı**: Yüzün yüksekliği, Meta puanını temsil eder. Yüksek yüzler, yüksek Meta puanına sahip filmleri temsil ederken, düşük yüzler düşük Meta puanına sahip filmleri temsil eder.
+
+-   **Süre**: Burun uzunluğu, süreyi temsil eder. Uzun burunlar, uzun süren filmleri temsil ederken, kısa burunlar kısa süren filmleri temsil eder.
+
+-   **Çıkış Yılı**: Şapka büyüklüğü, çıkış yılını temsil eder. Büyük şapkalar, daha yeni filmleri temsil ederken, küçük şapkalar daha eski filmleri temsil eder.
+
+Bu gözlemler, grafiği yorumlarken IMDb puanı, Meta puanı, süre ve çıkış yılı gibi değişkenler arasındaki ilişkileri anlamamıza yardımcı olabilir. Veri setinizde bu tür karakteristikleri temsil eden grafiklerle bu ilişkileri daha derinlemesine inceleyebilirsiniz.
+
+## **7. Birliktelik İstatistikleri**
+
+Birliktelik istatistikleri, kategorik değişkenler arasındaki ilişkiyi ölçmek için kullanılır.
+
+```{r}
+library(vcd)
+# "Hasilat" ve "Tur" arasındaki ilişki
+assocstats(table(egitim_veri$Hasilat, egitim_veri$Tur))
+```
+
+**"Hasılat" ve "Tür" arasındaki ilişki:**
+
+-   **Likelihood Ratio (Olabilirlik Oranı) Testi:** Bu test, "Hasılat" ve "Tür" arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 1184.8'lik yüksek olabilirlik oranı ve buna karşılık gelen 4.47e-06'lık çok düşük p değeri, sıfır hipotezinin reddedildiğini gösterir. Bu, "Hasılat" ile "Tür" arasında istatistiksel olarak anlamlı bir ilişki olduğu anlamına gelir.
+
+-   **Pearson Ki-Kare Testi:** Bu test de benzer şekilde, "Hasılat" ve "Tür" arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 1203.1'lik yüksek ki-kare değeri ve buna karşılık gelen 7.83e-07'lik çok düşük p değeri, sıfır hipotezinin reddedildiğini ve "Hasılat" ile "Tür" arasında istatistiksel olarak anlamlı bir ilişki olduğunu gösterir.
+
+-   **Cramer's V (Cramer'ın V Katsayısı):** Bu katsayı, nominal değişkenler arasındaki ilişkinin gücünü ölçer. 0.434 değeri, "Hasılat" ve "Tür" arasında orta düzeyde bir ilişki olduğunu gösterir.
+
+```{r}
+# "Hasilat" ve "Yonetmen" arasındaki ilişki
+assocstats(table(egitim_veri$Hasilat, egitim_veri$Yonetmen))
+```
+
+**"Hasılat" ve "Yönetmen" arasındaki ilişki:**
+
+-   **Likelihood Ratio (Olabilirlik Oranı) Testi:** Bu test, "Hasılat" ve "Yönetmen" arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 3082.5'lik yüksek olabilirlik oranı ve buna karşılık gelen 0.948'lik yüksek p değeri, sıfır hipotezinin reddedilemediğini gösterir. Bu, "Hasılat" ile "Yönetmen" arasında istatistiksel olarak anlamlı bir ilişki olduğuna dair yeterli kanıt olmadığı anlamına gelir. Ancak, bu testin gücü düşük olabilir çünkü "Yönetmen" kategorik değişkeninin çok fazla farklı değeri vardır.
+
+-   **Pearson Ki-Kare Testi:** Bu test de benzer şekilde, "Hasılat" ve "Yönetmen" arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 3373.0'lık yüksek ki-kare değeri ve buna karşılık gelen 0.024'lük düşük p değeri, sıfır hipotezinin reddedildiğini ve "Hasılat" ile "Yönetmen" arasında istatistiksel olarak anlamlı bir ilişki olduğunu gösterir.
+
+-   **Cramer's V (Cramer'ın V Katsayısı):** 0.726 değeri, "Hasılat" ve "Yönetmen" arasında oldukça güçlü bir ilişki olduğunu gösterir.
+
+## **8. Dönüşüm**
+
+Dönüşümler, verilerin normal dağılıma daha yakın hale getirilmesi, varyansın stabilize edilmesi veya doğrusal ilişkilerin güçlendirilmesi gibi amaçlarla yapılır.
+
+#### **Veriye Bakış ve Gerekli Kütüphanelerin Yüklenmesi**
+
+```{r}
+head(egitim_veri)
+summary(egitim_veri)
+library(moments) 
+library(car) 
+```
+
+Bu kısımda veri setinin yapısı incelenir ve dönüşümler için gerekli kütüphaneler yüklenir.
+
+#### **Çarpıklık ve Basıklık İncelemesi**
+
+```{r}
+# Çarpıklık ve basıklık değerleri
+carpiklik <- skewness(egitim_veri[, sayisal_degiskenler])
+basiklik <- kurtosis(egitim_veri[, sayisal_degiskenler])
+
+print(carpiklik)
+print(basiklik)
+```
+
+Bu kodlar, sayısal değişkenlerin çarpıklık ve basıklık değerlerini hesaplar. Çarpıklık, dağılımın ne kadar simetrik olmadığını, basıklık ise dağılımın ne kadar kuyruklu olduğunu gösterir. Bu değerler, hangi dönüşümün uygun olabileceği konusunda ipuçları verir.
+
+**Çıktının Yorumlanması:**
+
+-   **ÇıkışYılı:** Çarpıklık değeri negatif (-1.90), yani dağılım sola çarpıktır. Bu, daha yeni çıkış yıllarına sahip filmlerin daha fazla olduğunu gösterir. Basıklık değeri pozitif (6.92), yani dağılım sivridir. Bu, çıkış yıllarının belirli yıllarda yoğunlaştığını gösterir.
+
+-   **Süre:** Çarpıklık değeri pozitif (1.52), yani dağılım sağa çarpıktır. Bu, daha uzun süreli filmlerin daha az olduğunu gösterir. Basıklık değeri de pozitif (7.19), yani dağılım sivridir. Bu, film sürelerinin belirli değerlerde yoğunlaştığını gösterir.
+
+-   **IMDBPuan:** Çarpıklık değeri negatif (-0.04), yani dağılım sola çarpıktır. Bu, daha yüksek puanlı filmlerin daha fazla olduğunu gösterir. Basıklık değeri negatif (-1.04), yani dağılım basıktır. Bu, IMDB puanlarının geniş bir aralığa yayıldığını gösterir.
+
+-   **MetaPuan:** Çarpıklık değeri negatif (-0.04), yani dağılım sola çarpıktır. Bu, daha yüksek puanlı filmlerin daha fazla olduğunu gösterir. Basıklık değeri pozitif (2.44), yani dağılım normal dağılıma göre biraz daha sivridir.
+
+-   **PuanFarki:** Çarpıklık değeri pozitif (0.05), yani dağılım sağa çarpıktır. Basıklık değeri de pozitif (2.77), yani dağılım normal dağılıma göre biraz daha sivridir. Bu, IMDB ve Meta puanları arasındaki farkın genellikle küçük olduğunu, ancak bazı filmlerde büyük farklar olabileceğini gösterir.
+
+#### **Dönüşüm Gerektiren Değişkenlerin Bulunması**
+
+```{r}
+ # Gerekli kütüphaneleri yükle
+ library(ggplot2)
+ library(car)
+ library(e1071)
+ library(moments)
+ # Histogramlar için grafik penceresini ayarla
+ par(mfrow = c(2, 2)) # 2x2 düzenleme
+ # MetaPuan değişkeninin histogramı
+ hist(egitim_veri$MetaPuan, main = "MetaPuan Dağılımı", xlab = "MetaPuan", col = "blue")
+ # IMDBPuan değişkeninin histogramı
+ hist(egitim_veri$IMDBPuan, main = "IMDBPuan Dağılımı", xlab = "IMDBPuan", col = "green")
+ # Sure değişkeninin histogramı
+ hist(egitim_veri$Sure, main = "Sure Dağılımı", xlab = "Sure", col = "red", border = "black")
+ # CikisYili değişkeninin histogramı
+ hist(egitim_veri$CikisYili, main = "CikisYili Dağılımı", xlab = "CikisYili", col = "purple")
+```
+
+**Dönüşüm Gerektiren Değişkenler:**
+
+-   **Çıkış Yılı (CikisYili):** Bu değişkenin histogramı, sağa doğru çarpık bir dağılım gösteriyor. Daha eski yıllarda daha fazla veri yoğunluğu varken, yeni yıllara doğru veri sayısı azalıyor. Bu çarpıklık, modelleme sürecinde dikkate alınması gereken bir durumdur. Veriyi dengeli hale getirmek veya dönüşümler yapmak model performansını iyileştirebilir.
+
+-   **Süre (Sure):** Süre değişkeninin histogramı da sağa doğru çarpık bir dağılım sergiliyor. Uzun süren filmler daha az, kısa süren filmler daha fazla olarak görünüyor. Bu çarpıklık da modelleme sonuçlarını etkileyebilir. Süreyi normalize etmek veya dönüşümler yaparak dağılımı düzeltmek önemli olabilir.
+
+**Dönüşüm Gerektirmeyen Değişkenler:**
+
+-   **Meta Puan (MetaPuan):** Bu değişkenin histogramı, yaklaşık olarak normal bir dağılıma benziyor. Modelleme sürecinde doğrudan kullanılabilir, özel bir dönüşüme ihtiyaç duymayabilir.
+
+-   **IMDb Puanı (IMDBPuan):** IMDb puanı değişkeninin histogramı hafif sağa doğru çarpık olsa da, normal dağılıma oldukça yakın görünüyor. Bu nedenle, doğrudan kullanılabilir ancak modelleme öncesi veriyi inceleyerek gerekirse dönüşüm yapılabilir.
+
+#### **Dönüşüm Uygulaması**
+
+```{r}
+# Gerekli kütüphaneleri yükle
+library(MASS)
+library(car)
+library(ggplot2)
+# Box-Cox dönüşümü için optimal lambda değerini belirle
+boxcox_transform <- function(y) {
+bc <- boxcox(y ~ 1, plotit = FALSE)
+lambda <- bc$x[which.max(bc$y)]
+return(lambda)
+}
+#DeğişkenlerinBox-Coxdönüşümünüuygulama
+#Sure değişkeni içinlogdönüşümü
+egitim_veri$Log_Sure<-log(egitim_veri$Sure+ 1)
+#CikisYilideğişkeniiçinlogdönüşümü
+egitim_veri$Log_CikisYili<-log(egitim_veri$CikisYili +1)
+#Histogramlariçingrafikpenceresiniayarla
+par(mfrow= c(1,2)) #2x2düzenleme
+#LogdönüşümüuygulanmışSuredeğişkenininhistogramı
+hist(egitim_veri$Log_Sure, main= "SureDağılımı",xlab= "Log(Sure+1)",col= "red", border= "black")
+#LogdönüşümüuygulanmışCikisYilideğişkenininhistogramı
+hist(egitim_veri$Log_CikisYili,main= "CikisYiliDağılımı", xlab= "Log(CikisYili+1)",col= "purple", border= "black")
+```
+
+**Sure Değişkeni:**
+
+-   **Önce:** Dönüştürülmeden önce, "Sure" değişkeni sağa doğru çarpık bir dağılıma sahipti. Histogramda, daha kısa süreli filmlerin daha fazla olduğu ve film süresi arttıkça veri yoğunluğunun azaldığı görülüyordu.
+
+-   **Sonra:** Logaritmik dönüşüm, "Sure" değişkeninin dağılımını daha simetrik hale getirmiştir. Histogram artık daha dengeli bir dağılım gösteriyor ve çarpıklık önemli ölçüde azalmış durumda.
+
+**CikisYili Değişkeni:**
+
+-   **Önce:** "CikisYili" değişkeni dönüştürülmeden önce sağa doğru çarpık bir dağılıma sahipti. Daha eski yıllarda daha fazla film bulunurken, yeni yıllarda bu sayı azalmaktaydı.
+
+-   **Sonra:** Logaritmik dönüşüm, "CikisYili" değişkeninin dağılımını daha simetrik hale getirmiştir. Histogram artık daha dengeli bir dağılım gösteriyor ve çarpıklık önemli ölçüde azalmış durumda.
+
+**Genel Yorum:**
+
+Logaritmik dönüşüm, "Sure" ve "CikisYili" değişkenlerinin dağılımlarını iyileştirmede oldukça etkili olmuştur. Bu dönüşümler, verilerin daha simetrik ve normal dağılıma daha yakın hale gelmesini sağlamıştır. Bu durum, modelleme sürecinde daha doğru tahminler yapılmasına ve daha iyi performans elde edilmesine yardımcı olacaktır.
+
+## **9. Model Geliştirme**
+
+#### Amaç:
+
+IMDB Puanını etkileyen faktörlerin incelenmesi. Bu amaçla sayısal değişkenler kullanılarak model oluşturulacaktır.
+
+#### Kullanılmayacak Değişkenin Tespit Edilmesi:
+
+IMDBPuan ile MetaPuan değişkeni arasında yüksek korelasyon olduğu için MetaPuan modele dahil edilmemelidir.
+
+```{r}
+# Korelasyonu hesapla
+korelasyon <- cor(egitim_veri$IMDBPuan, egitim_veri$MetaPuan, use = "complete.obs")
+
+# Sonucu yazdır
+cat("IMDBPuan ile MetaPuan arasındaki korelasyon:", korelasyon, "\n")
+```
+
+Korelasyon çok yüksek olduğu için MetaPuan değişkeni modele dahil edilmeyecektir.
+
+#### **Model 1: Doğrusal Regresyon**
+
+```{r}
+# Doğrusal regresyon modeli
+model_lm <- lm(IMDBPuan ~ CikisYili + Sure, data = egitim_veri)
+
+# Model özeti
+summary(model_lm)
+```
+
+**Bu modelde:**
+
+-   Bağımlı değişken: IMDBPuan
+
+-   Bağımsız değişkenler: CikisYili ve Sure
+
+**Model Performansı:**
+
+-   **R-kare:** 0.2282 (Model varyansın %22.82'sini açıklıyor)
+
+-   **p-değeri:** \<2.2e-16 (Model anlamlı)
+
+Regresyon denklemini yazmak için, modeldeki katsayıları kullanırız. Verilen katsayılarla regresyon denklemi şöyle olur:
+
+IMDBPuan=50.5169756−0.0225054×CikisYili+0.0116220×Sure
+
+Değerleri yuvarlayacak olursak:
+
+**Regresyon Denklemi**
+
+IMDBPuan=50.52−0.023×CikisYili+0.012×Sure
+
+**Yorum**
+
+1.  **Sabit Terim (Intercept):** 50.52
+
+    -   Bu, film çıkış yılı ve süresi sıfır olduğunda IMDB puanının 50.52 olacağını gösterir. Pratikte, bu terim diğer değişkenlerin etkisi hariç tutulduğunda IMDB puanının başlangıç seviyesini temsil eder.
+
+2.  **Çıkış Yılı (CikisYili):** -0.023
+
+    -   Çıkış yılındaki her bir birim artış için (örneğin bir yıl), IMDB puanı 0.023 puan azalır. Bu, daha yeni filmlerin (çıkış yılı arttıkça) genel olarak daha düşük IMDB puanlarına sahip olma eğiliminde olduğunu gösterir.
+
+3.  **Süre (Sure):** 0.012
+
+    -   Filmin süresindeki her bir birim artış için (örneğin bir dakika), IMDB puanı 0.012 puan artar. Bu, daha uzun filmlerin (süre arttıkça) genel olarak daha yüksek IMDB puanlarına sahip olma eğiliminde olduğunu gösterir.
+
+**Genel Değerlendirme:**
+
+-   **Çıkış Yılı:** Negatif bir etkisi var, bu da daha yeni filmlerin daha düşük puanlanma eğiliminde olduğunu gösteriyor.
+
+-   **Süre:** Pozitif bir etkisi var, bu da daha uzun filmlerin daha yüksek puanlanma eğiliminde olduğunu gösteriyor.
+
+-   **Model Performansı:** R-kare değeri 0.2282, yani model, IMDB puanındaki toplam varyansın %22.82'sini açıklıyor. Bu, modelin bazı etkileri yakaladığını ama birçok başka faktörün de IMDB puanını etkilediğini gösteriyor.
+
+```{r}
+# Varsayım kontrolü grafikleri
+par(mfrow = c(2, 2)) 
+
+# 1. Standartize edilmiş hata grafikleri
+plot(model_lm, which = 1, main = "Standartize Edilmiş Hata Grafiği")
+
+# 2. Normal olasılık grafikleri
+plot(model_lm, which = 2, main = "Normal Olasılık Grafikleri")
+
+# 3. Aykırı Değerler Grafikleri
+plot(model_lm, which = 3, main = "Aykırı Degerler Grafikleri")
+
+# 4. Leverage-Çıkışılılık Grafikleri
+plot(model_lm, which = 5, main = "Leverage-Cıkısılılık Grafikleri")
+```
+
+**1. Standartize Edilmiş Hata Grafiği (Residuals vs Fitted)**
+
+-   **Amaç:** Modelin hatalarının (residuals) tahmin edilen değerlere (fitted values) karşı nasıl dağıldığını gösterir.
+
+-   **Yorum:**
+
+    -   Hatalar rastgele dağılmalı ve belirgin bir desen göstermemelidir.
+
+    -   Bu grafikte, residuals'in bazı desenler gösterdiği görülüyor. Özellikle düşük ve yüksek tahmin edilen değerlerde (fitted values) daha büyük hatalar (residuals) var. Bu, modelde bazı sistematik hataların olabileceğini ve modelin belirli bölgelerde iyi performans göstermediğini gösterir.
+
+**2. Normal Olasılık Grafiği (Q-Q Plot)**
+
+-   **Amaç:** Hataların normal dağılıp dağılmadığını kontrol eder.
+
+-   **Yorum:**
+
+    -   Hatalar (residuals) teorik normal dağılıma yakınsa noktalar düz bir çizgi üzerinde olmalıdır.
+
+    -   Grafikte, uçlarda (özellikle negatif taraflarda) önemli sapmalar görülmektedir. Bu, hataların tam olarak normal dağılıma uymadığını gösterir.
+
+**3. Aykırı Değerler Grafiği (Scale-Location)**
+
+-   **Amaç:** Hataların varyansının (homoskedasticity) sabit olup olmadığını kontrol eder.
+
+-   **Yorum:**
+
+    -   Hataların kareköklerinin tahmin edilen değerlere karşı nasıl dağıldığını gösterir.
+
+    -   Grafikte kırmızı çizgi biraz eğimli görünüyor, bu da hataların varyansının sabit olmadığını (heteroskedasticity) ve modelin bazı bölgelerde farklı performans gösterdiğini işaret edebilir.
+
+**4. Leverage-Cıkışlılık Grafiği (Residuals vs Leverage)**
+
+-   **Amaç:** Hangi gözlemlerin model üzerinde güçlü bir etkisi olduğunu belirler.
+
+-   **Yorum:**
+
+    -   Bu grafik, her bir gözlemin leverage ve residuals değerlerini gösterir.
+
+    -   Yüksek leverage ve büyük residuals değerlerine sahip birkaç nokta vardır (özellikle etiketlenmiş olanlar). Bu noktalar modelin sonuçlarını büyük ölçüde etkileyebilir ve incelenmelidir.
+
+    -   Cook's distance çizgisi, bu noktalardan bazılarının model üzerindeki etkisinin büyük olduğunu gösterir.
+
+#### **Model 2: Karar Ağacı**
+
+```{r}
+# Gerekli kütüphaneler
+library(rpart)
+library(rpart.plot)
+
+# Eğitim verisi ile karar ağacı modelini oluşturma
+model_dt <- rpart(IMDBPuan ~ CikisYili + Sure, data = egitim_veri, method = "anova")
+
+# Karar ağacı modelinin özet bilgisi
+printcp(model_dt)
+```
+
+Bu çıktı, R programlama dilinde bir karar ağacı (regression tree) modelinin sonuçlarını göstermektedir. Karar ağaçları, verileri belirli özelliklere göre dallara ayırarak bir hedef değişkeni tahmin etmek için kullanılan güçlü bir makine öğrenimi yöntemidir.
+
+**Model Detayları:**
+
+-   **Amaç:** `IMDBPuan` (IMDB puanı) adlı bir değişkeni tahmin etmek. Bu puanın muhtemelen filmlerin IMDB üzerindeki puanları olduğunu varsayabiliriz.
+
+-   **Değişkenler:**
+
+    -   **Tahmin Ediciler (Predictors):** `CikisYili` (Çıkış yılı) ve `Sure` (film süresi)
+
+    -   **Hedef (Target):** `IMDBPuan`
+
+**Karar Ağacı Sonuçları:**
+
+-   **Root Node Error (Kök Düğüm Hatası):** 0.91382. Bu, modelin başlangıç noktasındaki hata oranını gösterir. Yani, hiçbir değişken kullanmadan sadece ortalama IMDB puanı ile tahmin yapsaydık bu kadar hata yapardık.
+
+-   **n=1600:** Modelin eğitildiği veri setinde 1600 gözlem (muhtemelen film) olduğu anlamına gelir.
+
+-   **CP (Complexity Parameter - Karmaşıklık Parametresi):** Karar ağacının dallanmasının ne kadar karmaşık olacağını kontrol eden bir parametredir. CP değeri ne kadar düşükse, ağaç o kadar karmaşık olur. Burada farklı CP değerleri için modelin performansı gösterilmektedir.
+
+-   **nsplit:** Ağacın her bir seviyesindeki dallanma sayısını gösterir.
+
+-   **rel error:** Göreceli hata, modelin hatasının kök düğüm hatasına oranını gösterir. Değerin 1'den küçük olması, modelin kök düğümden daha iyi performans gösterdiği anlamına gelir.
+
+-   **xerror:** Çapraz doğrulama (cross-validation) ile hesaplanan hata oranıdır. Modelin genelleme yeteneği hakkında daha iyi bir fikir verir.
+
+-   **xstd:** Çapraz doğrulama hatasının standart sapmasıdır.
+
+```{r}
+# Karar ağacı modelinin grafiği
+rpart.plot(model_dt, main = "Karar Agacı Modeli", 
+           type = 2,  # Varsayılan olarak type = 2 kullanarak daha kısa bir grafik sağlanabilir
+           extra = 101, 
+           under = TRUE, 
+           fallen.leaves = TRUE, 
+           cex = 0.6, 
+           tweak = 1.2, 
+           shadow.col = "gray", 
+           box.palette = "RdYlGn", 
+           branch.lty = 2)
+```
+
+**Karar Ağacının Yorumlanması:**
+
+1.  **Kök Düğüm (6.9):** Tüm filmlerin ortalama IMDB puanı 6.9'dur. Bu, herhangi bir özellik kullanılmadan yapılan temel bir tahmindir.
+
+2.  **İlk Dallanma (Çıkış Yılı):**
+
+    -   **1995 ve Sonrası (7.4):** Bu dönemde çıkan filmlerin ortalama puanı daha yüksektir.
+
+    -   **1995 Öncesi (6.7):** Bu dönemde çıkan filmlerin ortalama puanı daha düşüktür.
+
+3.  **İkinci Dallanma:**
+
+    -   **1995 Sonrası Filmler:**
+
+        -   **1981 ve Sonrası (7.2):** Bu dönemde çıkan filmler için süre bilgisi kullanılmadan ortalama puan 7.2 olarak tahmin edilir.
+
+        -   **1981 Öncesi (7.2):** Bu dönemde çıkan filmler için de süre bilgisi kullanılmadan ortalama puan 7.2 olarak tahmin edilir.
+
+    -   **1995 Öncesi Filmler:**
+
+        -   **122 Dakikadan Kısa (6.5):** Bu filmlerin ortalama puanı 6.5'tir.
+
+        -   **122 Dakikadan Uzun (7.2):** Bu filmlerin ortalama puanı 7.2'dir ve daha sonra süreye göre tekrar dallanma yapılır:
+
+            -   **137 Dakikadan Kısa (7):** Bu filmlerin ortalama puanı 7'dir.
+
+            -   **137 Dakikadan Uzun (7.5):** Bu filmlerin ortalama puanı 7.5'tir.
+
+4.  **Üçüncü Dallanma:**
+
+    -   **122 Dakikadan Kısa ve 1995 Öncesi Çıkan Filmler:**
+
+        -   **2005 ve Sonrası (6.4):** Bu filmlerin ortalama puanı 6.4'tür.
+
+        -   **2005 Öncesi (6.7):** Bu filmlerin ortalama puanı 6.7'dir.
+
+5.  **Son Dallanmalar:** 137 dakikadan uzun ve 1981 öncesi çıkan filmler ile 122 dakikadan uzun ve 1981 sonrası çıkan filmler için süreye göre son dallanmalar yapılır ve her bir grubun ortalama puanları hesaplanır.
+
+**Sonuç:**
+
+Bu karar ağacı, IMDB puanlarını tahmin etmek için basit ama etkili bir model sunar. Çıkış yılı ve film süresi gibi faktörlerin puanları nasıl etkilediğini gösterir. Örneğin, 1995 yılından sonra çıkan uzun filmlerin genellikle daha yüksek puanlara sahip olduğu görülmektedir.
+
+## **10. Geçerlilik (Test Verisi Üzerinde)**
+
+```{r}
+# Test verisi üzerinde tahmin
+predictions_lm <- predict(model_lm, newdata = test_veri)
+predictions_dt <- predict(model_dt, newdata = test_veri)
+
+# Performans değerlendirmesi (MSE ve R-kare)
+mse_lm <- mean((predictions_lm - test_veri$IMDBPuan)^2)
+mse_dt <- mean((predictions_dt - test_veri$IMDBPuan)^2)
+
+rsquared_lm <- cor(predictions_lm, test_veri$IMDBPuan)^2
+rsquared_dt <- cor(predictions_dt, test_veri$IMDBPuan)^2
+```
+
+```{r}
+cat("Doğrusal Regresyon MSE:", mse_lm, "\n")
+cat("Doğrusal Regresyon R-kare:", rsquared_lm, "\n")
+cat("Karar Agacı MSE:", mse_dt, "\n")
+cat("Karar Agacı R-kare:", rsquared_dt, "\n")
+```
+
+Bu sonuçlar, doğrusal regresyon ve karar ağacı modellerinin test verisi üzerindeki performansını karşılaştırmaktadır. Performans ölçütleri olarak ortalama karesel hata (MSE) ve belirleme katsayısı (R-kare) kullanılmıştır.
+
+**MSE (Ortalama Karesel Hata):**
+
+-   **Doğrusal Regresyon MSE:** 0.682
+
+-   **Karar Ağacı MSE:** 0.714
+
+MSE, modelin tahmin hatalarının karelerinin ortalamasını gösterir. Daha düşük MSE değeri, modelin daha iyi tahminler yaptığını gösterir. Bu durumda, doğrusal regresyon modeli karar ağacından biraz daha düşük bir MSE değerine sahiptir, yani ortalama olarak daha iyi tahminler yapmaktadır.
+
+**R-kare (Belirleme Katsayısı):**
+
+-   **Doğrusal Regresyon R-kare:** 0.258
+
+-   **Karar Ağacı R-kare:** 0.215
+
+R-kare, modelin bağımsız değişkenler (çıkış yılı ve süre) ile açıkladığı varyansı gösterir. 0 ile 1 arasında bir değer alır ve 1'e yaklaştıkça modelin açıklayıcı gücü artar. Bu durumda, her iki modelin R-kare değerleri de düşüktür, yani her iki model de IMDB puanlarındaki varyansın sadece küçük bir kısmını açıklayabilmektedir.
+
+**Sonuç:**
+
+Genel olarak, doğrusal regresyon modeli bu test verisi üzerinde karar ağacından biraz daha iyi performans göstermiştir. Ancak, her iki modelin de R-kare değerleri düşük olduğundan, IMDB puanlarını tahmin etmede yeterince başarılı oldukları söylenemez.
+
+## **11. Sonuç**
+
+Bu çalışma, IMDB'nin En İyi 2000 Filmi veri seti üzerinde bir keşifsel veri analizi (EDA) ve modelleme çalışması sunmaktadır. Çalışmanın amacı, filmlerin IMDB puanlarını etkileyen faktörleri belirlemek ve bu puanları tahmin etmek için modeller geliştirmektir.
+
+**Keşifsel Veri Analizi (EDA) Bulguları:**
+
+-   **Veri Temizleme:** Veri setinde bazı eksik gözlemler tespit edilmiş ve bu değerler KNN yöntemi ile doldurulmuştur. Ayrıca, analiz için gerekli olmayan bazı değişkenler çıkarılmış ve bazı değişkenler dönüştürülmüştür.
+
+-   **Çarpıklık ve Basıklık:** Bazı değişkenlerin (Çıkış Yılı, Süre) dağılımlarında çarpıklık ve basıklık gözlenmiştir. Bu durum, bu değişkenlerin doğrusal olmayan ilişkiler içerebileceğini ve modelleme sürecinde dönüştürülmesi gerekebileceğini göstermektedir.
+
+-   **Korelasyon Analizi:** IMDB puanı ile Meta puanı arasında güçlü bir pozitif korelasyon olduğu görülmüştür. Bu, iki puanlama sisteminin benzer eğilimleri ölçtüğünü göstermektedir.
+
+-   **Görselleştirme:** Histogram, kutu grafikleri, saçılım matrisleri ve Chernoff yüzleri gibi çeşitli görselleştirme teknikleri kullanılarak verilerdeki ilişkiler ve desenler incelenmiştir.
+
+**Modelleme Bulguları:**
+
+-   **Doğrusal Regresyon:** Çıkış yılı ve süre değişkenlerini kullanarak bir doğrusal regresyon modeli oluşturulmuştur. Model, IMDB puanlarındaki varyansın %22.82'sini açıklayabilmiştir. Ancak, modelin varsayımlarının tam olarak karşılanmadığı ve bazı aykırı değerlerin bulunduğu tespit edilmiştir.
+
+-   **Karar Ağacı:** Aynı değişkenler kullanılarak bir karar ağacı modeli oluşturulmuştur. Karar ağacı, IMDB puanlarını etkileyen faktörlerin daha görsel bir şekilde anlaşılmasını sağlamıştır. Özellikle, çıkış yılı ve sürenin IMDB puanları üzerindeki etkileşimi daha net bir şekilde ortaya konmuştur.
+
+-   **Model Karşılaştırması:** Test verisi üzerinde yapılan değerlendirmede, doğrusal regresyon modeli karar ağacından biraz daha iyi performans göstermiştir. Ancak, her iki modelin de R-kare değerleri düşük olduğu için, IMDB puanlarını tahmin etmede yeterince başarılı oldukları söylenemez.
+
+**Sonuç ve Öneriler:**
+
+Bu çalışmada, IMDB puanlarını etkileyen faktörler belirlenmeye çalışılmış ve bu puanları tahmin etmek için modeller geliştirilmiştir. Elde edilen sonuçlar, film endüstrisi için değerli bilgiler sağlayabilir.
+
+**Gelecekteki Çalışmalar İçin Öneriler:**
+
+-   **Farklı Modelleme Teknikleri:** Daha iyi tahmin performansı elde etmek için farklı modelleme teknikleri (örneğin, rastgele ormanlar, destek vektör makineleri) denenebilir.
+
+-   **Değişken Mühendisliği:** Yeni değişkenler oluşturarak veya mevcut değişkenleri dönüştürerek model performansı artırılabilir.
+
+-   **Daha Fazla Veri:** Daha fazla veriye sahip bir veri seti kullanılarak modellerin genelleme yeteneği geliştirilebilir.
+
+## **12. Kaynak**
+
+Veri seti Kaggle'dan alınmıştır.
+
+Sawhney, P. (2023, November 22). IMDb Dataset - Top 2000 Movies. Kaggle. <https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data>

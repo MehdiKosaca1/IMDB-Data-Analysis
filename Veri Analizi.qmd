@@ -969,7 +969,7 @@ Bu kodlar, sayısal değişkenlerin çarpıklık ve basıklık değerlerini hesa
  library(car)
  library(e1071)
  library(moments)
- # Histogramlar için grafik penceresini ayarla
+
  par(mfrow = c(2, 2)) # 2x2 düzenleme
  # MetaPuan değişkeninin histogramı
  hist(egitim_veri$MetaPuan, main = "MetaPuan Dağılımı", xlab = "MetaPuan", col = "blue")

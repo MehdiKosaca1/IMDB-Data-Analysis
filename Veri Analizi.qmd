@@ -3,7 +3,7 @@ title: "Veri Analizi Projesi"
 format: html
 editor: visual
 ---
-
+# kullanılan kütüphaneler
 ```{r}
 #| echo: false
 suppressMessages(library(dplyr))

@@ -607,7 +607,7 @@ Bu çıktı, bir film veri setindeki Çıkış Yılı, Süre, IMDb Puanı ve Met
 
 **Sonuç:**
 
-Bu korelasyon matrisi, film veri setindeki değişkenler arasındaki ilişkiler hakkında önemli bilgiler sağlar. Özellikle, IMDb ve Meta puanları arasındaki güçlü pozitif korelasyon, bu iki puan türünün benzer ölçütler olduğunu gösterir. Ayrıca, çıkış yılı ile puanlar arasındaki negatif korelasyon, zaman içinde film değerlendirmelerinde değişim olduğunu düşündürür.
+Bu korelasyon matrisi, film veri setindeki değişkenler arasındaki ilişkiler hakkında önemli bilgiler sağlar. Özellikle, IMDb ve Meta puanları arasındaki güçlü pozitif korelasyon, bu iki puan türünün benzer ölçütler olduğunu gösterir.
 
 #### **Belirli yönetmenlerin filmleri daha mı başarılıdır?**
 

@@ -32,7 +32,7 @@ suppressMessages(library(car))
 rm(list = ls())
 ```
 
-## **1. Veri Tanımı**
+## **1.Veri Tanımı**
 
 #### **Veri Kümesinin Tanımlanması**
 
@@ -72,7 +72,7 @@ Veri seti, IMDB'nin en iyi 2000 filmi hakkında bilgiler içermektedir. Her bir 
 
 Değişken tiplerine bakıldığında `CikisYili`, `Sure`, `IMDBPuan`, `MetaPuan`, ve `OySayisi` değişkenlerinin numerik olduğu, diğer değişkenlerin ise karakter tipinde olduğu görülmektedir. `Hasilat` değişkeni karakter tipinde olduğundan analiz öncesinde bu değişkenin numerik formata dönüştürülmesi gerekecektir.
 
-#### **Değişkenler**
+#### **Değişkenler:**
 
 Veri setinde 2000 gözlem ve 10 değişken bulunmaktadır.
 

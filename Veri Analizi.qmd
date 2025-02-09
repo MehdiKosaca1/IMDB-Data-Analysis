@@ -345,7 +345,7 @@ Bu grafik, veri kümesindeki eksik değerlerin dağılımını gösteriyor:
 
 -   **Diğer Değişkenler**: Eksik değer yok.
 
-#### **Eksik Gözlemlerin Görselleştirilmesi 4**
+#### **Eksik Gözlemlerin Görselleştirilmesi 4 **
 
 ```{r}
 library(naniar)

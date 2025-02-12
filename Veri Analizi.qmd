@@ -934,7 +934,7 @@ library(moments)
 library(car) 
 ```
 
-Bu kısımda veri setinin yapısı incelenir ve dönüşümler için gerekli kütüphaneler yüklenir.
+ Bu kısımda veri setinin yapısı incelenir ve dönüşümler için gerekli kütüphaneler yüklenir.
 
 #### **Çarpıklık ve Basıklık İncelemesi**
 

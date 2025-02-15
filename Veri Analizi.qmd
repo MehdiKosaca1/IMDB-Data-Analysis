@@ -825,7 +825,7 @@ Bu sonuçlar şunları ifade eder:
 
 -   **Hasilat** değişkeninin Gini katsayısı daha düşük (0.2493750), bu da bu değişkenin daha az çeşitlilik veya düzensizlik içerdiğini gösterir. Yani, "Hasilat" değişkeni daha az sayıda kategoriye sahip olabilir ve/veya bu kategoriler arasında daha dengesiz bir dağılım olabilir.
 
-Özetle, "Tur" değişkeni "Hasilat" değişkenine göre daha çeşitlidir.
+Özetle, 'Tur' değişkeninin, 'Hasilat' değişkenine göre daha çeşitli olduğu söylenebilir.
 
 **Entropi**
 

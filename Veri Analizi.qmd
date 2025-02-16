@@ -531,9 +531,9 @@ Saçılım matrisinden çıkarılan bazı gözlemler:
 
 -   **IMDb Puanı ve Çıkış Yılı:** Zayıf bir negatif ilişki var, yani eski filmler genellikle daha düşük IMDb puanına sahip olma eğiliminde, ancak bu ilişki çok zayıf.
 
--   **MetaPuan ve Süre:** Aralarında belirgin bir ilişki yok, yani filmlerin süresi Metapuan'ı etkilemiyor.
+-   **MetaPuan ve Süre:** Aralarında belirgin bir ilişki yok, yani filmlerin süresi Metapuanı etkilemiyor.
 
--   **MetaPuan ve Çıkış Yılı:** Belirgin bir ilişki yok, yani filmlerin çıkış yılı Metapuan'ı etkilemiyor.
+-   **MetaPuan ve Çıkış Yılı:** Belirgin bir ilişki yok, yani filmlerin çıkış yılı Metapuanı etkilemiyor.
 
 -   **Süre ve Çıkış Yılı:** Zayıf bir negatif ilişki var, yani eski filmler daha kısa olma eğiliminde, ancak bu ilişki çok zayıf.
 

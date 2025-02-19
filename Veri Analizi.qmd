@@ -427,7 +427,7 @@ egitim_veri$PuanFarki <- egitim_veri$IMDBPuan - egitim_veri$MetaPuan_10
 head(egitim_veri$PuanFarki)
 ```
 
-Bu sayede "IMDBPuan" ile "MetaPuan" arasındaki farkı "PuanFarki" adlı türetilmiş yeni bir değişkene yazdırdık.
+Bu sayede "IMDBPuan" ile "MetaPuan" arasındaki fark "PuanFarki" adlı türetilmiş yeni bir değişkene yazdırdık.
 
 **MetaPuan ile IMDBPuan ortalamasını hesaplama**
 

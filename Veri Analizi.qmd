@@ -489,7 +489,7 @@ Kutu grafiğinden şu çıkarımlar yapılabilir:
 
 -   **Medyan:** Grafikteki ortadaki çizgi, medyanın yaklaşık 60 olduğunu gösterir.
 
--   **Çeyreklikler:** Kutu kenarları, ilk ve üçüncü çeyrekleri gösterir; bunlar yaklaşık 50 ve 70'tir.
+-   **Çeyreklikler:** Kutu kenarları, ilk ve üçüncü çeyrekleri gösterir. bunlar yaklaşık 50 ve 70'tir.
 
 -   **Çeyrekler Arası Aralık (IQR):** Kutunun yüksekliği yaklaşık 20'dir, verilerin ne kadar sıkı paketlendiğini gösterir.
 

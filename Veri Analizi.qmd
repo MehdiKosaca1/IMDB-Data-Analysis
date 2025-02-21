@@ -96,7 +96,7 @@ Bu çıktı, `filmler` veri setindeki değişkenlerin özet istatistiklerini gö
 
 #### **"Hasilat" Değişkenini Numeric Hale Getirme**
 
-İleri aşamalardaki analizler için "Hasilat" değişkeni sayısal hale getirilmelidir.
+İleri aşamalardaki analizler için "Hasilat" değişkeni sayısal hale getirilmelidir
 
 ```{r}
 library(dplyr) 

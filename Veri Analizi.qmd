@@ -1145,7 +1145,7 @@ plot(model_lm, which = 5, main = "Leverage-Cıkısılılık Grafikleri")
 
     -   Grafikte, uçlarda (özellikle negatif taraflarda) önemli sapmalar görülmektedir. Bu, hataların tam olarak normal dağılıma uymadığını gösterir.
 
-**3. Aykırı Değerler Grafiği (Scale-Location)**
+**3.Aykırı Değerler Grafiği (Scale-Location)**
 
 -   **Amaç:** Hataların varyansının (homoskedasticity) sabit olup olmadığını kontrol eder.
 

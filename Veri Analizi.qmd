@@ -41,7 +41,7 @@ dosya_yolu <- "C:\\Users\\mehdi\\Downloads\\data22.xlsx"
 filmler <- read_excel(dosya_yolu)
 ```
 
-#### **Veri Setine Genel Bakış**
+#### **Veri Setine Genel Bakış:**
 
 ```{r}
 head(filmler)

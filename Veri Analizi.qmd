@@ -986,7 +986,7 @@ Bu kodlar, sayısal değişkenlerin çarpıklık ve basıklık değerlerini hesa
 
 -   **Süre (Sure):** Süre değişkeninin histogramı da sağa doğru çarpık bir dağılım sergiliyor. Uzun süren filmler daha az, kısa süren filmler daha fazla olarak görünüyor. Bu çarpıklık da modelleme sonuçlarını etkileyebilir. Süreyi normalize etmek veya dönüşümler yaparak dağılımı düzeltmek önemli olabilir.
 
-**Dönüşüm Gerektirmeyen Değişkenler:**
+**Dönüşüm Gerektirmeyen Değişkenler**
 
 -   **Meta Puan (MetaPuan):** Bu değişkenin histogramı, yaklaşık olarak normal bir dağılıma benziyor. Modelleme sürecinde doğrudan kullanılabilir, özel bir dönüşüme ihtiyaç duymayabilir.
 

@@ -86,7 +86,7 @@ Veri setinde 2000 gözlem ve 10 değişken bulunmaktadır.
 -   `Basrol`: Filmin başrol oyuncusu (karakter dizisi)
 -   `Hasilat`: Filmin gişe hasılatı (karakter dizisi)
 
-#### **Veri Kümesindeki Değişkenlerin Özet İstatistikleri**
+#### **Veri Kümesindeki Değişkenlerin Özet İstatistikleri:**
 
 ```{r}
 summary(filmler)

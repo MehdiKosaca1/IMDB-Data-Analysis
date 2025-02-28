@@ -107,7 +107,7 @@ filmler <- filmler %>%
   mutate(Hasilat = as.numeric(Hasilat))  
 ```
 
-## **2. Problemin Tanımı ve Amaçlar:**
+## **2. Problemin Tanımı ve Amaçlar**
 
 #### **Problemin Tanımı**
 

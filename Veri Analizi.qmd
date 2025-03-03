@@ -485,7 +485,7 @@ Histogram, puanların 7 civarında yoğunlaştığını ve 6 ile 8 arasında zir
 boxplot(egitim_veri$MetaPuan, main = "MetaPuanı Kutu Grafiği")
 ```
 
-Kutu grafiğinden şu çıkarımlar yapılabilir:
+Kutu grafiğinden şu çıkarımlar yapılabilir
 
 -   **Medyan:** Grafikteki ortadaki çizgi, medyanın yaklaşık 60 olduğunu gösterir.
 

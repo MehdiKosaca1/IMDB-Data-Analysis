@@ -602,7 +602,7 @@ Bu çıktı, bir film veri setindeki Çıkış Yılı, Süre, IMDb Puanı ve Met
 
 -   **Süre ve IMDb/Meta Puan:** Pozitif korelasyonlar (0.33 ve 0.23). Daha uzun filmler biraz daha yüksek puan alma eğilimindedir.
 
--   **IMDb Puanı ve Meta Puanı:** Güçlü pozitif korelasyon (0.73). İki puan türü genellikle benzer eğilimlere sahiptir; biri yüksekse diğeri de yüksek olma olasılığı yüksektir.
+-   **IMDb Puanı ve Meta Puanı:** Güçlü pozitif korelasyon (0.73) . İki puan türü genellikle benzer eğilimlere sahiptir; biri yüksekse diğeri de yüksek olma olasılığı yüksektir.
 
 **Sonuç:**
 

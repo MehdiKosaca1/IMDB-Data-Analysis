@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Veri Analizi Projesi</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Veri Analizi_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Veri Analizi_files/libs/quarto-html/quarto.js"></script>
+<script src="Veri Analizi_files/libs/quarto-html/popper.min.js"></script>
+<script src="Veri Analizi_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Veri Analizi_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Veri Analizi_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Veri Analizi_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Veri Analizi_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Veri Analizi_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Veri Analizi_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Veri Analizi Projesi</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'VIM' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'colorspace' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'GGally' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gridExtra' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'psych' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'caret' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lattice' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'mice' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in check_dep_version(): ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original 'Matrix' package</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'sm' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'aplpack' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'DescTools' was built under R version 4.3.3</code></pre>
+</div>
+</div>
+<section id="veri-tanımı" class="level2">
+<h2 class="anchored" data-anchor-id="veri-tanımı"><strong>1. Veri Tanımı</strong></h2>
+<section id="veri-kümesinin-tanımlanması" class="level4">
+<h4 class="anchored" data-anchor-id="veri-kümesinin-tanımlanması"><strong>Veri Kümesinin Tanımlanması</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readxl' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dosya_yolu <span class="ot">&lt;-</span> <span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">mehdi</span><span class="sc">\\</span><span class="st">Downloads</span><span class="sc">\\</span><span class="st">data22.xlsx"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>filmler <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(dosya_yolu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="veri-setine-genel-bakış" class="level4">
+<h4 class="anchored" data-anchor-id="veri-setine-genel-bakış"><strong>Veri Setine Genel Bakış</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  FilmAdi       CikisYili  Sure IMDBPuan MetaPuan OySayisi Tur   Yonetmen Basrol
+  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; 
+1 The Godfather      1972   175      9.2      100  2002655 Suç,… Francis… Marlo…
+2 The Godfathe…      1974   202      9         90  1358608 Suç,… Francis… Al Pa…
+3 Ordiry People      1980   124      7.7       86    56476 Dram  Robert … Dold …
+4 Lawrence of …      1962   218      8.3      100   313044 Mace… David L… Peter…
+5 Straw Dogs         1971   113      7.4       73    64331 Suç,… Sam Pec… Dusti…
+6 Close Encoun…      1977   138      7.6       90   216050 Dram… Steven … Richa…
+# ℹ 1 more variable: Hasilat &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p><code>head(filmler)</code> kodu, <code>filmler</code> isimli veri çerçevesinin ilk 6 satırını gösterir. Bu sayede veri setinin genel yapısı ve içerdiği bilgiler hakkında hızlı bir önizleme elde ederiz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2000   10</code></pre>
+</div>
+</div>
+<p>dim fonksiyonu kullanarak, veri setinde 2000 satır ve 10 sütün olduğu görülüyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "FilmAdi"   "CikisYili" "Sure"      "IMDBPuan"  "MetaPuan"  "OySayisi" 
+ [7] "Tur"       "Yonetmen"  "Basrol"    "Hasilat"  </code></pre>
+</div>
+</div>
+<p>names fonksiyonu ile değişkenler inceleniyor.</p>
+</section>
+<section id="veri-kümesinin-yapısını-inceleme" class="level4">
+<h4 class="anchored" data-anchor-id="veri-kümesinin-yapısını-inceleme"><strong>Veri Kümesinin Yapısını İnceleme</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [2,000 × 10] (S3: tbl_df/tbl/data.frame)
+ $ FilmAdi  : chr [1:2000] "The Godfather" "The Godfather Part II" "Ordiry People" "Lawrence of Arabia" ...
+ $ CikisYili: num [1:2000] 1972 1974 1980 1962 1971 ...
+ $ Sure     : num [1:2000] 175 202 124 218 113 138 166 150 137 124 ...
+ $ IMDBPuan : num [1:2000] 9.2 9 7.7 8.3 7.4 7.6 8.5 7.7 8 7.8 ...
+ $ MetaPuan : num [1:2000] 100 90 86 100 73 90 82 73 96 80 ...
+ $ OySayisi : num [1:2000] 2002655 1358608 56476 313044 64331 ...
+ $ Tur      : chr [1:2000] "Suç, Dram" "Suç, Dram" "Dram" "Macera, Biyografi, Dram" ...
+ $ Yonetmen : chr [1:2000] "Francis Ford Coppola" "Francis Ford Coppola" "Robert Redford" "David Lean" ...
+ $ Basrol   : chr [1:2000] "Marlon Brando" "Al Pacino" "Dold Sutherland" "Peter O'Toole" ...
+ $ Hasilat  : chr [1:2000] "$134.97M" "$57.30M" "$54.80M" "$44.82M" ...</code></pre>
+</div>
+</div>
+<p>Veri seti, IMDB’nin en iyi 2000 filmi hakkında bilgiler içermektedir. Her bir film için film adı, çıkış yılı, süresi, IMDB puanı, Meta puanı, oy sayısı, türü, yönetmeni, başrol oyuncusu ve hasılat bilgileri bulunmaktadır.</p>
+<p>Değişken tiplerine bakıldığında <code>CikisYili</code>, <code>Sure</code>, <code>IMDBPuan</code>, <code>MetaPuan</code>, ve <code>OySayisi</code> değişkenlerinin numerik olduğu, diğer değişkenlerin ise karakter tipinde olduğu görülmektedir. <code>Hasilat</code> değişkeni karakter tipinde olduğundan analiz öncesinde bu değişkenin numerik formata dönüştürülmesi gerekecektir.</p>
+</section>
+<section id="değişkenler" class="level4">
+<h4 class="anchored" data-anchor-id="değişkenler"><strong>Değişkenler</strong></h4>
+<p>Veri setinde 2000 gözlem ve 10 değişken bulunmaktadır.</p>
+<ul>
+<li><code>FilmAdi</code>: Filmin adı (karakter dizisi)</li>
+<li><code>CikisYili</code>: Filmin çıkış yılı (sayısal)</li>
+<li><code>Sure</code>: Filmin süresi (sayısal)</li>
+<li><code>IMDBPuan</code>: Filmin IMDB puanı (sayısal)</li>
+<li><code>MetaPuan</code>: Filmin Metascore puanı (sayısal)</li>
+<li><code>OySayisi</code>: Film için oy kullanan kişi sayısı (sayısal)</li>
+<li><code>Tur</code>: Filmin türü/türleri (karakter dizisi)</li>
+<li><code>Yonetmen</code>: Filmin yönetmeni (karakter dizisi)</li>
+<li><code>Basrol</code>: Filmin başrol oyuncusu (karakter dizisi)</li>
+<li><code>Hasilat</code>: Filmin gişe hasılatı (karakter dizisi)</li>
+</ul>
+</section>
+<section id="veri-kümesindeki-değişkenlerin-özet-istatistikleri" class="level4">
+<h4 class="anchored" data-anchor-id="veri-kümesindeki-değişkenlerin-özet-istatistikleri"><strong>Veri Kümesindeki Değişkenlerin Özet İstatistikleri</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   FilmAdi            CikisYili         Sure          IMDBPuan    
+ Length:2000        Min.   :1921   Min.   : 50.0   Min.   :1.500  
+ Class :character   1st Qu.:1992   1st Qu.: 98.0   1st Qu.:6.400  
+ Mode  :character   Median :2001   Median :110.0   Median :7.000  
+                    Mean   :1996   Mean   :113.9   Mean   :6.923  
+                    3rd Qu.:2006   3rd Qu.:125.0   3rd Qu.:7.600  
+                    Max.   :2010   Max.   :271.0   Max.   :9.300  
+                                                                  
+    MetaPuan         OySayisi           Tur              Yonetmen        
+ Min.   :  9.00   Min.   :   1883   Length:2000        Length:2000       
+ 1st Qu.: 48.00   1st Qu.:  79098   Class :character   Class :character  
+ Median : 61.00   Median : 135312   Mode  :character   Mode  :character  
+ Mean   : 61.04   Mean   : 223895                                        
+ 3rd Qu.: 74.00   3rd Qu.: 252134                                        
+ Max.   :100.00   Max.   :2875249                                        
+ NA's   :81                                                              
+    Basrol            Hasilat         
+ Length:2000        Length:2000       
+ Class :character   Class :character  
+ Mode  :character   Mode  :character  
+                                      
+                                      
+                                      
+                                      </code></pre>
+</div>
+</div>
+<p>Bu çıktı, <code>filmler</code> veri setindeki değişkenlerin özet istatistiklerini göstermektedir.</p>
+</section>
+<section id="hasilat-değişkenini-numeric-hale-getirme" class="level4">
+<h4 class="anchored" data-anchor-id="hasilat-değişkenini-numeric-hale-getirme"><strong>“Hasilat” Değişkenini Numeric Hale Getirme</strong></h4>
+<p>İleri aşamalardaki analizler için “Hasilat” değişkeni sayısal hale getirilmelidir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>filmler <span class="ot">&lt;-</span> filmler <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Hasilat =</span> <span class="fu">gsub</span>(<span class="st">"M"</span>, <span class="st">"e6"</span>, Hasilat)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Hasilat =</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">$|</span><span class="sc">\\</span><span class="st">,"</span>, <span class="st">""</span>, Hasilat)) <span class="sc">%&gt;%</span>   </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Hasilat =</span> <span class="fu">as.numeric</span>(Hasilat))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="problemin-tanımı-ve-amaçlar" class="level2">
+<h2 class="anchored" data-anchor-id="problemin-tanımı-ve-amaçlar"><strong>2. Problemin Tanımı ve Amaçlar</strong></h2>
+<section id="problemin-tanımı" class="level4">
+<h4 class="anchored" data-anchor-id="problemin-tanımı"><strong>Problemin Tanımı</strong></h4>
+<p>Film endüstrisi, dünya genelinde milyarlarca dolarlık bir sektördür ve filmlerin başarısı, gişe hasılatı, eleştirel beğeni ve izleyici puanları gibi çeşitli faktörlerle ölçülür. Bu faktörleri etkileyen unsurları anlamak, hem film yapımcıları hem de izleyiciler için büyük önem taşır.</p>
+<p>Bu projede ele alınan problem, IMDB’nin En İyi 2000 Filmi veri seti üzerinden filmlerin IMDB puanlarını etkileyen faktörlerin belirlenmesidir. Bu problem, aşağıdaki sorulara yanıt aramayı amaçlar:</p>
+<ul>
+<li><p>Hangi film tü7 rleri daha yüksek IMDB puanları almaktadır?</p></li>
+<li><p>Belirli yönetmenlerin filmleri daha mı başarılıdır?</p></li>
+<li><p>Filmin süresi, çıkış yılı veya hasılatı IMDB puanını etkiliyor mu?</p></li>
+<li><p>IMDB puanı ile Metascore puanı arasında bir ilişki var mı?</p></li>
+</ul>
+</section>
+<section id="amaçlar" class="level4">
+<h4 class="anchored" data-anchor-id="amaçlar"><strong>Amaçlar</strong></h4>
+<p>Bu projenin temel amacı, IMDB puanlarını etkileyen faktörleri belirleyerek film endüstrisi için değerli bilgiler sağlamaktır. Bu bilgiler, aşağıdaki amaçlar için kullanılabilir:</p>
+<ul>
+<li><p><strong>Film yapımcıları:</strong> Hangi tür filmlerin, yönetmenlerin veya oyuncuların daha başarılı olduğunu anlayarak gelecekteki projelerini şekillendirebilirler.</p></li>
+<li><p><strong>İzleyiciler:</strong> Beğenebilecekleri filmleri seçerken daha bilinçli kararlar verebilirler.</p></li>
+<li><p><strong>Eleştirmenler:</strong> Film incelemelerini yaparken daha objektif kriterler kullanabilirler.</p></li>
+<li><p><strong>Akademisyenler:</strong> Film endüstrisi ve izleyici davranışları üzerine daha derinlemesine araştırmalar yapabilirler.</p></li>
+</ul>
+</section>
+</section>
+<section id="verilerin-toplanması" class="level2">
+<h2 class="anchored" data-anchor-id="verilerin-toplanması"><strong>3. Verilerin Toplanması</strong></h2>
+<p>Veri seti Kaggle’dan alınmıştır.</p>
+<p><strong>Kaynakça:</strong> Sawhney, P. (2023, November 22). <em>IMDb Dataset - Top 2000 Movies</em>. Kaggle. <a href="https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data" class="uri">https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data</a></p>
+<p>Verilerin nasıl toplandığına dair bilgi bulunmamaktadır.</p>
+</section>
+<section id="verilerin-yapısı-ve-niteliği" class="level2">
+<h2 class="anchored" data-anchor-id="verilerin-yapısı-ve-niteliği"><strong>4. Verilerin Yapısı ve Niteliği</strong></h2>
+<section id="analizde-kullanılmayacak-değişkenlerin-çıkarılması" class="level4">
+<h4 class="anchored" data-anchor-id="analizde-kullanılmayacak-değişkenlerin-çıkarılması"><strong>Analizde Kullanılmayacak Değişkenlerin Çıkarılması</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>filmler <span class="ot">&lt;-</span> <span class="fu">subset</span>(filmler, <span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(OySayisi, Basrol))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Analizde kullanılmayacak olan değişkenler çıkartılmıştır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "FilmAdi"   "CikisYili" "Sure"      "IMDBPuan"  "MetaPuan"  "Tur"      
+[7] "Yonetmen"  "Hasilat"  </code></pre>
+</div>
+</div>
+<p>colnames() fonksiyonu yardımıyla da gözlemlendiği üzere işlem başarılı olmuştur.</p>
+</section>
+<section id="aykırıuç-değerlerin-incelenmesi" class="level4">
+<h4 class="anchored" data-anchor-id="aykırıuç-değerlerin-incelenmesi"><strong>Aykırı/Uç Değerlerin İncelenmesi</strong></h4>
+<p><strong>Tanımlayıcı İstatistikler</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(filmler[, <span class="fu">c</span>(<span class="st">"CikisYili"</span>, <span class="st">"Sure"</span>, <span class="st">"IMDBPuan"</span>, <span class="st">"MetaPuan"</span>, <span class="st">"Hasilat"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   CikisYili         Sure          IMDBPuan        MetaPuan     
+ Min.   :1921   Min.   : 50.0   Min.   :1.500   Min.   :  9.00  
+ 1st Qu.:1992   1st Qu.: 98.0   1st Qu.:6.400   1st Qu.: 48.00  
+ Median :2001   Median :110.0   Median :7.000   Median : 61.00  
+ Mean   :1996   Mean   :113.9   Mean   :6.923   Mean   : 61.04  
+ 3rd Qu.:2006   3rd Qu.:125.0   3rd Qu.:7.600   3rd Qu.: 74.00  
+ Max.   :2010   Max.   :271.0   Max.   :9.300   Max.   :100.00  
+                                                NA's   :81      
+    Hasilat         
+ Min.   :        0  
+ 1st Qu.: 18220000  
+ Median : 44820000  
+ Mean   : 66186358  
+ 3rd Qu.: 87070000  
+ Max.   :760510000  
+ NA's   :97         </code></pre>
+</div>
+</div>
+<p>Sayısal değişkenlerin genel istatistikleri verilmiştir.</p>
+<p><strong>Sıklık Dağılımları</strong></p>
+<p>Çıkış yılı için sıklık tablosu</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(filmler<span class="sc">$</span>CikisYili)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+1921 1925 1926 1927 1931 1932 1933 1934 1936 1937 1939 1940 1941 1944 1945 1946 
+   1    1    1    1    2    1    1    1    1    1    4    3    2    2    1    3 
+1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 1963 
+   3    1    3    3    3    4    6    3    4    6    4    5    8    7    7    7 
+1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 
+   9    4    6    6   11    5    4   10    6   13    8    7    9    6    9   13 
+1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 
+  12   13   18   20   22   22   19   27   26   33   34   24   30   43   38   52 
+1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 
+  43   58   62   69   67   78   78   90  108  109  125  131  127  130   66 </code></pre>
+</div>
+</div>
+<p>Bu sıklık dağılımı, film çıkış yıllarının zaman içindeki değişimini ve genel trendleri açıkça göstermektedir.</p>
+<p><strong>Artan Üretim:</strong> Genel olarak, 20. yüzyılın başlarından itibaren film çıkış sayılarında düzenli bir artış gözlenmektedir. Özellikle 1980’lerden sonra, film endüstrisinin büyük bir genişleme yaşadığı söylenebilir. Değişkenlerdeki aykırı değerler incelendiğinde hatalı ölçümlere rastlanmadığı, bu yüzden ayıklama işlemine gerek olmadığı görülmüştür.</p>
+<p><strong>IMDB puanı için Histogram grafiği</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">hist</span>(filmler<span class="sc">$</span>IMDBPuan,</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"IMDB Puan Dağılımı"</span>,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a> <span class="at">xlab =</span> <span class="st">"IMDB Puanı"</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a> <span class="at">ylab =</span> <span class="st">"Frekans"</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a> <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a> <span class="at">border =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafikte 2 ile 4 arasındaki puan aralığında küçük bir grup uç değer var gibi görünüyor. Bu uç değerler, büyük çoğunluğun 6 ile 8 arasında olduğu göz önüne alındığında, IMDb puan dağılımında önemli ölçüde düşük. (EKSİK)</p>
+<p><strong>Süre için histogram</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(filmler<span class="sc">$</span>Sure, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">main =</span> <span class="st">"Surelere Gore Film Sayısı"</span>, <span class="at">xlab =</span> <span class="st">"Sure (dakika)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Aykırı Değerler: 180 dakikanın üzerindeki film süreleri, genel dağılımdan uzaklaştıkları için aykırı değer olarak kabul edilebilir. Bu filmler, diğerlerine göre daha uzun süreye sahip oldukları için dikkat çekicidir.</p>
+<p>Uç Değerler: Hem 50-60 dakika arasındaki kısa filmler hem de 200 dakika ve üzeri uzun filmler, uç değer olarak kabul edilebilir. Bu filmler, veri setinin uç noktalarında yer aldıkları için diğerlerinden belirgin şekilde farklılık gösterirler.</p>
+<p>Aykırı ve uç değerlerin varlığı, film sürelerinin çeşitlilik gösterdiğini ve bazı filmlerin alışılmışın dışında uzun veya kısa olabileceğini göstermektedir.</p>
+<p><strong>Çıkış yılı için yoğunluk grafiği</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(filmler<span class="sc">$</span>CikisYili),</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="at">main =</span> <span class="st">"Cikis yılı Yoğunluk Dağılımı"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"Cikis yılı"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a> <span class="at">ylab =</span> <span class="st">"Yoğunluk"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a> <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafikte, 1920’lerden 1980’lere kadar olan yıllarda, yoğunluk diğer yıllara göre oldukça düşük. Bu, bu dönemde daha az film yapıldığını veya veri setinde bu dönemdeki filmlerle ilgili eksiklik olduğunu gösteriyor olabilir.</p>
+<p><strong>Meta puanı için kutu grafiği</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(filmler<span class="sc">$</span>MetaPuan,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"Meta Puan Dağılımı"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a> <span class="at">ylab =</span> <span class="st">"Meta Puanı"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a> <span class="at">col =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a> <span class="at">border =</span> <span class="st">"darkblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bu kutu grafiğinde, yaklaşık 100 olan bir üst uç değer gözüküyor. Bu, diğer filmlere göre önemli ölçüde daha yüksek bir Meta puanına sahip olan bir film olduğunu gösteriyor.</p>
+<p><strong>Süre için Q-Q grafiği</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(filmler<span class="sc">$</span>Sure,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"Sure Q-Q Grafiği"</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a> <span class="at">ylab =</span> <span class="st">"Puan"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">qqline</span>(filmler<span class="sc">$</span>Sure, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Q-Q grafiğinde, noktaların kırmızı çizgiye göre dağılımı, özellikle sağ uçta, normal dağılımdan sapıyor. Bu, verilerde bazı uç değerlerin olduğunu gösterebilir.</p>
+</section>
+<section id="eksik-gözlemlerin-varlığının-kontrolü" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-varlığının-kontrolü"><strong>Eksik Gözlemlerin Varlığının Kontrolü</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(filmler))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Bu veride eksik değerler vardır.</p>
+</section>
+<section id="eksik-gözlemlerin-sayısı" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-sayısı"><strong>Eksik Gözlemlerin Sayısı</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(filmler))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 178</code></pre>
+</div>
+</div>
+<p>Bu veride toplam 178 eksik değer vardır.</p>
+</section>
+<section id="eksik-gözlemlerin-hangi-sütunlarda-olduğunu-bulma" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-hangi-sütunlarda-olduğunu-bulma"><strong>Eksik Gözlemlerin Hangi Sütunlarda Olduğunu Bulma</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>eksik_degerler <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(filmler))</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>eksik_deger_yuzdeleri <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(<span class="fu">is.na</span>(filmler)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(eksik_degerler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FilmAdi CikisYili      Sure  IMDBPuan  MetaPuan       Tur  Yonetmen   Hasilat 
+        0         0         0         0        81         0         0        97 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(eksik_deger_yuzdeleri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FilmAdi CikisYili      Sure  IMDBPuan  MetaPuan       Tur  Yonetmen   Hasilat 
+     0.00      0.00      0.00      0.00      4.05      0.00      0.00      4.85 </code></pre>
+</div>
+</div>
+<p>Bu çıktı, veri setindeki eksik değerlerin (NA) sayısını ve yüzdesini göstermektedir. İlk satırda her bir değişken için eksik değer sayısı, ikinci satırda ise eksik değer yüzdesi verilmiştir. Örneğin, <code>MetaPuan</code> değişkeninde 81 tane eksik değer bulunmaktadır ve bu veri setinin %4.05’ine denk gelmektedir. <code>Hasilat</code> değişkeninde ise 97 tane eksik değer bulunmaktadır ve bu veri setinin %4.85’ine denk gelmektedir.</p>
+</section>
+<section id="hangi-sütunlarda-eksik-gözlem-olduğunu-listeleme" class="level4">
+<h4 class="anchored" data-anchor-id="hangi-sütunlarda-eksik-gözlem-olduğunu-listeleme"><strong>Hangi Sütunlarda Eksik Gözlem Olduğunu Listeleme</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(filmler)) {</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">is.na</span>(filmler[[i]]))) {</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Sutun"</span>, <span class="fu">names</span>(filmler)[i], <span class="st">"satırlarda eksik degerler var:"</span>, <span class="fu">which</span>(<span class="fu">is.na</span>(filmler[[i]])), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sutun MetaPuan satırlarda eksik degerler var: 29 46 72 91 114 163 170 172 175 180 181 208 210 211 213 471 545 553 570 577 604 652 657 671 683 686 697 713 749 753 863 876 919 921 941 947 953 967 1000 1148 1194 1362 1415 1419 1420 1428 1437 1493 1496 1557 1596 1601 1603 1644 1658 1671 1672 1679 1682 1688 1691 1701 1726 1737 1738 1739 1818 1833 1857 1860 1891 1893 1895 1910 1928 1932 1934 1941 1944 1947 1952 
+Sutun Hasilat satırlarda eksik degerler var: 5 9 17 18 29 43 44 49 54 55 67 72 80 81 91 99 100 103 113 136 137 141 145 147 154 164 167 171 173 177 180 185 194 196 200 201 204 210 219 230 231 234 237 240 245 464 570 667 753 919 935 936 941 947 953 1000 1148 1194 1362 1415 1428 1437 1481 1493 1496 1557 1572 1601 1603 1644 1658 1671 1672 1679 1682 1688 1691 1701 1726 1737 1738 1739 1818 1833 1860 1869 1891 1893 1910 1928 1932 1934 1941 1944 1947 1982 1988 </code></pre>
+</div>
+</div>
+<p>Bu çıktıda eksik gözlemlerin hangi sütunlarda olduğu bulunmuştur.</p>
+</section>
+<section id="eksik-gözlemlerin-görselleştirilmesi" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-görselleştirilmesi"><strong>Eksik gözlemlerin görselleştirilmesi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'naniar' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(filmler) <span class="sc">+</span> </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eksik Deger Sayıları"</span>,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Degişkenler"</span>,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Eksik Deger Sayısı"</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Eksik değerlerin hangi değişkenlerde kaç tane olduğu grafikte gösterilmiştir.</p>
+</section>
+<section id="hangi-değişkende-kaç-eksik-gözlem-var" class="level4">
+<h4 class="anchored" data-anchor-id="hangi-değişkende-kaç-eksik-gözlem-var"><strong>Hangi Değişkende Kaç Eksik Gözlem Var?</strong></h4>
+<p><strong>Metapuan değişkenindeki eksik gözlem sayısı</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>eksik_metapuan <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(filmler<span class="sc">$</span>MetaPuan))</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(eksik_metapuan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81</code></pre>
+</div>
+</div>
+<p>“MetaPuan” değişkeninde toplam 81 eksik gözlem var.</p>
+<p><strong>Hasılat değişkenindeki eksik gözlem sayısı</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>eksik_hasilat <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(filmler<span class="sc">$</span>Hasilat))</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(eksik_hasilat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 97</code></pre>
+</div>
+</div>
+<p>“Hasilat” değişkeninde toplam 97 eksik gözlem var.</p>
+</section>
+<section id="eksik-gözlemlerin-görselleştirilmesi-2" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-görselleştirilmesi-2"><strong>Eksik Gözlemlerin Görselleştirilmesi 2</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggr</span>(filmler, </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">prop =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">numbers =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.axis =</span> <span class="fl">0.7</span>, </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">gap =</span> <span class="dv">3</span>, </span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">"Eksik Degerlerin Frekansı"</span>, <span class="st">"Eksik Degerler Grafiği"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafik, veri kümesindeki eksik değerlerin dağılımını göstermektedir. Sol taraftaki sütun grafiği, her bir değişkendeki eksik değer sayısını belirtirken, sağ taraftaki matris, farklı değişken kombinasyonlarında kaç eksik değer olduğunu gösterir. “Hasılat” değişkeninde en fazla eksik değer bulunmaktadır ve bu eksik değerler, diğer değişkenlerle kombinasyon halinde de mevcuttur.</p>
+</section>
+<section id="eksik-gözlemlerin-görselleştirilmesi-3" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-görselleştirilmesi-3"><strong>Eksik Gözlemlerin Görselleştirilmesi 3</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md.pattern</span>(filmler)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     FilmAdi CikisYili Sure IMDBPuan Tur Yonetmen MetaPuan Hasilat    
+1870       1         1    1        1   1        1        1       1   0
+49         1         1    1        1   1        1        1       0   1
+33         1         1    1        1   1        1        0       1   1
+48         1         1    1        1   1        1        0       0   2
+           0         0    0        0   0        0       81      97 178</code></pre>
+</div>
+</div>
+<p>Bu grafik, veri kümesindeki eksik değerlerin dağılımını gösteriyor:</p>
+<ul>
+<li><p><strong>“MetaPuan”</strong>: 81 eksik değer var.</p></li>
+<li><p><strong>“Hasılat”</strong>: 97 eksik değer var.</p></li>
+<li><p><strong>Diğer Değişkenler</strong>: Eksik değer yok.</p></li>
+</ul>
+</section>
+<section id="eksik-gözlemlerin-görselleştirilmesi-4" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-gözlemlerin-görselleştirilmesi-4"><strong>Eksik Gözlemlerin Görselleştirilmesi 4</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(filmler) <span class="sc">+</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Veri Setindeki Eksik Degerlerin Gorselleştirilmesi"</span>,</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Degişkenler"</span>) <span class="sc">+</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span> </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Eksik Deger Durumu"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Tam"</span>, <span class="st">"Eksik"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for fill is already present.
+Adding another scale for fill, which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Burada eksik gözlemlerin oranlarının görselleştirilmesi görülmektedir. Buna göre “MetaPuan” değişkeninin %4’ü “Hasilat” değişkeninin ise %5’i eksik gözlemdir. Diğer değişkenlerde eksik gözlem yoktur.</p>
+</section>
+<section id="eksik-değerleri-doldurma" class="level4">
+<h4 class="anchored" data-anchor-id="eksik-değerleri-doldurma"><strong>Eksik Değerleri Doldurma</strong></h4>
+<ul>
+<li><strong>KNN (K En Yakın Komşu) İle Doldurma</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VIM)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>filmler <span class="ot">&lt;-</span> <span class="fu">kNN</span>(filmler, <span class="at">k =</span> <span class="dv">5</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(filmler))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      FilmAdi     CikisYili          Sure      IMDBPuan      MetaPuan 
+            0             0             0             0             0 
+          Tur      Yonetmen       Hasilat   FilmAdi_imp CikisYili_imp 
+            0             0             0             0             0 
+     Sure_imp  IMDBPuan_imp  MetaPuan_imp       Tur_imp  Yonetmen_imp 
+            0             0             0             0             0 
+  Hasilat_imp 
+            0 </code></pre>
+</div>
+</div>
+<p>Eksik gözlemler KNN yöntemiyle doldurulmuştur. Kontrol yapınca hiçbir eksik gözlem kalmadığı görülmektedir. KNN, eksik değerlere en yakın komşularının değerlerine bakarak tahmin yapar. Veri setindeki benzerlik yapısını korur.</p>
+</section>
+</section>
+<section id="eğitim-ve-test-veri-kümelerinin-oluşturulması" class="level2">
+<h2 class="anchored" data-anchor-id="eğitim-ve-test-veri-kümelerinin-oluşturulması"><strong>5. Eğitim ve Test Veri Kümelerinin Oluşturulması</strong></h2>
+<section id="veri-setini-eğitim-ve-test-kümelerine-ayırma-80-eğitim-20-test" class="level4">
+<h4 class="anchored" data-anchor-id="veri-setini-eğitim-ve-test-kümelerine-ayırma-80-eğitim-20-test"><strong>Veri Setini Eğitim ve Test Kümelerine Ayırma (%80 eğitim, %20 test)</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>egitim_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(filmler), <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">nrow</span>(filmler))</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>egitim_veri <span class="ot">&lt;-</span> filmler[egitim_index, ]</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>test_veri <span class="ot">&lt;-</span> filmler[<span class="sc">-</span>egitim_index, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Veri seti %80 eğitim %20 test şekilde bölünmüştür. Bu adımdan sonra, geçerlilik adımına kadar yapılacak tüm işlemler, eğitim veri kümesi üzerinden gerçekleştirilecektir.</p>
+</section>
+<section id="gösterge-değişkenlerin-oluşturulması" class="level4">
+<h4 class="anchored" data-anchor-id="gösterge-değişkenlerin-oluşturulması"><strong>Gösterge Değişkenlerin Oluşturulması</strong></h4>
+<p>2000 ve sonrası çıkan filmler için 1, diğerleri için 0 şeklinde gösterge değişken oluşturulacaktır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>filmler<span class="sc">$</span>yeni_film <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(filmler<span class="sc">$</span>CikisYili <span class="sc">&gt;=</span> <span class="dv">2000</span>, <span class="dv">1</span>, <span class="dv">0</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Buna göre “yeni_film” değişkeni altında 2000 sonrası çıkan filmler 1, diğerleri 0 şeklinde kodlanarak gösterge değişken oluşturulmuştur.</p>
+</section>
+<section id="nicel-değişkeni-kategorize-etme" class="level4">
+<h4 class="anchored" data-anchor-id="nicel-değişkeni-kategorize-etme"><strong>Nicel Değişkeni Kategorize Etme</strong></h4>
+<p><strong>Hasilat değişkenini kategorilere ayırma</strong></p>
+<p>“Hasilat” değişkeninde çok büyük değerler olduğu için kategorilere ayrılması analiz için daha iyi olacaktır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>kategoriler <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cok Dusuk"</span>, <span class="st">"Dusuk"</span>, <span class="st">"Orta"</span>, <span class="st">"Yuksek"</span>, <span class="st">"Cok Yuksek"</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>kesme_noktalari <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20000000</span>, <span class="dv">50000000</span>, <span class="dv">80000000</span>, <span class="dv">100000000</span>, <span class="cn">Inf</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>Hasilat <span class="ot">&lt;-</span> <span class="fu">cut</span>(egitim_veri<span class="sc">$</span>Hasilat, <span class="at">breaks =</span> kesme_noktalari, <span class="at">labels =</span> kategoriler, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(egitim_veri<span class="sc">$</span>Hasilat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Cok Dusuk      Dusuk       Orta     Yuksek Cok Yuksek 
+       426        440        304         97        333 </code></pre>
+</div>
+</div>
+<p>Bu şekilde “Hasilat” değişkeni 5 ayrı alt gruba bölünerek kategorize edilmiştir.</p>
+</section>
+<section id="türetilmiş-değişken-oluşturma" class="level4">
+<h4 class="anchored" data-anchor-id="türetilmiş-değişken-oluşturma"><strong>Türetilmiş Değişken Oluşturma</strong></h4>
+<p><strong>IMDBPuan ile MetaPuan arasındaki farkı hesaplama</strong></p>
+<p>Öncelikle MetaPuan 10’luk sistemde yazılmalı.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>MetaPuan_10 <span class="ot">&lt;-</span> egitim_veri<span class="sc">$</span>MetaPuan <span class="sc">/</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ardından IMDBPuan ile MetaPuan arasındaki farkı tanımlayan PuanFarki adlı bir değişken oluşturulur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>PuanFarki <span class="ot">&lt;-</span> egitim_veri<span class="sc">$</span>IMDBPuan <span class="sc">-</span> egitim_veri<span class="sc">$</span>MetaPuan_10</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(egitim_veri<span class="sc">$</span>PuanFarki)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1.6  0.1 -0.9  2.8  2.2  0.0</code></pre>
+</div>
+</div>
+<p>Bu sayede “IMDBPuan” ile “MetaPuan” arasındaki farkı “PuanFarki” adlı türetilmiş yeni bir değişkene yazdırdık.</p>
+<p><strong>MetaPuan ile IMDBPuan ortalamasını hesaplama</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>OrtalamaPuan <span class="ot">&lt;-</span> (egitim_veri<span class="sc">$</span>IMDBPuan<span class="sc">*</span><span class="dv">10</span> <span class="sc">+</span> egitim_veri<span class="sc">$</span>MetaPuan) <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>filmlerin ortalama aldığı puanı yüz üzerinden değerlendirme yapmak için IMDBPuanını 10 ile çarpılmıştır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(egitim_veri<span class="sc">$</span>OrtalamaPuan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 58.0 60.5 85.5 56.0 69.0 72.0</code></pre>
+</div>
+</div>
+<p>görüldüğü üzere işlem başarılı bir şeklide gerçekleştirilmiş.</p>
+</section>
+</section>
+<section id="verilerin-açıklayıcıkeşfedici-çözümlemesi" class="level2">
+<h2 class="anchored" data-anchor-id="verilerin-açıklayıcıkeşfedici-çözümlemesi"><strong>6. Verilerin Açıklayıcı/Keşfedici Çözümlemesi</strong></h2>
+<section id="gerekli-kütüphanelerin-indirilmesi" class="level4">
+<h4 class="anchored" data-anchor-id="gerekli-kütüphanelerin-indirilmesi"><strong>Gerekli Kütüphanelerin İndirilmesi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'corrplot' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>corrplot 0.95 loaded</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sm)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'interactions' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aplpack)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="imdbpuanı-için-histogram-grafiği-oluşturma" class="level4">
+<h4 class="anchored" data-anchor-id="imdbpuanı-için-histogram-grafiği-oluşturma"><strong>IMDBPuanı İçin Histogram Grafiği Oluşturma</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(egitim_veri, <span class="fu">aes</span>(<span class="at">x =</span> IMDBPuan)) <span class="sc">+</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"IMDB puanı"</span>, <span class="at">x =</span> <span class="st">"Puan"</span>, <span class="at">y =</span> <span class="st">"Gozlem sayısı"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Histogram, puanların 7 civarında yoğunlaştığını ve 6 ile 8 arasında zirveye ulaştığını gösteriyor. Puanlar 6’dan düşük veya 8’den yüksek olduğunda gözlem sayısı hızla azalıyor. Bu, filmlerin çoğunun ortalama puana sahip olduğunu ve çok düşük veya çok yüksek puan alan filmlerin az olduğunu gösteriyor.</p>
+<p><strong>Sonuçlar:</strong></p>
+<ul>
+<li><p>Ortalama: Puanlar 7 civarında yoğunlaşıyor.</p></li>
+<li><p>Varyans: Puan dağılımı düşük varyans gösteriyor, yani puanlar benzer.</p></li>
+<li><p>Çarpıklık: Histogram hafifçe sağa çarpık, yani daha fazla film 7’den düşük puan alıyor ve yüksek puan alan film sayısı az.</p></li>
+</ul>
+<p><strong>MetaPuanı için Kutu Grafiği Oluşturma</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(egitim_veri<span class="sc">$</span>MetaPuan, <span class="at">main =</span> <span class="st">"MetaPuanı Kutu Grafiği"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kutu grafiğinden şu çıkarımlar yapılabilir:</p>
+<ul>
+<li><p><strong>Medyan:</strong> Grafikteki ortadaki çizgi, medyanın yaklaşık 60 olduğunu gösterir.</p></li>
+<li><p><strong>Çeyreklikler:</strong> Kutu kenarları, ilk ve üçüncü çeyrekleri gösterir; bunlar yaklaşık 50 ve 70’tir.</p></li>
+<li><p><strong>Çeyrekler Arası Aralık (IQR):</strong> Kutunun yüksekliği yaklaşık 20’dir, verilerin ne kadar sıkı paketlendiğini gösterir.</p></li>
+<li><p><strong>Aykırı Değerler:</strong> Grafikteki uç çizgiler, 10’un altındaki ve 100’ün üzerindeki aykırı değerleri gösterir.</p></li>
+</ul>
+<p>Bu kutu grafiği, filmlerin çoğunun 50 ile 70 arasında puan aldığını, medyanın 60 olduğunu ve bazı aykırı değerlerin bulunduğunu gösterir.</p>
+</section>
+<section id="süre-için-keman-grafiği-oluşturma" class="level4">
+<h4 class="anchored" data-anchor-id="süre-için-keman-grafiği-oluşturma"><strong>Süre için Keman Grafiği Oluşturma</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(egitim_veri, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">y=</span>Sure)) <span class="sc">+</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Keman Grafiği"</span>, <span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Sure"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Keman grafiğinden şu çıkarımlar yapılabilir:</p>
+<ul>
+<li><p><strong>Ortalama:</strong> Kemanın en geniş noktası, ortalama sürenin yaklaşık 100 dakika olduğunu gösterir. Bu, filmlerin çoğunun 100 dakika civarında sürdüğü anlamına gelir.</p></li>
+<li><p><strong>Varyans:</strong> Kemanın şekli, sürede bir miktar varyans olduğunu gösterir. Kemanın dar kısmı, sürenin 100 dakikaya yakın yoğunlaştığını, daha geniş kısımlar ise filmlerin daha kısa veya daha uzun sürebildiğini belirtir.</p></li>
+<li><p><strong>Çarpıklık:</strong> Keman hafifçe sağa çarpık görünmektedir, bu da bazı filmlerin daha uzun sürdüğünü gösterir.</p></li>
+</ul>
+<p>Bu sonuçlar, filmlerin süresinin genellikle 100 dakika civarında yoğunlaştığını, ancak bazı filmlerin daha kısa veya daha uzun sürebildiğini ve birkaç filmin daha uzun sürdüğünü göstermektedir.</p>
+</section>
+<section id="klasik-saçılım-matrisi-scatterplotmatrix" class="level4">
+<h4 class="anchored" data-anchor-id="klasik-saçılım-matrisi-scatterplotmatrix"><strong>Klasik Saçılım Matrisi (ScatterplotMatrix)</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>sayisal_degiskenler<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"IMDBPuan"</span>, <span class="st">"MetaPuan"</span>,<span class="st">"Sure"</span>,<span class="st">"CikisYili"</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(egitim_veri[, sayisal_degiskenler], <span class="at">main=</span> <span class="st">"Klasik Sacilim Matrisi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Saçılım matrisinden çıkarılan bazı gözlemler:</p>
+<ul>
+<li><p><strong>IMDb Puanı ve MetaPuan:</strong> İki puan sistemi arasında güçlü pozitif bir ilişki var, yani yüksek IMDb puanı alan filmler genellikle Metapuan’da da yüksek puan alıyor.</p></li>
+<li><p><strong>IMDb Puanı ve Süre:</strong> Aralarında belirgin bir ilişki yok, yani filmlerin süresi IMDb puanını etkilemiyor.</p></li>
+<li><p><strong>IMDb Puanı ve Çıkış Yılı:</strong> Zayıf bir negatif ilişki var, yani eski filmler genellikle daha düşük IMDb puanına sahip olma eğiliminde, ancak bu ilişki çok zayıf.</p></li>
+<li><p><strong>MetaPuan ve Süre:</strong> Aralarında belirgin bir ilişki yok, yani filmlerin süresi Metapuan’ı etkilemiyor.</p></li>
+<li><p><strong>MetaPuan ve Çıkış Yılı:</strong> Belirgin bir ilişki yok, yani filmlerin çıkış yılı Metapuan’ı etkilemiyor.</p></li>
+<li><p><strong>Süre ve Çıkış Yılı:</strong> Zayıf bir negatif ilişki var, yani eski filmler daha kısa olma eğiliminde, ancak bu ilişki çok zayıf.</p></li>
+</ul>
+<p>Genel olarak, iki puan sistemi arasında güçlü bir ilişki bulunurken, diğer değişkenler ile puanlar arasında daha zayıf ilişkiler mevcut</p>
+</section>
+<section id="düzleştirilmiş-saçılım-matrisi-smoothed-scatterplot-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="düzleştirilmiş-saçılım-matrisi-smoothed-scatterplot-matrix"><strong>Düzleştirilmiş Saçılım Matrisi (Smoothed Scatterplot Matrix)</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(egitim_veri[, sayisal_degiskenler],</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"Düzleştirilmiş Saçılım Matrisi"</span>,</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a> <span class="at">ellipses =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Düzleştirilmiş saçılım matrisinden çıkarılan bazı gözlemler:</p>
+<ul>
+<li><p><strong>IMDb Puanı ve Meta Puanı:</strong> Güçlü pozitif doğrusal ilişki (korelasyon katsayısı 0,73). Yüksek IMDb puanı alan filmler genellikle yüksek Meta puan alıyor.</p></li>
+<li><p><strong>IMDb Puanı ve Süre:</strong> Zayıf doğrusal ilişki (korelasyon katsayısı 0,23). Filmlerin süresi IMDb puanını fazla etkilemiyor.</p></li>
+<li><p><strong>IMDb Puanı ve Çıkış Yılı:</strong> Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,39). Eski filmler genellikle daha düşük IMDb puanına sahip.</p></li>
+<li><p><strong>Meta Puanı ve Süre:</strong> Çok zayıf doğrusal ilişki (korelasyon katsayısı -0,14). Filmlerin süresi Meta puanını fazla etkilemiyor.</p></li>
+<li><p><strong>Meta Puanı ve Çıkış Yılı:</strong> Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,43). Eski filmler genellikle daha düşük Meta puanına sahip.</p></li>
+<li><p><strong>Süre ve Çıkış Yılı:</strong> Çok zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,14). Eski filmler genellikle daha kısa süreli.</p></li>
+</ul>
+<p>Genel olarak, iki puan sistemi arasında güçlü bir ilişki bulunurken, diğer değişkenler ile puanlar arasında daha zayıf ilişkiler var.</p>
+</section>
+<section id="gelişmiş-saçılım-matrisi" class="level4">
+<h4 class="anchored" data-anchor-id="gelişmiş-saçılım-matrisi"><strong>Gelişmiş Saçılım Matrisi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(egitim_veri, <span class="at">columns =</span> sayisal_degiskenler, <span class="at">title =</span> <span class="st">"Gelişmiş Saçılım Matrisi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>İşte gelişmiş saçılım matrisinden çıkarılan bazı gözlemler:</p>
+<ul>
+<li><p><strong>IMDb Puanı ve Meta Puanı:</strong> Güçlü pozitif doğrusal ilişki (korelasyon katsayısı 0,729). Yüksek IMDb puanı alan filmler genellikle Meta puanında da yüksek puan alır. Saçılım diyagramında noktalar doğrusal bir eğriye yakın dağılmıştır.</p></li>
+<li><p><strong>IMDb Puanı ve Süre:</strong> Zayıf doğrusal ilişki (korelasyon katsayısı 0,233). Filmlerin süresi IMDb puanını fazla etkilemez. Saçılım diyagramında noktalar dağınık dağılmıştır.</p></li>
+<li><p><strong>IMDb Puanı ve Çıkış Yılı:</strong> Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,387). Eski filmler genellikle daha düşük IMDb puanına sahiptir.</p></li>
+<li><p><strong>Meta Puanı ve Süre:</strong> Çok zayıf doğrusal ilişki (korelasyon katsayısı -0,143). Filmlerin süresi Meta puanını etkilemez. Saçılım diyagramında noktalar dağınıktır.</p></li>
+<li><p><strong>Meta Puanı ve Çıkış Yılı:</strong> Zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,434). Eski filmler genellikle daha düşük Meta puanına sahiptir.</p></li>
+<li><p><strong>Süre ve Çıkış Yılı:</strong> Çok zayıf negatif doğrusal ilişki (korelasyon katsayısı -0,143). Eski filmler genellikle daha kısa sürelidir, ancak bu ilişki çok zayıftır.</p></li>
+</ul>
+<p>Genel olarak, gelişmiş saçılım matrisi, değişkenler arasındaki ilişkilerin daha ayrıntılı bir resmini sunar ve korelasyon katsayıları bu ilişkilerin gücünü ve yönünü gösterir.</p>
+</section>
+<section id="korelasyon-matrisi" class="level4">
+<h4 class="anchored" data-anchor-id="korelasyon-matrisi"><strong>Korelasyon Matrisi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(egitim_veri[, sayisal_degiskenler], <span class="at">use =</span> <span class="st">"complete.obs"</span>)  </span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bu çıktı, bir film veri setindeki Çıkış Yılı, Süre, IMDb Puanı ve Meta Puanı arasındaki ilişkileri gösteren bir korelasyon matrisidir.</p>
+<p><strong>Anahtar Bulgular:</strong></p>
+<ul>
+<li><p><strong>Çıkış Yılı ve Süre:</strong> Negatif korelasyon (-0.14). Zaman içinde filmler biraz daha kısalma eğilimindedir.</p></li>
+<li><p><strong>Çıkış Yılı ve IMDb/Meta Puan:</strong> Negatif korelasyonlar (-0.39 ve -0.43). Daha eski filmler genellikle daha yüksek puanlara sahiptir.</p></li>
+<li><p><strong>Süre ve IMDb/Meta Puan:</strong> Pozitif korelasyonlar (0.33 ve 0.23). Daha uzun filmler biraz daha yüksek puan alma eğilimindedir.</p></li>
+<li><p><strong>IMDb Puanı ve Meta Puanı:</strong> Güçlü pozitif korelasyon (0.73). İki puan türü genellikle benzer eğilimlere sahiptir; biri yüksekse diğeri de yüksek olma olasılığı yüksektir.</p></li>
+</ul>
+<p><strong>Sonuç:</strong></p>
+<p>Bu korelasyon matrisi, film veri setindeki değişkenler arasındaki ilişkiler hakkında önemli bilgiler sağlar. Özellikle, IMDb ve Meta puanları arasındaki güçlü pozitif korelasyon, bu iki puan türünün benzer ölçütler olduğunu gösterir. Ayrıca, çıkış yılı ile puanlar arasındaki negatif korelasyon, zaman içinde film değerlendirmelerinde değişim olduğunu düşündürür.</p>
+</section>
+<section id="belirli-yönetmenlerin-filmleri-daha-mı-başarılıdır" class="level4">
+<h4 class="anchored" data-anchor-id="belirli-yönetmenlerin-filmleri-daha-mı-başarılıdır"><strong>Belirli yönetmenlerin filmleri daha mı başarılıdır?</strong></h4>
+<p>En İyi 10 Yönetmenin Ortalama IMDB Puanları</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>top_yonetmenler <span class="ot">&lt;-</span> egitim_veri <span class="sc">%&gt;%</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Yonetmen) <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Ortalama_IMDB =</span> <span class="fu">mean</span>(IMDBPuan, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">Film_Sayisi =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ortalama_IMDB)) <span class="sc">%&gt;%</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nokta Grafiği</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_yonetmenler, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Yonetmen, <span class="sc">-</span>Ortalama_IMDB), <span class="at">y =</span> Ortalama_IMDB)) <span class="sc">+</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"En iyi 10 Yonetmen (Ortalama IMDB Puanına Gore)"</span>, <span class="at">x =</span> <span class="st">"Yonetmen"</span>, <span class="at">y =</span> <span class="st">"Ortalama IMDB Puanı"</span>) <span class="sc">+</span></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bu grafik, en yüksek ortalama IMDb puanına sahip ilk 10 yönetmeni göstermektedir. Grafik, yatay eksende yönetmenlerin isimlerini, dikey eksende ise ortalama IMDb puanlarını içermektedir. Grafikte görülen noktalar, her bir yönetmenin ortalama IMDb puanını temsil ediyor.</p>
+<p>Roberto Benigni en yüksek ortalama IMDb puanına sahip yönetmendir.</p>
+</section>
+<section id="lolipop-grafiği" class="level4">
+<h4 class="anchored" data-anchor-id="lolipop-grafiği"><strong>Lolipop Grafiği</strong></h4>
+<p>En sık görülen 10 türün ve 10 yönetmenin IMDB puanları</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>top_turler <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(egitim_veri<span class="sc">$</span>Tur), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>top_yonetmenler <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(egitim_veri<span class="sc">$</span>Yonetmen), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(egitim_veri[egitim_veri<span class="sc">$</span>Tur <span class="sc">%in%</span> top_turler, ], <span class="fu">aes</span>(<span class="at">x =</span> Tur, <span class="at">y =</span> IMDBPuan)) <span class="sc">+</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> Tur, <span class="at">yend =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"En Sık Gorulen 10 Turun IMDB Puanları"</span>, <span class="at">x =</span> <span class="st">"Tur"</span>, <span class="at">y =</span> <span class="st">"IMDB Puanı"</span>) <span class="sc">+</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafik, en sık görülen 10 film türünün IMDB puanlarının dağılımını göstermektedir. Öne çıkan noktalar:</p>
+<ul>
+<li><p><strong>Aksiyon, Macera, Bilim Kurgu</strong> ve <strong>Dram</strong> türlerinde puanlar geniş bir aralığa yayılmış, ancak genelde 5-8 arasında yoğunlaşmış.</p></li>
+<li><p><strong>Animasyon, Macera, Komedi</strong> ve <strong>Komedi, Romantik</strong> türleri genellikle daha yüksek puanlar almış ve 6-8 aralığında yoğunlaşmış.</p></li>
+<li><p><strong>Dram, Romantik</strong>, <strong>Komedi</strong>, <strong>Komedi, Dram</strong> ve <strong>Suç, Dram, Gerilim</strong> türleri de genelde 5-8 puan aralığında yoğunlaşmış.</p></li>
+</ul>
+<p>Genel olarak, film türlerinin çoğunda puanların 5-8 aralığında yoğunlaştığı görülmektedir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(egitim_veri[egitim_veri<span class="sc">$</span>Yonetmen <span class="sc">%in%</span> top_yonetmenler, ], <span class="fu">aes</span>(<span class="at">x =</span> Yonetmen, <span class="at">y =</span> IMDBPuan)) <span class="sc">+</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> Yonetmen, <span class="at">yend =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"En Sık Gorulen 10 Yonetmenin IMDB Puanları"</span>, <span class="at">x =</span> <span class="st">"Yonetmen"</span>, <span class="at">y =</span> <span class="st">"IMDB Puanı"</span>) <span class="sc">+</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bu grafik, en sık görülen 10 yönetmenin IMDB puanlarını göstermektedir. Her yönetmenin filmlerinin IMDB puanları, yönetmenin isminin altında dikey olarak dağılmıştır.</p>
+<p><strong>Temel Gözlemler:</strong></p>
+<ul>
+<li><p><strong>Puan Dağılımı:</strong> Çoğu yönetmenin filmlerinin IMDB puanları 5.0 ile 8.0 arasında değişmektedir. Bu, genel olarak başarılı filmler yaptıklarını gösterir.</p></li>
+<li><p><strong>En Yüksek Puanlar:</strong> Stanley Kubrick, Alfred Hitchcock ve Martin Scrorsese en yüksek puan ortalamasına sahip yönetmenler gibi görünmektedir.</p></li>
+<li><p><strong>En Düşük Puanlar:</strong> Joel Schumacher, en düşük puan ortalamasına sahip yönetmen olarak öne çıkıyor.</p></li>
+<li><p><strong>Tutarlılık:</strong> Stanley Kubrick daha tutarlı bir puan dağılımına sahiptir. Bu, genel olarak kaliteli filmler yapma eğiliminde olduğunu gösterir.</p></li>
+<li><p><strong>Değişkenlik:</strong> Joel Schumacher adlı yönetmenin filmlerinin puanlarındaki değişim diğer yönetmenlere göre daha yüksektir.</p></li>
+</ul>
+</section>
+<section id="imdb-puanı-ile-metascore-puanı-arasında-ilişki-var-mı" class="level4">
+<h4 class="anchored" data-anchor-id="imdb-puanı-ile-metascore-puanı-arasında-ilişki-var-mı"><strong>IMDB Puanı ile Metascore Puanı Arasında İlişki Var Mı?</strong></h4>
+<p><strong>Saçılım Grafiği ve Korelasyon: IMDB Puanı ve Metascore</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(egitim_veri, <span class="fu">aes</span>(<span class="at">x =</span> IMDBPuan, <span class="at">y =</span> MetaPuan)) <span class="sc">+</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"IMDB Puanı ve Metascore"</span>, <span class="at">x =</span> <span class="st">"IMDB Puanı"</span>, <span class="at">y =</span> <span class="st">"Metascore"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>İlişkinin Yorumlanması:</p>
+<ul>
+<li><p><strong>Pozitif Korelasyon</strong>: Genel olarak, IMDb puanı arttıkça Metascore puanı da artma eğilimindedir. Bu, iki puanlama sistemi arasında pozitif bir korelasyon olduğunu gösterir. Yani, yüksek IMDb puanına sahip filmler genellikle yüksek Metascore puanına da sahiptir.</p></li>
+<li><p><strong>Yüksek Yoğunluk</strong>: 5 ile 8 arasındaki IMDb puanları, 50 ile 90 arasındaki Metascore puanlarıyla yoğun bir şekilde örtüşmektedir. Bu, birçok filmin bu aralıkta puanlandığını gösterir.</p></li>
+<li><p><strong>Düşük Puanlar</strong>: Çok düşük IMDb puanlarına (2.5 civarı) sahip birkaç film Metascore puanı 50’nin altında yer almakta. Bu filmler hem IMDb hem de Metascore açısından düşük değerlendirilmiştir.</p></li>
+<li><p><strong>Dağınık Noktalar</strong>: Her iki eksende de bazı filmler daha dağınık puanlara sahiptir. Yani, bazı filmler yüksek IMDb puanına sahipken düşük Metascore almış veya tam tersi duruma sahiptir.</p></li>
+</ul>
+<p><strong>Korelasyon</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(egitim_veri<span class="sc">$</span>IMDBPuan, egitim_veri<span class="sc">$</span>MetaPuan, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7282688</code></pre>
+</div>
+</div>
+<p>Bulunan korelasyon katsayısı, IMDB ve Metascore puanları arasında güçlü ve pozitif bir ilişki olduğunu gösterir. Bu, bir filmin IMDB puanı arttıkça Metascore puanının da artma eğiliminde olduğunu doğrular. Ancak, korelasyon 1 olmadığı için puanlar arasında mükemmel bir örtüşme yoktur ve bazı filmlerin bir sistemde diğerine göre daha yüksek veya düşük puan alabileceği unutulmamalıdır.</p>
+</section>
+<section id="hangi-film-türleri-daha-yüksek-imdb-puanı-almaktadır" class="level4">
+<h4 class="anchored" data-anchor-id="hangi-film-türleri-daha-yüksek-imdb-puanı-almaktadır"><strong>Hangi Film Türleri Daha Yüksek IMDB Puanı Almaktadır?</strong></h4>
+<p>Türlere göre ortalama IMDB puanını hesaplama</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>tur_ortalamalari <span class="ot">&lt;-</span> egitim_veri <span class="sc">%&gt;%</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Tur) <span class="sc">%&gt;%</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Ortalama_IMDB =</span> <span class="fu">mean</span>(IMDBPuan, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ortalama_IMDB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En iyi 10 türü seçme</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>en_iyi_10_tur <span class="ot">&lt;-</span> <span class="fu">head</span>(tur_ortalamalari, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En iyi türlerin ortalama IMDB puanlarını gösteren grafik</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(en_iyi_10_tur, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Tur, <span class="sc">-</span>Ortalama_IMDB), <span class="at">y =</span> Ortalama_IMDB, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  </span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"En İyi 10 Film Turu (Cizgi Grafiği)"</span>, <span class="at">x =</span> <span class="st">"Tur"</span>, <span class="at">y =</span> <span class="st">"Ortalama IMDB Puanı"</span>) <span class="sc">+</span></span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafik, En İyi 10 film türünün ortalama IMDB puanlarını göstermektedir.</p>
+<p><strong>Genel Yorum:</strong></p>
+<ul>
+<li><p>En yüksek ortalama IMDB puanına sahip tür, 8.5 puanla “Macera, Kovboy” türüdür.</p></li>
+<li><p>Genel olarak, macera türü filmler yüksek puan alırken, dram ve savaş temalı filmler daha düşük puanlara sahiptir.</p></li>
+</ul>
+</section>
+<section id="konum-varyans-çizimleri-location-scale-plots" class="level4">
+<h4 class="anchored" data-anchor-id="konum-varyans-çizimleri-location-scale-plots"><strong>Konum Varyans Çizimleri (Location-Scale Plots)</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Konumvaryansçizimiiçinönceliklebirdoğrusalmodeloluşturuyoruz</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>model<span class="ot">&lt;-</span><span class="fu">lm</span>(OrtalamaPuan<span class="sc">~</span> CikisYili <span class="sc">+</span>Sure, <span class="at">data=</span>egitim_veri)</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Konumvaryansçizimi</span></span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model,<span class="at">which=</span><span class="dv">1</span>,<span class="at">main=</span><span class="st">"Konum Varyans Cizimi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bu grafikte gözlenen bulgular şunlardır:</p>
+<ol type="1">
+<li><p><strong>Homoskedastisite</strong>: Noktaların yatay eksende eşit şekilde dağılmadığı gözlenmektedir. Bu durum, modelin homoskedastik olmadığını ve hataların varyansının tahmin edilen değerler arttıkça arttığını işaret eder.</p></li>
+<li><p><strong>Ortalama Kalıntı</strong>: Kalıntıların ortalamasının sıfır civarında olması beklenir. Grafikte bu durum gözlenmektedir, yani kalıntılar ortalaması sıfır civarında gibi görünmektedir.</p></li>
+<li><p><strong>Kalıntı Dağılımı</strong>: Kalıntılar normal dağılıma yakın bir şekilde olmalıdır. Ancak grafikte kalıntıların normal dağılıma yakın olmadığı gözlenmektedir.</p></li>
+<li><p><strong>Aykırı Değerler</strong>: Bazı noktalar diğerlerinden önemli ölçüde farklıdır, yani aykırı değerler mevcuttur.</p></li>
+</ol>
+<p>Bu bulgular, modelin varsayımlarının ihlal edildiğini ve homoskedastik olmadığını göstermektedir. Homoskedastisite ihlali, modelin tahminlerinin güvenilirliğini azaltabilir. Ayrıca, kalıntıların normal dağılıma yakın olmaması da modelin doğruluğu ve güvenilirliği üzerinde olumsuz bir etkiye sahip olabilir.</p>
+</section>
+<section id="etkileşim-grafikleri-interaction-plots" class="level4">
+<h4 class="anchored" data-anchor-id="etkileşim-grafikleri-interaction-plots">Etkileşim Grafikleri (Interaction Plots)</h4>
+<p>Çalışmadı</p>
+</section>
+<section id="düzleştirme" class="level4">
+<h4 class="anchored" data-anchor-id="düzleştirme"><strong>Düzleştirme</strong></h4>
+<p>LOESS düzleştirme</p>
+<p>Düzleştirilmiş değerleri tahmin etme</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>loess_model <span class="ot">&lt;-</span> <span class="fu">loess</span>(IMDBPuan <span class="sc">~</span> CikisYili, <span class="at">data =</span> egitim_veri)</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>IMDBPuan_Duzeltilmis <span class="ot">&lt;-</span> <span class="fu">predict</span>(loess_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Düzleştirme Grafiği</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(egitim_veri, <span class="fu">aes</span>(<span class="at">x =</span> CikisYili, <span class="at">y =</span> IMDBPuan)) <span class="sc">+</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> IMDBPuan_Duzeltilmis), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"IMDB Puanı ve Cikis Yılı (Duzlestirilmis)"</span>, <span class="at">x =</span> <span class="st">"Cikis Yılı"</span>, <span class="at">y =</span> <span class="st">"IMDB Puanı"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafik üzerindeki kırmızı çizgi, IMDB puanı ile Çıkış Yılı arasındaki ilişkiyi LOESS yöntemiyle düzleştirilmiş olarak göstermektedir. Bu grafikten çıkarılabilecek bazı yorumlar şunlar olabilir:</p>
+<ol type="1">
+<li><p><strong>Genel IMDB Puanı Eğilimi</strong>: Grafik genel olarak zaman içinde IMDB puanlarının hafifçe düşme eğiliminde olduğunu göstermektedir. Bu durum, daha yeni filmlerin genellikle daha düşük IMDB puanları aldığına işaret edebilir.</p></li>
+<li><p><strong>Erken Dönemdeki Yüksek Puanlı Filmler</strong>: Özellikle 1920’ler ve 1930’lar gibi erken dönemlerde bazı çok yüksek puanlı filmler bulunmaktadır. Bu filmler, sinemanın erken dönemlerindeki klasikler olabilir ve yüksek puanlarıyla dikkat çekmektedirler.</p></li>
+<li><p><strong>Yoğunlaşma ve Homojenlik</strong>: Yakın dönemde, yani 2000’li yıllardan sonra IMDB puanlarının daha dar bir aralıkta yoğunlaştığı görülmektedir. Bu durum, yeni filmlerin puanlarının daha homojen dağıldığını ve genel bir standardizasyon eğilimi gösterdiğini işaret edebilir.</p></li>
+<li><p><strong>Değişim Dalgalanmaları</strong>: Grafikte belirgin bir zirve veya düşüş noktası olmaması, IMDB puanının zaman içinde sürekli bir değişim göstermediğini, daha çok dalgalanmalar şeklinde seyrettiğini düşündürmektedir. Bu, IMDB puanlarının zamanla istikrarlı bir eğilim göstermediğini ancak belirli dönemlerde dalgalanmalar yaşadığını gösterebilir.</p></li>
+</ol>
+<p>Bu yorumlar, grafik üzerindeki LOESS düzleştirilmiş çizginin genel eğilimlerini ve zaman içindeki değişimleri anlamamıza yardımcı olabilir.</p>
+</section>
+<section id="nitelkategorik-değişkenler-için-gini-ve-entropi" class="level4">
+<h4 class="anchored" data-anchor-id="nitelkategorik-değişkenler-için-gini-ve-entropi"><strong>Nitel/kategorik Değişkenler İçin Gini ve Entropi</strong></h4>
+<p><strong>Gini</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>kategorik_degiskenler <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tur"</span>, <span class="st">"Hasilat"</span>)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>gini_degerleri <span class="ot">&lt;-</span> <span class="fu">sapply</span>(egitim_veri[, kategorik_degiskenler], <span class="cf">function</span>(x) {</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Gini</span>(<span class="fu">table</span>(x), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gini_degerleri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Tur   Hasilat 
+0.6265574 0.2525000 </code></pre>
+</div>
+</div>
+<p>Sonuçlar:</p>
+<ul>
+<li><p><strong>Tur değişkeni için Gini katsayısı: 0.6265574</strong></p></li>
+<li><p><strong>Hasilat değişkeni için Gini katsayısı: 0.2493750</strong></p></li>
+</ul>
+<p>Bu sonuçlar şunları ifade eder:</p>
+<ul>
+<li><p><strong>Tur</strong> değişkeninin Gini katsayısı daha yüksek (0.6265574), bu da bu değişkenin daha fazla çeşitlilik veya düzensizlik içerdiğini gösterir. Yani, “Tur” değişkeni birçok farklı kategoriye sahip ve bu kategoriler arasında daha eşit bir dağılım söz konusu.</p></li>
+<li><p><strong>Hasilat</strong> değişkeninin Gini katsayısı daha düşük (0.2493750), bu da bu değişkenin daha az çeşitlilik veya düzensizlik içerdiğini gösterir. Yani, “Hasilat” değişkeni daha az sayıda kategoriye sahip olabilir ve/veya bu kategoriler arasında daha dengesiz bir dağılım olabilir.</p></li>
+</ul>
+<p>Özetle, “Tur” değişkeni “Hasilat” değişkenine göre daha çeşitlidir.</p>
+<p><strong>Entropi</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>entropi_degerleri <span class="ot">&lt;-</span> <span class="fu">sapply</span>(egitim_veri[, kategorik_degiskenler], <span class="cf">function</span>(x) {</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  frekanslar <span class="ot">&lt;-</span> <span class="fu">table</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">sum</span>(frekanslar <span class="sc">*</span> <span class="fu">log2</span>(frekanslar))</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(entropi_degerleri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Tur  Hasilat 
+6.840856 2.192182 </code></pre>
+</div>
+</div>
+<p>Sonuçlar:</p>
+<ul>
+<li><p><strong>Tur</strong> değişkeninin entropisi daha yüksek (6.840856), bu da bu değişkenin daha fazla çeşitlilik veya belirsizlik içerdiğini gösterir. Yani, “Tur” değişkeni birçok farklı kategoriye sahip ve bu kategoriler arasında daha eşit bir dağılım söz konusu.</p></li>
+<li><p><strong>Hasilat</strong> değişkeninin entropisi daha düşük (2.192203), bu da bu değişkenin daha az çeşitlilik veya belirsizlik içerdiğini gösterir. Yani, “Hasilat” değişkeni daha az sayıda kategoriye sahip olabilir ve/veya bu kategoriler arasında daha dengesiz bir dağılım olabilir.</p></li>
+</ul>
+<p>Özetle, “Tur” değişkeni “Hasilat” değişkenine göre daha çeşitlidir ve daha fazla belirsizlik içerir.</p>
+</section>
+<section id="ileri-düzey-grafik-yöntemleri" class="level4">
+<h4 class="anchored" data-anchor-id="ileri-düzey-grafik-yöntemleri"><strong>İleri Düzey Grafik Yöntemleri</strong></h4>
+<p><strong>Yıldız Grafikler (Star Plots)</strong></p>
+<p>Yıldız grafikler, çok boyutlu veri noktalarını bir daire üzerinde gösterir. Her veri noktasının her boyutu, bir eksene yansıtılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>species_labels <span class="ot">&lt;-</span> <span class="fu">as.character</span>(egitim_veri<span class="sc">$</span>OrtalamaPuan)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stars</span>(egitim_veri[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, sayisal_degiskenler], <span class="at">labels =</span> species_labels, <span class="at">main =</span> <span class="st">"Yıldız Grafikler"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grafiği incelediğimizde şunları gözlemleyebiliriz:</p>
+<ul>
+<li><p><strong>IMDb Puanı ve Meta Puanı</strong>: Yıldızların büyük çoğunluğunun IMDb puanı ve Meta puanı köşeleri benzer uzunluklarda olduğu görülmektedir. Bu durum, bu iki değişken arasında güçlü bir ilişki olduğunu ve yüksek IMDb puanına sahip filmlerin genellikle Meta puanında da yüksek puanlar aldığını göstermektedir.</p></li>
+<li><p><strong>Süre</strong>: Yıldızların süre köşeleri oldukça çeşitlidir. Bu, filmlerin süreleri açısından büyük bir çeşitlilik gösterdiğini ve IMDb puanı veya Meta puanı ile açık bir ilişki olmadığını işaret etmektedir. Yani, film süresi ile puanlar arasında belirgin bir korelasyon bulunmamaktadır.</p></li>
+<li><p><strong>Çıkış Yılı</strong>: Yıldızların çıkış yılı köşeleri bazılarında daha uzun, bazılarında daha kısa olmakta; bu da filmlerin zaman içinde büyük bir çeşitlilik gösterdiğini göstermektedir. Yani, grafiğe bakarak zamanla farklı uzunluklarda ve tarihlerde pek çok film üretildiği anlaşılmaktadır.</p></li>
+</ul>
+<p>Bu grafik, filmlerin IMDb puanı, Meta puanı ve süre açısından farklılık gösterdiğini ancak zaman içinde daha fazla film üretildiğini göstermektedir. Bu yorumlar, veri setinizdeki filmlerin özelliklerini ve zaman içindeki değişimleri anlamada yardımcı olabilir.</p>
+<p><strong>Chernoff Yüzleri</strong></p>
+<p>Chernoff yüzleri, çok boyutlu veri noktalarını yüz özelliklerine yansıtarak görselleştirir. Bu grafik türü, veri setindeki farklı özelliklerin yüz ifadesi ile temsil edilmesini sağlar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#Sayısal değişkenleriseçinveölçeklendirin(0-1arası)</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a> sayisal_degiskenler_scaled<span class="ot">&lt;-</span><span class="fu">scale</span>(egitim_veri[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,sayisal_degiskenler])</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a> <span class="co">#Chernoffyüzleriçizimi</span></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">faces</span>(sayisal_degiskenler_scaled,<span class="at">face.type=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>effect of variables:
+ modified item       Var        
+ "height of face   " "IMDBPuan" 
+ "width of face    " "MetaPuan" 
+ "structure of face" "Sure"     
+ "height of mouth  " "CikisYili"
+ "width of mouth   " "IMDBPuan" 
+ "smiling          " "MetaPuan" 
+ "height of eyes   " "Sure"     
+ "width of eyes    " "CikisYili"
+ "height of hair   " "IMDBPuan" 
+ "width of hair   "  "MetaPuan" 
+ "style of hair   "  "Sure"     
+ "height of nose  "  "CikisYili"
+ "width of nose   "  "IMDBPuan" 
+ "width of ear    "  "MetaPuan" 
+ "height of ear   "  "Sure"     </code></pre>
+</div>
+</div>
+<p>Grafiği incelediğimizde şu gözlemleri yapabiliriz:</p>
+<ul>
+<li><p><strong>IMDb Puanı</strong>: Yüzlerin genişliği, IMDb puanını temsil eder. Geniş yüzler, yüksek IMDb puanına sahip filmleri temsil ederken, dar yüzler düşük IMDb puanına sahip filmleri temsil eder.</p></li>
+<li><p><strong>Meta Puanı</strong>: Yüzün yüksekliği, Meta puanını temsil eder. Yüksek yüzler, yüksek Meta puanına sahip filmleri temsil ederken, düşük yüzler düşük Meta puanına sahip filmleri temsil eder.</p></li>
+<li><p><strong>Süre</strong>: Burun uzunluğu, süreyi temsil eder. Uzun burunlar, uzun süren filmleri temsil ederken, kısa burunlar kısa süren filmleri temsil eder.</p></li>
+<li><p><strong>Çıkış Yılı</strong>: Şapka büyüklüğü, çıkış yılını temsil eder. Büyük şapkalar, daha yeni filmleri temsil ederken, küçük şapkalar daha eski filmleri temsil eder.</p></li>
+</ul>
+<p>Bu gözlemler, grafiği yorumlarken IMDb puanı, Meta puanı, süre ve çıkış yılı gibi değişkenler arasındaki ilişkileri anlamamıza yardımcı olabilir. Veri setinizde bu tür karakteristikleri temsil eden grafiklerle bu ilişkileri daha derinlemesine inceleyebilirsiniz.</p>
+</section>
+</section>
+<section id="birliktelik-istatistikleri" class="level2">
+<h2 class="anchored" data-anchor-id="birliktelik-istatistikleri"><strong>7. Birliktelik İstatistikleri</strong></h2>
+<p>Birliktelik istatistikleri, kategorik değişkenler arasındaki ilişkiyi ölçmek için kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "Hasilat" ve "Tur" arasındaki ilişki</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(<span class="fu">table</span>(egitim_veri<span class="sc">$</span>Hasilat, egitim_veri<span class="sc">$</span>Tur))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    X^2  df   P(&gt; X^2)
+Likelihood Ratio 1194.2 976 1.8466e-06
+Pearson          1211.5 976 3.3682e-07
+
+Phi-Coefficient   : NA 
+Contingency Coeff.: 0.656 
+Cramer's V        : 0.435 </code></pre>
+</div>
+</div>
+<p><strong>“Hasılat” ve “Tür” arasındaki ilişki:</strong></p>
+<ul>
+<li><p><strong>Likelihood Ratio (Olabilirlik Oranı) Testi:</strong> Bu test, “Hasılat” ve “Tür” arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 1184.8’lik yüksek olabilirlik oranı ve buna karşılık gelen 4.47e-06’lık çok düşük p değeri, sıfır hipotezinin reddedildiğini gösterir. Bu, “Hasılat” ile “Tür” arasında istatistiksel olarak anlamlı bir ilişki olduğu anlamına gelir.</p></li>
+<li><p><strong>Pearson Ki-Kare Testi:</strong> Bu test de benzer şekilde, “Hasılat” ve “Tür” arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 1203.1’lik yüksek ki-kare değeri ve buna karşılık gelen 7.83e-07’lik çok düşük p değeri, sıfır hipotezinin reddedildiğini ve “Hasılat” ile “Tür” arasında istatistiksel olarak anlamlı bir ilişki olduğunu gösterir.</p></li>
+<li><p><strong>Cramer’s V (Cramer’ın V Katsayısı):</strong> Bu katsayı, nominal değişkenler arasındaki ilişkinin gücünü ölçer. 0.434 değeri, “Hasılat” ve “Tür” arasında orta düzeyde bir ilişki olduğunu gösterir.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "Hasilat" ve "Yonetmen" arasındaki ilişki</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(<span class="fu">table</span>(egitim_veri<span class="sc">$</span>Hasilat, egitim_veri<span class="sc">$</span>Yonetmen))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    X^2   df P(&gt; X^2)
+Likelihood Ratio 3076.9 3212  0.95561
+Pearson          3363.4 3212  0.03089
+
+Phi-Coefficient   : NA 
+Contingency Coeff.: 0.823 
+Cramer's V        : 0.725 </code></pre>
+</div>
+</div>
+<p><strong>“Hasılat” ve “Yönetmen” arasındaki ilişki:</strong></p>
+<ul>
+<li><p><strong>Likelihood Ratio (Olabilirlik Oranı) Testi:</strong> Bu test, “Hasılat” ve “Yönetmen” arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 3082.5’lik yüksek olabilirlik oranı ve buna karşılık gelen 0.948’lik yüksek p değeri, sıfır hipotezinin reddedilemediğini gösterir. Bu, “Hasılat” ile “Yönetmen” arasında istatistiksel olarak anlamlı bir ilişki olduğuna dair yeterli kanıt olmadığı anlamına gelir. Ancak, bu testin gücü düşük olabilir çünkü “Yönetmen” kategorik değişkeninin çok fazla farklı değeri vardır.</p></li>
+<li><p><strong>Pearson Ki-Kare Testi:</strong> Bu test de benzer şekilde, “Hasılat” ve “Yönetmen” arasında bir ilişki olmadığına dair sıfır hipotezini test eder. 3373.0’lık yüksek ki-kare değeri ve buna karşılık gelen 0.024’lük düşük p değeri, sıfır hipotezinin reddedildiğini ve “Hasılat” ile “Yönetmen” arasında istatistiksel olarak anlamlı bir ilişki olduğunu gösterir.</p></li>
+<li><p><strong>Cramer’s V (Cramer’ın V Katsayısı):</strong> 0.726 değeri, “Hasılat” ve “Yönetmen” arasında oldukça güçlü bir ilişki olduğunu gösterir.</p></li>
+</ul>
+</section>
+<section id="dönüşüm" class="level2">
+<h2 class="anchored" data-anchor-id="dönüşüm"><strong>8. Dönüşüm</strong></h2>
+<p>Dönüşümler, verilerin normal dağılıma daha yakın hale getirilmesi, varyansın stabilize edilmesi veya doğrusal ilişkilerin güçlendirilmesi gibi amaçlarla yapılır.</p>
+<section id="veriye-bakış-ve-gerekli-kütüphanelerin-yüklenmesi" class="level4">
+<h4 class="anchored" data-anchor-id="veriye-bakış-ve-gerekli-kütüphanelerin-yüklenmesi"><strong>Veriye Bakış ve Gerekli Kütüphanelerin Yüklenmesi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(egitim_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              FilmAdi CikisYili Sure IMDBPuan MetaPuan
+415     Short Circuit      1986   98      6.6       50
+463   Days of Thunder      1990  107      6.1       60
+179           Ben-Hur      1959  212      8.1       90
+526          Stargate      1994  116      7.0       42
+195          Papillon      1973  151      8.0       58
+938 Love &amp; Basketball      2000  124      7.2       72
+                             Tur              Yonetmen Hasilat FilmAdi_imp
+415    Komedi, Aile, Bilim Kurgu           John Badham   Dusuk       FALSE
+463          Aksiyon, Dram, Spor            Tony Scott  Yuksek       FALSE
+179                 Macera, Dram         William Wyler    Orta       FALSE
+526 Aksiyon, Macera, Bilim Kurgu       Roland Emmerich    Orta       FALSE
+195         Biyografi, Suç, Dram Franklin J. Schaffner    Orta       FALSE
+938         Dram, Romantik, Spor   Gi Prince-Bythewood   Dusuk       FALSE
+    CikisYili_imp Sure_imp IMDBPuan_imp MetaPuan_imp Tur_imp Yonetmen_imp
+415         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+463         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+179         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+526         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+195         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+938         FALSE    FALSE        FALSE        FALSE   FALSE        FALSE
+    Hasilat_imp MetaPuan_10 PuanFarki OrtalamaPuan IMDBPuan_Duzeltilmis
+415       FALSE         5.0       1.6         58.0             7.215216
+463       FALSE         6.0       0.1         60.5             7.125605
+179       FALSE         9.0      -0.9         85.5             7.810893
+526       FALSE         4.2       2.8         56.0             7.025534
+195       FALSE         5.8       2.2         69.0             7.518013
+938       FALSE         7.2       0.0         72.0             6.827153</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(egitim_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   FilmAdi            CikisYili         Sure          IMDBPuan    
+ Length:1600        Min.   :1921   Min.   : 50.0   Min.   :1.500  
+ Class :character   1st Qu.:1992   1st Qu.: 98.0   1st Qu.:6.400  
+ Mode  :character   Median :2001   Median :110.0   Median :7.000  
+                    Mean   :1996   Mean   :114.1   Mean   :6.922  
+                    3rd Qu.:2006   3rd Qu.:125.0   3rd Qu.:7.600  
+                    Max.   :2010   Max.   :271.0   Max.   :9.300  
+    MetaPuan          Tur              Yonetmen               Hasilat   
+ Min.   :  9.00   Length:1600        Length:1600        Cok Dusuk :426  
+ 1st Qu.: 47.00   Class :character   Class :character   Dusuk     :440  
+ Median : 61.00   Mode  :character   Mode  :character   Orta      :304  
+ Mean   : 60.88                                         Yuksek    : 97  
+ 3rd Qu.: 74.00                                         Cok Yuksek:333  
+ Max.   :100.00                                                         
+ FilmAdi_imp     CikisYili_imp    Sure_imp       IMDBPuan_imp   
+ Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+ FALSE:1600      FALSE:1600      FALSE:1600      FALSE:1600     
+                                                                
+                                                                
+                                                                
+                                                                
+ MetaPuan_imp     Tur_imp        Yonetmen_imp    Hasilat_imp    
+ Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+ FALSE:1530      FALSE:1600      FALSE:1600      FALSE:1523     
+ TRUE :70                                        TRUE :77       
+                                                                
+                                                                
+                                                                
+  MetaPuan_10       PuanFarki        OrtalamaPuan   IMDBPuan_Duzeltilmis
+ Min.   : 0.900   Min.   :-3.1000   Min.   :16.50   Min.   :6.464       
+ 1st Qu.: 4.700   1st Qu.:-0.1000   1st Qu.:56.00   1st Qu.:6.662       
+ Median : 6.100   Median : 0.8000   Median :65.00   Median :6.804       
+ Mean   : 6.088   Mean   : 0.8339   Mean   :65.05   Mean   :6.919       
+ 3rd Qu.: 7.400   3rd Qu.: 1.7000   3rd Qu.:74.50   3rd Qu.:7.079       
+ Max.   :10.000   Max.   : 4.7000   Max.   :96.00   Max.   :8.278       </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moments) </span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bu kısımda veri setinin yapısı incelenir ve dönüşümler için gerekli kütüphaneler yüklenir.</p>
+</section>
+<section id="çarpıklık-ve-basıklık-incelemesi" class="level4">
+<h4 class="anchored" data-anchor-id="çarpıklık-ve-basıklık-incelemesi"><strong>Çarpıklık ve Basıklık İncelemesi</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Çarpıklık ve basıklık değerleri</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>carpiklik <span class="ot">&lt;-</span> <span class="fu">skewness</span>(egitim_veri[, sayisal_degiskenler])</span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a>basiklik <span class="ot">&lt;-</span> <span class="fu">kurtosis</span>(egitim_veri[, sayisal_degiskenler])</span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(carpiklik)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   IMDBPuan    MetaPuan        Sure   CikisYili 
+-1.03819881 -0.03452429  1.51879156 -1.90264665 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basiklik)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> IMDBPuan  MetaPuan      Sure CikisYili 
+ 6.108966  2.444343  7.192516  6.922432 </code></pre>
+</div>
+</div>
+<p>Bu kodlar, sayısal değişkenlerin çarpıklık ve basıklık değerlerini hesaplar. Çarpıklık, dağılımın ne kadar simetrik olmadığını, basıklık ise dağılımın ne kadar kuyruklu olduğunu gösterir. Bu değerler, hangi dönüşümün uygun olabileceği konusunda ipuçları verir.</p>
+<p><strong>Çıktının Yorumlanması:</strong></p>
+<ul>
+<li><p><strong>ÇıkışYılı:</strong> Çarpıklık değeri negatif (-1.90), yani dağılım sola çarpıktır. Bu, daha yeni çıkış yıllarına sahip filmlerin daha fazla olduğunu gösterir. Basıklık değeri pozitif (6.92), yani dağılım sivridir. Bu, çıkış yıllarının belirli yıllarda yoğunlaştığını gösterir.</p></li>
+<li><p><strong>Süre:</strong> Çarpıklık değeri pozitif (1.52), yani dağılım sağa çarpıktır. Bu, daha uzun süreli filmlerin daha az olduğunu gösterir. Basıklık değeri de pozitif (7.19), yani dağılım sivridir. Bu, film sürelerinin belirli değerlerde yoğunlaştığını gösterir.</p></li>
+<li><p><strong>IMDBPuan:</strong> Çarpıklık değeri negatif (-0.04), yani dağılım sola çarpıktır. Bu, daha yüksek puanlı filmlerin daha fazla olduğunu gösterir. Basıklık değeri negatif (-1.04), yani dağılım basıktır. Bu, IMDB puanlarının geniş bir aralığa yayıldığını gösterir.</p></li>
+<li><p><strong>MetaPuan:</strong> Çarpıklık değeri negatif (-0.04), yani dağılım sola çarpıktır. Bu, daha yüksek puanlı filmlerin daha fazla olduğunu gösterir. Basıklık değeri pozitif (2.44), yani dağılım normal dağılıma göre biraz daha sivridir.</p></li>
+<li><p><strong>PuanFarki:</strong> Çarpıklık değeri pozitif (0.05), yani dağılım sağa çarpıktır. Basıklık değeri de pozitif (2.77), yani dağılım normal dağılıma göre biraz daha sivridir. Bu, IMDB ve Meta puanları arasındaki farkın genellikle küçük olduğunu, ancak bazı filmlerde büyük farklar olabileceğini gösterir.</p></li>
+</ul>
+</section>
+<section id="dönüşüm-gerektiren-değişkenlerin-bulunması" class="level4">
+<h4 class="anchored" data-anchor-id="dönüşüm-gerektiren-değişkenlerin-bulunması"><strong>Dönüşüm Gerektiren Değişkenlerin Bulunması</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># Gerekli kütüphaneleri yükle</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(ggplot2)</span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(car)</span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(e1071)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'e1071' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'e1071'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:moments':
+
+    kurtosis, moment, skewness</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(moments)</span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># Histogramlar için grafik penceresini ayarla</span></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 2x2 düzenleme</span></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a> <span class="co"># MetaPuan değişkeninin histogramı</span></span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">hist</span>(egitim_veri<span class="sc">$</span>MetaPuan, <span class="at">main =</span> <span class="st">"MetaPuan Dağılımı"</span>, <span class="at">xlab =</span> <span class="st">"MetaPuan"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a> <span class="co"># IMDBPuan değişkeninin histogramı</span></span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">hist</span>(egitim_veri<span class="sc">$</span>IMDBPuan, <span class="at">main =</span> <span class="st">"IMDBPuan Dağılımı"</span>, <span class="at">xlab =</span> <span class="st">"IMDBPuan"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a> <span class="co"># Sure değişkeninin histogramı</span></span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">hist</span>(egitim_veri<span class="sc">$</span>Sure, <span class="at">main =</span> <span class="st">"Sure Dağılımı"</span>, <span class="at">xlab =</span> <span class="st">"Sure"</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">border =</span> <span class="st">"black"</span>)</span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a> <span class="co"># CikisYili değişkeninin histogramı</span></span>
+<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">hist</span>(egitim_veri<span class="sc">$</span>CikisYili, <span class="at">main =</span> <span class="st">"CikisYili Dağılımı"</span>, <span class="at">xlab =</span> <span class="st">"CikisYili"</span>, <span class="at">col =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-65-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Dönüşüm Gerektiren Değişkenler:</strong></p>
+<ul>
+<li><p><strong>Çıkış Yılı (CikisYili):</strong> Bu değişkenin histogramı, sağa doğru çarpık bir dağılım gösteriyor. Daha eski yıllarda daha fazla veri yoğunluğu varken, yeni yıllara doğru veri sayısı azalıyor. Bu çarpıklık, modelleme sürecinde dikkate alınması gereken bir durumdur. Veriyi dengeli hale getirmek veya dönüşümler yapmak model performansını iyileştirebilir.</p></li>
+<li><p><strong>Süre (Sure):</strong> Süre değişkeninin histogramı da sağa doğru çarpık bir dağılım sergiliyor. Uzun süren filmler daha az, kısa süren filmler daha fazla olarak görünüyor. Bu çarpıklık da modelleme sonuçlarını etkileyebilir. Süreyi normalize etmek veya dönüşümler yaparak dağılımı düzeltmek önemli olabilir.</p></li>
+</ul>
+<p><strong>Dönüşüm Gerektirmeyen Değişkenler:</strong></p>
+<ul>
+<li><p><strong>Meta Puan (MetaPuan):</strong> Bu değişkenin histogramı, yaklaşık olarak normal bir dağılıma benziyor. Modelleme sürecinde doğrudan kullanılabilir, özel bir dönüşüme ihtiyaç duymayabilir.</p></li>
+<li><p><strong>IMDb Puanı (IMDBPuan):</strong> IMDb puanı değişkeninin histogramı hafif sağa doğru çarpık olsa da, normal dağılıma oldukça yakın görünüyor. Bu nedenle, doğrudan kullanılabilir ancak modelleme öncesi veriyi inceleyerek gerekirse dönüşüm yapılabilir.</p></li>
+</ul>
+</section>
+<section id="dönüşüm-uygulaması" class="level4">
+<h4 class="anchored" data-anchor-id="dönüşüm-uygulaması"><strong>Dönüşüm Uygulaması</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli kütüphaneleri yükle</span></span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Box-Cox dönüşümü için optimal lambda değerini belirle</span></span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>boxcox_transform <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb135-7"><a href="#cb135-7" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">plotit =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb135-8"><a href="#cb135-8" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]</span>
+<span id="cb135-9"><a href="#cb135-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(lambda)</span>
+<span id="cb135-10"><a href="#cb135-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb135-11"><a href="#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="co">#DeğişkenlerinBox-Coxdönüşümünüuygulama</span></span>
+<span id="cb135-12"><a href="#cb135-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Sure değişkeni içinlogdönüşümü</span></span>
+<span id="cb135-13"><a href="#cb135-13" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>Log_Sure<span class="ot">&lt;-</span><span class="fu">log</span>(egitim_veri<span class="sc">$</span>Sure<span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb135-14"><a href="#cb135-14" aria-hidden="true" tabindex="-1"></a><span class="co">#CikisYilideğişkeniiçinlogdönüşümü</span></span>
+<span id="cb135-15"><a href="#cb135-15" aria-hidden="true" tabindex="-1"></a>egitim_veri<span class="sc">$</span>Log_CikisYili<span class="ot">&lt;-</span><span class="fu">log</span>(egitim_veri<span class="sc">$</span>CikisYili <span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb135-16"><a href="#cb135-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogramlariçingrafikpenceresiniayarla</span></span>
+<span id="cb135-17"><a href="#cb135-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co">#2x2düzenleme</span></span>
+<span id="cb135-18"><a href="#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="co">#LogdönüşümüuygulanmışSuredeğişkenininhistogramı</span></span>
+<span id="cb135-19"><a href="#cb135-19" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(egitim_veri<span class="sc">$</span>Log_Sure, <span class="at">main=</span> <span class="st">"SureDağılımı"</span>,<span class="at">xlab=</span> <span class="st">"Log(Sure+1)"</span>,<span class="at">col=</span> <span class="st">"red"</span>, <span class="at">border=</span> <span class="st">"black"</span>)</span>
+<span id="cb135-20"><a href="#cb135-20" aria-hidden="true" tabindex="-1"></a><span class="co">#LogdönüşümüuygulanmışCikisYilideğişkenininhistogramı</span></span>
+<span id="cb135-21"><a href="#cb135-21" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(egitim_veri<span class="sc">$</span>Log_CikisYili,<span class="at">main=</span> <span class="st">"CikisYiliDağılımı"</span>, <span class="at">xlab=</span> <span class="st">"Log(CikisYili+1)"</span>,<span class="at">col=</span> <span class="st">"purple"</span>, <span class="at">border=</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Sure Değişkeni:</strong></p>
+<ul>
+<li><p><strong>Önce:</strong> Dönüştürülmeden önce, “Sure” değişkeni sağa doğru çarpık bir dağılıma sahipti. Histogramda, daha kısa süreli filmlerin daha fazla olduğu ve film süresi arttıkça veri yoğunluğunun azaldığı görülüyordu.</p></li>
+<li><p><strong>Sonra:</strong> Logaritmik dönüşüm, “Sure” değişkeninin dağılımını daha simetrik hale getirmiştir. Histogram artık daha dengeli bir dağılım gösteriyor ve çarpıklık önemli ölçüde azalmış durumda.</p></li>
+</ul>
+<p><strong>CikisYili Değişkeni:</strong></p>
+<ul>
+<li><p><strong>Önce:</strong> “CikisYili” değişkeni dönüştürülmeden önce sağa doğru çarpık bir dağılıma sahipti. Daha eski yıllarda daha fazla film bulunurken, yeni yıllarda bu sayı azalmaktaydı.</p></li>
+<li><p><strong>Sonra:</strong> Logaritmik dönüşüm, “CikisYili” değişkeninin dağılımını daha simetrik hale getirmiştir. Histogram artık daha dengeli bir dağılım gösteriyor ve çarpıklık önemli ölçüde azalmış durumda.</p></li>
+</ul>
+<p><strong>Genel Yorum:</strong></p>
+<p>Logaritmik dönüşüm, “Sure” ve “CikisYili” değişkenlerinin dağılımlarını iyileştirmede oldukça etkili olmuştur. Bu dönüşümler, verilerin daha simetrik ve normal dağılıma daha yakın hale gelmesini sağlamıştır. Bu durum, modelleme sürecinde daha doğru tahminler yapılmasına ve daha iyi performans elde edilmesine yardımcı olacaktır.</p>
+</section>
+</section>
+<section id="model-geliştirme" class="level2">
+<h2 class="anchored" data-anchor-id="model-geliştirme"><strong>9. Model Geliştirme</strong></h2>
+<section id="amaç" class="level4">
+<h4 class="anchored" data-anchor-id="amaç">Amaç:</h4>
+<p>IMDB Puanını etkileyen faktörlerin incelenmesi. Bu amaçla sayısal değişkenler kullanılarak model oluşturulacaktır.</p>
+</section>
+<section id="kullanılmayacak-değişkenin-tespit-edilmesi" class="level4">
+<h4 class="anchored" data-anchor-id="kullanılmayacak-değişkenin-tespit-edilmesi">Kullanılmayacak Değişkenin Tespit Edilmesi:</h4>
+<p>IMDBPuan ile MetaPuan değişkeni arasında yüksek korelasyon olduğu için MetaPuan modele dahil edilmemelidir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korelasyonu hesapla</span></span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>korelasyon <span class="ot">&lt;-</span> <span class="fu">cor</span>(egitim_veri<span class="sc">$</span>IMDBPuan, egitim_veri<span class="sc">$</span>MetaPuan, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sonucu yazdır</span></span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"IMDBPuan ile MetaPuan arasındaki korelasyon:"</span>, korelasyon, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IMDBPuan ile MetaPuan arasındaki korelasyon: 0.7282688 </code></pre>
+</div>
+</div>
+<p>Korelasyon çok yüksek olduğu için MetaPuan değişkeni modele dahil edilmeyecektir.</p>
+</section>
+<section id="model-1-doğrusal-regresyon" class="level4">
+<h4 class="anchored" data-anchor-id="model-1-doğrusal-regresyon"><strong>Model 1: Doğrusal Regresyon</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Doğrusal regresyon modeli</span></span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>model_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(IMDBPuan <span class="sc">~</span> CikisYili <span class="sc">+</span> Sure, <span class="at">data =</span> egitim_veri)</span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model özeti</span></span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = IMDBPuan ~ CikisYili + Sure, data = egitim_veri)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.1496 -0.4252  0.0465  0.5382  2.0697 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 50.5169756  2.8918388   17.47   &lt;2e-16 ***
+CikisYili   -0.0225054  0.0014404  -15.62   &lt;2e-16 ***
+Sure         0.0116220  0.0009144   12.71   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8406 on 1597 degrees of freedom
+Multiple R-squared:  0.2282,    Adjusted R-squared:  0.2272 
+F-statistic: 236.1 on 2 and 1597 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><strong>Bu modelde:</strong></p>
+<ul>
+<li><p>Bağımlı değişken: IMDBPuan</p></li>
+<li><p>Bağımsız değişkenler: CikisYili ve Sure</p></li>
+</ul>
+<p><strong>Model Performansı:</strong></p>
+<ul>
+<li><p><strong>R-kare:</strong> 0.2282 (Model varyansın %22.82’sini açıklıyor)</p></li>
+<li><p><strong>p-değeri:</strong> &lt;2.2e-16 (Model anlamlı)</p></li>
+</ul>
+<p>Regresyon denklemini yazmak için, modeldeki katsayıları kullanırız. Verilen katsayılarla regresyon denklemi şöyle olur:</p>
+<p>IMDBPuan=50.5169756−0.0225054×CikisYili+0.0116220×Sure</p>
+<p>Değerleri yuvarlayacak olursak:</p>
+<p><strong>Regresyon Denklemi</strong></p>
+<p>IMDBPuan=50.52−0.023×CikisYili+0.012×Sure</p>
+<p><strong>Yorum</strong></p>
+<ol type="1">
+<li><p><strong>Sabit Terim (Intercept):</strong> 50.52</p>
+<ul>
+<li>Bu, film çıkış yılı ve süresi sıfır olduğunda IMDB puanının 50.52 olacağını gösterir. Pratikte, bu terim diğer değişkenlerin etkisi hariç tutulduğunda IMDB puanının başlangıç seviyesini temsil eder.</li>
+</ul></li>
+<li><p><strong>Çıkış Yılı (CikisYili):</strong> -0.023</p>
+<ul>
+<li>Çıkış yılındaki her bir birim artış için (örneğin bir yıl), IMDB puanı 0.023 puan azalır. Bu, daha yeni filmlerin (çıkış yılı arttıkça) genel olarak daha düşük IMDB puanlarına sahip olma eğiliminde olduğunu gösterir.</li>
+</ul></li>
+<li><p><strong>Süre (Sure):</strong> 0.012</p>
+<ul>
+<li>Filmin süresindeki her bir birim artış için (örneğin bir dakika), IMDB puanı 0.012 puan artar. Bu, daha uzun filmlerin (süre arttıkça) genel olarak daha yüksek IMDB puanlarına sahip olma eğiliminde olduğunu gösterir.</li>
+</ul></li>
+</ol>
+<p><strong>Genel Değerlendirme:</strong></p>
+<ul>
+<li><p><strong>Çıkış Yılı:</strong> Negatif bir etkisi var, bu da daha yeni filmlerin daha düşük puanlanma eğiliminde olduğunu gösteriyor.</p></li>
+<li><p><strong>Süre:</strong> Pozitif bir etkisi var, bu da daha uzun filmlerin daha yüksek puanlanma eğiliminde olduğunu gösteriyor.</p></li>
+<li><p><strong>Model Performansı:</strong> R-kare değeri 0.2282, yani model, IMDB puanındaki toplam varyansın %22.82’sini açıklıyor. Bu, modelin bazı etkileri yakaladığını ama birçok başka faktörün de IMDB puanını etkilediğini gösteriyor.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Varsayım kontrolü grafikleri</span></span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) </span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Standartize edilmiş hata grafikleri</span></span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_lm, <span class="at">which =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">"Standartize Edilmiş Hata Grafiği"</span>)</span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Normal olasılık grafikleri</span></span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_lm, <span class="at">which =</span> <span class="dv">2</span>, <span class="at">main =</span> <span class="st">"Normal Olasılık Grafikleri"</span>)</span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Aykırı Değerler Grafikleri</span></span>
+<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_lm, <span class="at">which =</span> <span class="dv">3</span>, <span class="at">main =</span> <span class="st">"Aykırı Degerler Grafikleri"</span>)</span>
+<span id="cb140-12"><a href="#cb140-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-13"><a href="#cb140-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Leverage-Çıkışılılık Grafikleri</span></span>
+<span id="cb140-14"><a href="#cb140-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_lm, <span class="at">which =</span> <span class="dv">5</span>, <span class="at">main =</span> <span class="st">"Leverage-Cıkısılılık Grafikleri"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-69-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>1. Standartize Edilmiş Hata Grafiği (Residuals vs Fitted)</strong></p>
+<ul>
+<li><p><strong>Amaç:</strong> Modelin hatalarının (residuals) tahmin edilen değerlere (fitted values) karşı nasıl dağıldığını gösterir.</p></li>
+<li><p><strong>Yorum:</strong></p>
+<ul>
+<li><p>Hatalar rastgele dağılmalı ve belirgin bir desen göstermemelidir.</p></li>
+<li><p>Bu grafikte, residuals’in bazı desenler gösterdiği görülüyor. Özellikle düşük ve yüksek tahmin edilen değerlerde (fitted values) daha büyük hatalar (residuals) var. Bu, modelde bazı sistematik hataların olabileceğini ve modelin belirli bölgelerde iyi performans göstermediğini gösterir.</p></li>
+</ul></li>
+</ul>
+<p><strong>2. Normal Olasılık Grafiği (Q-Q Plot)</strong></p>
+<ul>
+<li><p><strong>Amaç:</strong> Hataların normal dağılıp dağılmadığını kontrol eder.</p></li>
+<li><p><strong>Yorum:</strong></p>
+<ul>
+<li><p>Hatalar (residuals) teorik normal dağılıma yakınsa noktalar düz bir çizgi üzerinde olmalıdır.</p></li>
+<li><p>Grafikte, uçlarda (özellikle negatif taraflarda) önemli sapmalar görülmektedir. Bu, hataların tam olarak normal dağılıma uymadığını gösterir.</p></li>
+</ul></li>
+</ul>
+<p><strong>3. Aykırı Değerler Grafiği (Scale-Location)</strong></p>
+<ul>
+<li><p><strong>Amaç:</strong> Hataların varyansının (homoskedasticity) sabit olup olmadığını kontrol eder.</p></li>
+<li><p><strong>Yorum:</strong></p>
+<ul>
+<li><p>Hataların kareköklerinin tahmin edilen değerlere karşı nasıl dağıldığını gösterir.</p></li>
+<li><p>Grafikte kırmızı çizgi biraz eğimli görünüyor, bu da hataların varyansının sabit olmadığını (heteroskedasticity) ve modelin bazı bölgelerde farklı performans gösterdiğini işaret edebilir.</p></li>
+</ul></li>
+</ul>
+<p><strong>4. Leverage-Cıkışlılık Grafiği (Residuals vs Leverage)</strong></p>
+<ul>
+<li><p><strong>Amaç:</strong> Hangi gözlemlerin model üzerinde güçlü bir etkisi olduğunu belirler.</p></li>
+<li><p><strong>Yorum:</strong></p>
+<ul>
+<li><p>Bu grafik, her bir gözlemin leverage ve residuals değerlerini gösterir.</p></li>
+<li><p>Yüksek leverage ve büyük residuals değerlerine sahip birkaç nokta vardır (özellikle etiketlenmiş olanlar). Bu noktalar modelin sonuçlarını büyük ölçüde etkileyebilir ve incelenmelidir.</p></li>
+<li><p>Cook’s distance çizgisi, bu noktalardan bazılarının model üzerindeki etkisinin büyük olduğunu gösterir.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="model-2-karar-ağacı" class="level4">
+<h4 class="anchored" data-anchor-id="model-2-karar-ağacı"><strong>Model 2: Karar Ağacı</strong></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli kütüphaneler</span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'rpart' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'rpart.plot' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim verisi ile karar ağacı modelini oluşturma</span></span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>model_dt <span class="ot">&lt;-</span> <span class="fu">rpart</span>(IMDBPuan <span class="sc">~</span> CikisYili <span class="sc">+</span> Sure, <span class="at">data =</span> egitim_veri, <span class="at">method =</span> <span class="st">"anova"</span>)</span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Karar ağacı modelinin özet bilgisi</span></span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(model_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression tree:
+rpart(formula = IMDBPuan ~ CikisYili + Sure, data = egitim_veri, 
+    method = "anova")
+
+Variables actually used in tree construction:
+[1] CikisYili Sure     
+
+Root node error: 1462.1/1600 = 0.91382
+
+n= 1600 
+
+        CP nsplit rel error  xerror     xstd
+1 0.110362      0   1.00000 1.00133 0.056518
+2 0.073167      1   0.88964 0.90824 0.052614
+3 0.027420      2   0.81647 0.84169 0.049696
+4 0.012493      3   0.78905 0.80917 0.049003
+5 0.011288      4   0.77656 0.80793 0.048892
+6 0.010828      5   0.76527 0.81043 0.048813
+7 0.010000      6   0.75444 0.80318 0.048571</code></pre>
+</div>
+</div>
+<p>Bu çıktı, R programlama dilinde bir karar ağacı (regression tree) modelinin sonuçlarını göstermektedir. Karar ağaçları, verileri belirli özelliklere göre dallara ayırarak bir hedef değişkeni tahmin etmek için kullanılan güçlü bir makine öğrenimi yöntemidir.</p>
+<p><strong>Model Detayları:</strong></p>
+<ul>
+<li><p><strong>Amaç:</strong> <code>IMDBPuan</code> (IMDB puanı) adlı bir değişkeni tahmin etmek. Bu puanın muhtemelen filmlerin IMDB üzerindeki puanları olduğunu varsayabiliriz.</p></li>
+<li><p><strong>Değişkenler:</strong></p>
+<ul>
+<li><p><strong>Tahmin Ediciler (Predictors):</strong> <code>CikisYili</code> (Çıkış yılı) ve <code>Sure</code> (film süresi)</p></li>
+<li><p><strong>Hedef (Target):</strong> <code>IMDBPuan</code></p></li>
+</ul></li>
+</ul>
+<p><strong>Karar Ağacı Sonuçları:</strong></p>
+<ul>
+<li><p><strong>Root Node Error (Kök Düğüm Hatası):</strong> 0.91382. Bu, modelin başlangıç noktasındaki hata oranını gösterir. Yani, hiçbir değişken kullanmadan sadece ortalama IMDB puanı ile tahmin yapsaydık bu kadar hata yapardık.</p></li>
+<li><p><strong>n=1600:</strong> Modelin eğitildiği veri setinde 1600 gözlem (muhtemelen film) olduğu anlamına gelir.</p></li>
+<li><p><strong>CP (Complexity Parameter - Karmaşıklık Parametresi):</strong> Karar ağacının dallanmasının ne kadar karmaşık olacağını kontrol eden bir parametredir. CP değeri ne kadar düşükse, ağaç o kadar karmaşık olur. Burada farklı CP değerleri için modelin performansı gösterilmektedir.</p></li>
+<li><p><strong>nsplit:</strong> Ağacın her bir seviyesindeki dallanma sayısını gösterir.</p></li>
+<li><p><strong>rel error:</strong> Göreceli hata, modelin hatasının kök düğüm hatasına oranını gösterir. Değerin 1’den küçük olması, modelin kök düğümden daha iyi performans gösterdiği anlamına gelir.</p></li>
+<li><p><strong>xerror:</strong> Çapraz doğrulama (cross-validation) ile hesaplanan hata oranıdır. Modelin genelleme yeteneği hakkında daha iyi bir fikir verir.</p></li>
+<li><p><strong>xstd:</strong> Çapraz doğrulama hatasının standart sapmasıdır.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Karar ağacı modelinin grafiği</span></span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(model_dt, <span class="at">main =</span> <span class="st">"Karar Agacı Modeli"</span>, </span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="dv">2</span>,  <span class="co"># Varsayılan olarak type = 2 kullanarak daha kısa bir grafik sağlanabilir</span></span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">extra =</span> <span class="dv">101</span>, </span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">under =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">fallen.leaves =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.6</span>, </span>
+<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">tweak =</span> <span class="fl">1.2</span>, </span>
+<span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">shadow.col =</span> <span class="st">"gray"</span>, </span>
+<span id="cb147-10"><a href="#cb147-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">box.palette =</span> <span class="st">"RdYlGn"</span>, </span>
+<span id="cb147-11"><a href="#cb147-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">branch.lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: cex and tweak both specified, applying both</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Veri-Analizi_files/figure-html/unnamed-chunk-71-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Karar Ağacının Yorumlanması:</strong></p>
+<ol type="1">
+<li><p><strong>Kök Düğüm (6.9):</strong> Tüm filmlerin ortalama IMDB puanı 6.9’dur. Bu, herhangi bir özellik kullanılmadan yapılan temel bir tahmindir.</p></li>
+<li><p><strong>İlk Dallanma (Çıkış Yılı):</strong></p>
+<ul>
+<li><p><strong>1995 ve Sonrası (7.4):</strong> Bu dönemde çıkan filmlerin ortalama puanı daha yüksektir.</p></li>
+<li><p><strong>1995 Öncesi (6.7):</strong> Bu dönemde çıkan filmlerin ortalama puanı daha düşüktür.</p></li>
+</ul></li>
+<li><p><strong>İkinci Dallanma:</strong></p>
+<ul>
+<li><p><strong>1995 Sonrası Filmler:</strong></p>
+<ul>
+<li><p><strong>1981 ve Sonrası (7.2):</strong> Bu dönemde çıkan filmler için süre bilgisi kullanılmadan ortalama puan 7.2 olarak tahmin edilir.</p></li>
+<li><p><strong>1981 Öncesi (7.2):</strong> Bu dönemde çıkan filmler için de süre bilgisi kullanılmadan ortalama puan 7.2 olarak tahmin edilir.</p></li>
+</ul></li>
+<li><p><strong>1995 Öncesi Filmler:</strong></p>
+<ul>
+<li><p><strong>122 Dakikadan Kısa (6.5):</strong> Bu filmlerin ortalama puanı 6.5’tir.</p></li>
+<li><p><strong>122 Dakikadan Uzun (7.2):</strong> Bu filmlerin ortalama puanı 7.2’dir ve daha sonra süreye göre tekrar dallanma yapılır:</p>
+<ul>
+<li><p><strong>137 Dakikadan Kısa (7):</strong> Bu filmlerin ortalama puanı 7’dir.</p></li>
+<li><p><strong>137 Dakikadan Uzun (7.5):</strong> Bu filmlerin ortalama puanı 7.5’tir.</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Üçüncü Dallanma:</strong></p>
+<ul>
+<li><p><strong>122 Dakikadan Kısa ve 1995 Öncesi Çıkan Filmler:</strong></p>
+<ul>
+<li><p><strong>2005 ve Sonrası (6.4):</strong> Bu filmlerin ortalama puanı 6.4’tür.</p></li>
+<li><p><strong>2005 Öncesi (6.7):</strong> Bu filmlerin ortalama puanı 6.7’dir.</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Son Dallanmalar:</strong> 137 dakikadan uzun ve 1981 öncesi çıkan filmler ile 122 dakikadan uzun ve 1981 sonrası çıkan filmler için süreye göre son dallanmalar yapılır ve her bir grubun ortalama puanları hesaplanır.</p></li>
+</ol>
+<p><strong>Sonuç:</strong></p>
+<p>Bu karar ağacı, IMDB puanlarını tahmin etmek için basit ama etkili bir model sunar. Çıkış yılı ve film süresi gibi faktörlerin puanları nasıl etkilediğini gösterir. Örneğin, 1995 yılından sonra çıkan uzun filmlerin genellikle daha yüksek puanlara sahip olduğu görülmektedir.</p>
+</section>
+</section>
+<section id="geçerlilik-test-verisi-üzerinde" class="level2">
+<h2 class="anchored" data-anchor-id="geçerlilik-test-verisi-üzerinde"><strong>10. Geçerlilik (Test Verisi Üzerinde)</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test verisi üzerinde tahmin</span></span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>predictions_lm <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_lm, <span class="at">newdata =</span> test_veri)</span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>predictions_dt <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_dt, <span class="at">newdata =</span> test_veri)</span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Performans değerlendirmesi (MSE ve R-kare)</span></span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>mse_lm <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_lm <span class="sc">-</span> test_veri<span class="sc">$</span>IMDBPuan)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>mse_dt <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_dt <span class="sc">-</span> test_veri<span class="sc">$</span>IMDBPuan)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb149-8"><a href="#cb149-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-9"><a href="#cb149-9" aria-hidden="true" tabindex="-1"></a>rsquared_lm <span class="ot">&lt;-</span> <span class="fu">cor</span>(predictions_lm, test_veri<span class="sc">$</span>IMDBPuan)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb149-10"><a href="#cb149-10" aria-hidden="true" tabindex="-1"></a>rsquared_dt <span class="ot">&lt;-</span> <span class="fu">cor</span>(predictions_dt, test_veri<span class="sc">$</span>IMDBPuan)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Doğrusal Regresyon MSE:"</span>, mse_lm, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Doğrusal Regresyon MSE: 0.682246 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Doğrusal Regresyon R-kare:"</span>, rsquared_lm, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Doğrusal Regresyon R-kare: 0.2578255 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Karar Agacı MSE:"</span>, mse_dt, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Karar Agacı MSE: 0.7144007 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Karar Agacı R-kare:"</span>, rsquared_dt, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Karar Agacı R-kare: 0.2149235 </code></pre>
+</div>
+</div>
+<p>Bu sonuçlar, doğrusal regresyon ve karar ağacı modellerinin test verisi üzerindeki performansını karşılaştırmaktadır. Performans ölçütleri olarak ortalama karesel hata (MSE) ve belirleme katsayısı (R-kare) kullanılmıştır.</p>
+<p><strong>MSE (Ortalama Karesel Hata):</strong></p>
+<ul>
+<li><p><strong>Doğrusal Regresyon MSE:</strong> 0.682</p></li>
+<li><p><strong>Karar Ağacı MSE:</strong> 0.714</p></li>
+</ul>
+<p>MSE, modelin tahmin hatalarının karelerinin ortalamasını gösterir. Daha düşük MSE değeri, modelin daha iyi tahminler yaptığını gösterir. Bu durumda, doğrusal regresyon modeli karar ağacından biraz daha düşük bir MSE değerine sahiptir, yani ortalama olarak daha iyi tahminler yapmaktadır.</p>
+<p><strong>R-kare (Belirleme Katsayısı):</strong></p>
+<ul>
+<li><p><strong>Doğrusal Regresyon R-kare:</strong> 0.258</p></li>
+<li><p><strong>Karar Ağacı R-kare:</strong> 0.215</p></li>
+</ul>
+<p>R-kare, modelin bağımsız değişkenler (çıkış yılı ve süre) ile açıkladığı varyansı gösterir. 0 ile 1 arasında bir değer alır ve 1’e yaklaştıkça modelin açıklayıcı gücü artar. Bu durumda, her iki modelin R-kare değerleri de düşüktür, yani her iki model de IMDB puanlarındaki varyansın sadece küçük bir kısmını açıklayabilmektedir.</p>
+<p><strong>Sonuç:</strong></p>
+<p>Genel olarak, doğrusal regresyon modeli bu test verisi üzerinde karar ağacından biraz daha iyi performans göstermiştir. Ancak, her iki modelin de R-kare değerleri düşük olduğundan, IMDB puanlarını tahmin etmede yeterince başarılı oldukları söylenemez.</p>
+</section>
+<section id="sonuç" class="level2">
+<h2 class="anchored" data-anchor-id="sonuç"><strong>11. Sonuç</strong></h2>
+<p>Bu çalışma, IMDB’nin En İyi 2000 Filmi veri seti üzerinde bir keşifsel veri analizi (EDA) ve modelleme çalışması sunmaktadır. Çalışmanın amacı, filmlerin IMDB puanlarını etkileyen faktörleri belirlemek ve bu puanları tahmin etmek için modeller geliştirmektir.</p>
+<p><strong>Keşifsel Veri Analizi (EDA) Bulguları:</strong></p>
+<ul>
+<li><p><strong>Veri Temizleme:</strong> Veri setinde bazı eksik gözlemler tespit edilmiş ve bu değerler KNN yöntemi ile doldurulmuştur. Ayrıca, analiz için gerekli olmayan bazı değişkenler çıkarılmış ve bazı değişkenler dönüştürülmüştür.</p></li>
+<li><p><strong>Çarpıklık ve Basıklık:</strong> Bazı değişkenlerin (Çıkış Yılı, Süre) dağılımlarında çarpıklık ve basıklık gözlenmiştir. Bu durum, bu değişkenlerin doğrusal olmayan ilişkiler içerebileceğini ve modelleme sürecinde dönüştürülmesi gerekebileceğini göstermektedir.</p></li>
+<li><p><strong>Korelasyon Analizi:</strong> IMDB puanı ile Meta puanı arasında güçlü bir pozitif korelasyon olduğu görülmüştür. Bu, iki puanlama sisteminin benzer eğilimleri ölçtüğünü göstermektedir.</p></li>
+<li><p><strong>Görselleştirme:</strong> Histogram, kutu grafikleri, saçılım matrisleri ve Chernoff yüzleri gibi çeşitli görselleştirme teknikleri kullanılarak verilerdeki ilişkiler ve desenler incelenmiştir.</p></li>
+</ul>
+<p><strong>Modelleme Bulguları:</strong></p>
+<ul>
+<li><p><strong>Doğrusal Regresyon:</strong> Çıkış yılı ve süre değişkenlerini kullanarak bir doğrusal regresyon modeli oluşturulmuştur. Model, IMDB puanlarındaki varyansın %22.82’sini açıklayabilmiştir. Ancak, modelin varsayımlarının tam olarak karşılanmadığı ve bazı aykırı değerlerin bulunduğu tespit edilmiştir.</p></li>
+<li><p><strong>Karar Ağacı:</strong> Aynı değişkenler kullanılarak bir karar ağacı modeli oluşturulmuştur. Karar ağacı, IMDB puanlarını etkileyen faktörlerin daha görsel bir şekilde anlaşılmasını sağlamıştır. Özellikle, çıkış yılı ve sürenin IMDB puanları üzerindeki etkileşimi daha net bir şekilde ortaya konmuştur.</p></li>
+<li><p><strong>Model Karşılaştırması:</strong> Test verisi üzerinde yapılan değerlendirmede, doğrusal regresyon modeli karar ağacından biraz daha iyi performans göstermiştir. Ancak, her iki modelin de R-kare değerleri düşük olduğu için, IMDB puanlarını tahmin etmede yeterince başarılı oldukları söylenemez.</p></li>
+</ul>
+<p><strong>Sonuç ve Öneriler:</strong></p>
+<p>Bu çalışmada, IMDB puanlarını etkileyen faktörler belirlenmeye çalışılmış ve bu puanları tahmin etmek için modeller geliştirilmiştir. Elde edilen sonuçlar, film endüstrisi için değerli bilgiler sağlayabilir.</p>
+<p><strong>Gelecekteki Çalışmalar İçin Öneriler:</strong></p>
+<ul>
+<li><p><strong>Farklı Modelleme Teknikleri:</strong> Daha iyi tahmin performansı elde etmek için farklı modelleme teknikleri (örneğin, rastgele ormanlar, destek vektör makineleri) denenebilir.</p></li>
+<li><p><strong>Değişken Mühendisliği:</strong> Yeni değişkenler oluşturarak veya mevcut değişkenleri dönüştürerek model performansı artırılabilir.</p></li>
+<li><p><strong>Daha Fazla Veri:</strong> Daha fazla veriye sahip bir veri seti kullanılarak modellerin genelleme yeteneği geliştirilebilir.</p></li>
+</ul>
+</section>
+<section id="kaynak" class="level2">
+<h2 class="anchored" data-anchor-id="kaynak"><strong>12. Kaynak</strong></h2>
+<p>Veri seti Kaggle’dan alınmıştır.</p>
+<p>Sawhney, P. (2023, November 22). IMDb Dataset - Top 2000 Movies. Kaggle. <a href="https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data" class="uri">https://www.kaggle.com/datasets/prishasawhney/imdb-dataset-top-2000-movies/data</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
